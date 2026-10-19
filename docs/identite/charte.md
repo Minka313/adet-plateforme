@@ -1,7 +1,18 @@
 # Identité visuelle ADET
 
-Logo provisoire : [`adet-logo-original.jpg`](adet-logo-original.jpg) (JPG 1280×823, fond blanc).
-Il est utilisé sur le site à l'adresse `/brand/adet-logo.jpg` (fichier `app/public/brand/adet-logo.jpg`).
+## Fichiers du logo
+| Fichier | Usage |
+|---|---|
+| `adet-logo-original.jpg` | Original reçu (JPG, fond blanc) |
+| `adet-logo.png` | Logo complet **détouré** (fond transparent), à utiliser sur fond clair ou sombre |
+| `adet-symbole.svg` | **Symbole seul** (silhouette et étoiles) **redessiné en vectoriel**, net à toutes les tailles |
+| `adet-icone.svg` | Symbole centré dans un carré : icône d'application (192 et 512 px) |
+| `adet-favicon.svg` | Symbole resserré, sans les petites étoiles, lisible à 16 et 32 px (onglet du navigateur) |
+| `generer-symbole.py` | Script qui régénère `adet-symbole.svg` (les formes sont modifiables) |
+
+Sur le site, ces fichiers sont dans `app/public/brand/` (adresse `/brand/...`). Le favicon et l'icône Apple sont dans `app/src/app/`.
+
+Le texte « ADET » n'est pas vectorisé, car la police d'origine est inconnue : il reste en image dans `adet-logo.png`. Si l'ADET retrouve le fichier source ou le nom de la police, on pourra produire un logo complet en SVG.
 
 ## Couleurs (relevées sur le logo)
 | Rôle | Couleur |
@@ -13,7 +24,7 @@ Il est utilisé sur le site à l'adresse `/brand/adet-logo.jpg` (fichier `app/pu
 | Jaune étoiles, accent | `#F9DB5F` |
 | Orange étoile, accent | `#FFAE5D` |
 
-## À obtenir auprès de l'ADET
-- Logo en vectoriel (SVG, AI ou PDF) ou en PNG à fond transparent
-- Version du symbole seul (silhouette et étoiles, sans le texte) pour le favicon et l'icône de l'application mobile
+## À confirmer avec l'ADET
+- Validation du symbole redessiné (le comparer à l'original)
+- Nom de la police du texte « ADET » ou fichier source, s'il existe
 - Codes couleurs officiels, s'ils existent
