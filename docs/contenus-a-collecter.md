@@ -3,7 +3,8 @@
 Checklist à partager avec l'équipe ADET (DCIT, secrétariat, départements). Cochez au fur et à mesure.
 
 ## Identité
-- [ ] Logo en haute définition (SVG ou PNG transparent), avec ses couleurs officielles
+- [x] Logo : version provisoire reçue (JPG, fond blanc), voir `identite/charte.md`
+- [ ] Logo en vectoriel (SVG) ou en PNG transparent, plus le symbole seul sans texte (favicon et icône d'application)
 - [ ] Nom officiel à utiliser : le cadre écrit tantôt « Association **pour la promotion du** Développement Économique Territorial », tantôt « Association **sénégalaise pour le** Développement Économique Territorial ». Laquelle retenir ?
 - [ ] Coordonnées officielles : adresse, e-mail, téléphones, réseaux sociaux, numéro WhatsApp
 - [ ] Récépissé et NINEA (pour la page des mentions)
