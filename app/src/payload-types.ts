@@ -67,8 +67,15 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    users: User;
+    realisations: Realisation;
+    actualites: Actualite;
+    partenaires: Partenaire;
+    equipe: Equipe;
+    departements: Departement;
+    documents: Document;
     media: Media;
+    messages: Message;
+    users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -76,8 +83,15 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    users: UsersSelect<false> | UsersSelect<true>;
+    realisations: RealisationsSelect<false> | RealisationsSelect<true>;
+    actualites: ActualitesSelect<false> | ActualitesSelect<true>;
+    partenaires: PartenairesSelect<false> | PartenairesSelect<true>;
+    equipe: EquipeSelect<false> | EquipeSelect<true>;
+    departements: DepartementsSelect<false> | DepartementsSelect<true>;
+    documents: DocumentsSelect<false> | DocumentsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    messages: MessagesSelect<false> | MessagesSelect<true>;
+    users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -87,8 +101,14 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    association: Association;
+    coordonnees: Coordonnee;
+  };
+  globalsSelect: {
+    association: AssociationSelect<false> | AssociationSelect<true>;
+    coordonnees: CoordonneesSelect<false> | CoordonneesSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -118,11 +138,245 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * Projets et activités menés par l'ADET.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "realisations".
+ */
+export interface Realisation {
+  id: number;
+  titre: string;
+  /**
+   * Deux ou trois phrases simples, affichées sur les cartes.
+   */
+  resume: string;
+  image?: (number | null) | Media;
+  /**
+   * Ex. : « 120 » / « jeunes formés ».
+   */
+  chiffres?:
+    | {
+        valeur: string;
+        libelle: string;
+        id?: string | null;
+      }[]
+    | null;
+  contenu?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  galerie?: (number | Media)[] | null;
+  partenaires?: (number | Partenaire)[] | null;
+  /**
+   * Générée automatiquement à partir du titre si laissée vide.
+   */
+  slug?: string | null;
+  axe?: ('capacites' | 'partenariats' | 'ressources' | 'innovation' | 'suivi') | null;
+  statut?: ('en-cours' | 'termine' | 'a-venir') | null;
+  lieu?: string | null;
+  dateDebut?: string | null;
+  dateFin?: string | null;
+  enAvant?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  /**
+   * Décrivez brièvement l’image (accessibilité et référencement).
+   */
+  alt: string;
+  credit?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    vignette?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    carte?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    large?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partenaires".
+ */
+export interface Partenaire {
+  id: number;
+  nom: string;
+  logo?: (number | null) | Media;
+  type?: ('public' | 'collectivite' | 'technique' | 'international' | 'prive' | 'societe-civile') | null;
+  description?: string | null;
+  siteWeb?: string | null;
+  ordre?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "actualites".
+ */
+export interface Actualite {
+  id: number;
+  titre: string;
+  resume: string;
+  image?: (number | null) | Media;
+  contenu?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Générée automatiquement à partir du titre si laissée vide.
+   */
+  slug?: string | null;
+  date: string;
+  categorie?: ('vie-associative' | 'formation' | 'partenariat' | 'evenement' | 'territoire') | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "equipe".
+ */
+export interface Equipe {
+  id: number;
+  nom: string;
+  fonction: string;
+  departement?: (number | null) | Departement;
+  photo?: (number | null) | Media;
+  bio?: string | null;
+  ordre?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Organisation interne de l'association (Coordination, DFDC, DPS…).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "departements".
+ */
+export interface Departement {
+  id: number;
+  nom: string;
+  sigle?: string | null;
+  missions?:
+    | {
+        texte: string;
+        id?: string | null;
+      }[]
+    | null;
+  ordre?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Rapports, statuts, plaquettes… téléchargeables depuis le site.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents".
+ */
+export interface Document {
+  id: number;
+  titre: string;
+  categorie?: ('rapport' | 'institutionnel' | 'etude' | 'plaquette') | null;
+  annee?: number | null;
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * Messages envoyés depuis le formulaire de contact du site.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "messages".
+ */
+export interface Message {
+  id: number;
+  nom: string;
+  email?: string | null;
+  telephone?: string | null;
+  objet?: ('information' | 'partenariat' | 'adhesion' | 'formation' | 'autre') | null;
+  message: string;
+  traite?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
   id: number;
+  nom?: string | null;
+  /**
+   * L'administrateur gère aussi les comptes ; l'éditeur publie les contenus.
+   */
+  roles?: ('admin' | 'editeur')[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -142,25 +396,6 @@ export interface User {
     | null;
   password?: string | null;
   collection: 'users';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  alt: string;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -187,12 +422,40 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'users';
-        value: number | User;
+        relationTo: 'realisations';
+        value: number | Realisation;
+      } | null)
+    | ({
+        relationTo: 'actualites';
+        value: number | Actualite;
+      } | null)
+    | ({
+        relationTo: 'partenaires';
+        value: number | Partenaire;
+      } | null)
+    | ({
+        relationTo: 'equipe';
+        value: number | Equipe;
+      } | null)
+    | ({
+        relationTo: 'departements';
+        value: number | Departement;
+      } | null)
+    | ({
+        relationTo: 'documents';
+        value: number | Document;
       } | null)
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'messages';
+        value: number | Message;
+      } | null)
+    | ({
+        relationTo: 'users';
+        value: number | User;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -238,9 +501,189 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "realisations_select".
+ */
+export interface RealisationsSelect<T extends boolean = true> {
+  titre?: T;
+  resume?: T;
+  image?: T;
+  chiffres?:
+    | T
+    | {
+        valeur?: T;
+        libelle?: T;
+        id?: T;
+      };
+  contenu?: T;
+  galerie?: T;
+  partenaires?: T;
+  slug?: T;
+  axe?: T;
+  statut?: T;
+  lieu?: T;
+  dateDebut?: T;
+  dateFin?: T;
+  enAvant?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "actualites_select".
+ */
+export interface ActualitesSelect<T extends boolean = true> {
+  titre?: T;
+  resume?: T;
+  image?: T;
+  contenu?: T;
+  slug?: T;
+  date?: T;
+  categorie?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partenaires_select".
+ */
+export interface PartenairesSelect<T extends boolean = true> {
+  nom?: T;
+  logo?: T;
+  type?: T;
+  description?: T;
+  siteWeb?: T;
+  ordre?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "equipe_select".
+ */
+export interface EquipeSelect<T extends boolean = true> {
+  nom?: T;
+  fonction?: T;
+  departement?: T;
+  photo?: T;
+  bio?: T;
+  ordre?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "departements_select".
+ */
+export interface DepartementsSelect<T extends boolean = true> {
+  nom?: T;
+  sigle?: T;
+  missions?:
+    | T
+    | {
+        texte?: T;
+        id?: T;
+      };
+  ordre?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents_select".
+ */
+export interface DocumentsSelect<T extends boolean = true> {
+  titre?: T;
+  categorie?: T;
+  annee?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  credit?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        vignette?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        carte?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        large?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "messages_select".
+ */
+export interface MessagesSelect<T extends boolean = true> {
+  nom?: T;
+  email?: T;
+  telephone?: T;
+  objet?: T;
+  message?: T;
+  traite?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  nom?: T;
+  roles?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -258,24 +701,6 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
- */
-export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -316,6 +741,183 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "association".
+ */
+export interface Association {
+  id: number;
+  nom: string;
+  sigle: string;
+  /**
+   * Une phrase courte et parlante, affichée en grand sur la page d’accueil.
+   */
+  accroche?: string | null;
+  introduction?: string | null;
+  imageAccueil?: (number | null) | Media;
+  /**
+   * Ex. : « 3 » / « régions ciblées ». Affichés sur l’accueil.
+   */
+  chiffres?:
+    | {
+        valeur: string;
+        libelle: string;
+        id?: string | null;
+      }[]
+    | null;
+  vision: string;
+  mission: string;
+  valeurs?:
+    | {
+        titre: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  axes?:
+    | {
+        titre: string;
+        objectifs?:
+          | {
+              texte: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  demarche?:
+    | {
+        titre: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  zoneTitre?: string | null;
+  zoneTexte?: string | null;
+  regions?:
+    | {
+        nom: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "coordonnees".
+ */
+export interface Coordonnee {
+  id: number;
+  adresse?: string | null;
+  email?: string | null;
+  telephones?:
+    | {
+        numero: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Format international sans espaces, ex. 221769412325.
+   */
+  whatsapp?: string | null;
+  reseaux?:
+    | {
+        reseau: 'facebook' | 'linkedin' | 'x' | 'instagram' | 'youtube' | 'tiktok';
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  recepisse?: string | null;
+  ninea?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "association_select".
+ */
+export interface AssociationSelect<T extends boolean = true> {
+  nom?: T;
+  sigle?: T;
+  accroche?: T;
+  introduction?: T;
+  imageAccueil?: T;
+  chiffres?:
+    | T
+    | {
+        valeur?: T;
+        libelle?: T;
+        id?: T;
+      };
+  vision?: T;
+  mission?: T;
+  valeurs?:
+    | T
+    | {
+        titre?: T;
+        description?: T;
+        id?: T;
+      };
+  axes?:
+    | T
+    | {
+        titre?: T;
+        objectifs?:
+          | T
+          | {
+              texte?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  demarche?:
+    | T
+    | {
+        titre?: T;
+        description?: T;
+        id?: T;
+      };
+  zoneTitre?: T;
+  zoneTexte?: T;
+  regions?:
+    | T
+    | {
+        nom?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "coordonnees_select".
+ */
+export interface CoordonneesSelect<T extends boolean = true> {
+  adresse?: T;
+  email?: T;
+  telephones?:
+    | T
+    | {
+        numero?: T;
+        id?: T;
+      };
+  whatsapp?: T;
+  reseaux?:
+    | T
+    | {
+        reseau?: T;
+        url?: T;
+        id?: T;
+      };
+  recepisse?: T;
+  ninea?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
