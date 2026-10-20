@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -6,6 +7,7 @@ import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 import { fr } from '@payloadcms/translations/languages/fr'
 
+import { Abonnes } from './collections/Abonnes'
 import { Actualites } from './collections/Actualites'
 import { Departements } from './collections/Departements'
 import { Documents } from './collections/Documents'
@@ -21,9 +23,16 @@ import { Coordonnees } from './globals/Coordonnees'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+const SITE = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+
 export default buildConfig({
+  serverURL: SITE,
+  // Seul le site lui-même peut appeler l'API avec des cookies de session
+  csrf: [SITE],
+  cors: [SITE],
   admin: {
     user: Users.slug,
+    avatar: 'default',
     importMap: {
       baseDir: path.resolve(dirname),
     },
@@ -32,6 +41,7 @@ export default buildConfig({
       icons: [{ rel: 'icon', type: 'image/svg+xml', url: '/icon.svg' }],
     },
     components: {
+      beforeDashboard: ['/components/admin/TableauDeBord'],
       graphics: {
         Logo: '/components/admin/Logo',
         Icon: '/components/admin/Icone',
@@ -50,9 +60,22 @@ export default buildConfig({
     supportedLanguages: { fr },
     fallbackLanguage: 'fr',
   },
-  collections: [Realisations, Actualites, Partenaires, Equipe, Departements, Documents, Media, Messages, Users],
+  collections: [Realisations, Actualites, Partenaires, Equipe, Departements, Documents, Media, Messages, Abonnes, Users],
   globals: [Association, Coordonnees],
   editor: lexicalEditor(),
+  // E-mails : SMTP configuré par variables d'environnement (sinon affichés dans la console)
+  email: process.env.SMTP_HOST
+    ? nodemailerAdapter({
+        defaultFromAddress: process.env.SMTP_FROM || 'no-reply@adet.sn',
+        defaultFromName: 'ADET',
+        transportOptions: {
+          host: process.env.SMTP_HOST,
+          port: Number(process.env.SMTP_PORT || 587),
+          secure: Number(process.env.SMTP_PORT) === 465,
+          auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+        },
+      })
+    : undefined,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

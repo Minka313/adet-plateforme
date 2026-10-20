@@ -1,5 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
+import { hooksRegeneration } from '../hooks/revalider'
+import { urlApercu } from '../lib/apercu'
+
 import { loggedIn, publishedOrLoggedIn } from '../access'
 import { axeField } from '../fields/axe'
 import { slugField } from '../fields/slug'
@@ -8,12 +11,14 @@ export const Realisations: CollectionConfig = {
   slug: 'realisations',
   labels: { singular: 'Réalisation', plural: 'Réalisations' },
   admin: {
+    preview: urlApercu('realisations'),
     group: "L'association",
     useAsTitle: 'titre',
     defaultColumns: ['titre', 'axe', 'statut', 'dateDebut', '_status'],
     description: "Projets et activités menés par l'ADET.",
   },
   versions: { drafts: true },
+  hooks: hooksRegeneration,
   access: {
     read: publishedOrLoggedIn,
     create: loggedIn,

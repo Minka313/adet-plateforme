@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
+import { hooksRegeneration } from '../hooks/revalider'
+
 import { anyone, loggedIn } from '../access'
 
 export const Departements: CollectionConfig = {
@@ -11,6 +13,7 @@ export const Departements: CollectionConfig = {
     defaultColumns: ['nom', 'sigle', 'ordre'],
     description: "Organisation interne de l'association (Coordination, DFDC, DPS…).",
   },
+  hooks: hooksRegeneration,
   access: { read: anyone, create: loggedIn, update: loggedIn, delete: loggedIn },
   defaultSort: 'ordre',
   fields: [

@@ -4,6 +4,7 @@ import { dico, lien, type Langue } from '@/i18n'
 import { telHref } from '@/lib/format'
 import { getAssociation, getCoordonnees } from '@/lib/payload'
 
+import { Newsletter } from './Newsletter'
 import { Icone } from './ui/Icone'
 import { Lisere, Motif } from './ui/Motif'
 
@@ -80,6 +81,18 @@ export async function Pied({ lang }: { lang: Langue }) {
               </ul>
             )}
           </div>
+        </div>
+        <div className="conteneur">
+          <Newsletter
+            lang={lang}
+            libelles={{
+              titre: d.pied.newsletterTitre,
+              texte: d.pied.newsletterTexte,
+              placeholder: d.pied.newsletterPlaceholder,
+              bouton: d.pied.newsletterBouton,
+              mentions: d.pied.newsletterMentions,
+            }}
+          />
         </div>
         <div className="conteneur pied__legal">
           <span>

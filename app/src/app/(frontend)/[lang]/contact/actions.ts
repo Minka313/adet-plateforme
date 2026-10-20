@@ -1,6 +1,7 @@
 'use server'
 
 import { dico, estLangue } from '@/i18n'
+import { empreinteVisiteur, tropDeRequetes } from '@/lib/antiAbus'
 import { getPayloadClient } from '@/lib/payload'
 
 export type EtatFormulaire = { ok: boolean; message: string } | null
@@ -31,10 +32,12 @@ export async function envoyerMessage(_: EtatFormulaire, form: FormData): Promise
 
   try {
     const payload = await getPayloadClient()
+    const empreinte = await empreinteVisiteur()
+    if (await tropDeRequetes(payload, 'messages', empreinte)) return { ok: false, message: t.erreurRafale }
     await payload.create({
       collection: 'messages',
       overrideAccess: true,
-      data: { nom, email: email || undefined, telephone, organisation, objet, message, langue: lang },
+      data: { nom, email: email || undefined, telephone, organisation, objet, message, langue: lang, empreinte },
     })
     return { ok: true, message: t.ok }
   } catch (e) {

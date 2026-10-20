@@ -75,6 +75,7 @@ export interface Config {
     documents: Document;
     media: Media;
     messages: Message;
+    abonnes: Abonne;
     users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -91,6 +92,7 @@ export interface Config {
     documents: DocumentsSelect<false> | DocumentsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     messages: MessagesSelect<false> | MessagesSelect<true>;
+    abonnes: AbonnesSelect<false> | AbonnesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -365,6 +367,26 @@ export interface Message {
   objet?: ('information' | 'partenariat' | 'adhesion' | 'formation' | 'autre') | null;
   message: string;
   traite?: boolean | null;
+  empreinte?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Inscriptions à la lettre d’information depuis le site. Export CSV : bouton du tableau de bord.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "abonnes".
+ */
+export interface Abonne {
+  id: number;
+  email: string;
+  langue?: ('fr' | 'en') | null;
+  /**
+   * Décocher en cas de désinscription.
+   */
+  actif?: boolean | null;
+  consentement?: string | null;
+  empreinte?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -454,6 +476,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'messages';
         value: number | Message;
+      } | null)
+    | ({
+        relationTo: 'abonnes';
+        value: number | Abonne;
       } | null)
     | ({
         relationTo: 'users';
@@ -678,6 +704,20 @@ export interface MessagesSelect<T extends boolean = true> {
   objet?: T;
   message?: T;
   traite?: T;
+  empreinte?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "abonnes_select".
+ */
+export interface AbonnesSelect<T extends boolean = true> {
+  email?: T;
+  langue?: T;
+  actif?: T;
+  consentement?: T;
+  empreinte?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
 import { loggedIn } from '../access'
+import { notifierMessage } from '../hooks/notifierMessage'
 
 export const Messages: CollectionConfig = {
   slug: 'messages',
@@ -11,6 +12,7 @@ export const Messages: CollectionConfig = {
     defaultColumns: ['nom', 'objet', 'createdAt', 'traite'],
     description: 'Messages envoyés depuis le formulaire de contact du site.',
   },
+  hooks: { afterChange: [notifierMessage] },
   // Création uniquement via le formulaire du site (server action avec overrideAccess)
   access: { read: loggedIn, create: () => false, update: loggedIn, delete: loggedIn },
   defaultSort: '-createdAt',
@@ -38,5 +40,7 @@ export const Messages: CollectionConfig = {
     },
     { name: 'message', type: 'textarea', required: true },
     { name: 'traite', type: 'checkbox', label: 'Traité', admin: { position: 'sidebar' } },
+    // Empreinte anonyme de l'expéditeur, utilisée uniquement contre les envois en rafale
+    { name: 'empreinte', type: 'text', index: true, admin: { hidden: true } },
   ],
 }

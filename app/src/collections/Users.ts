@@ -10,7 +10,13 @@ export const Users: CollectionConfig = {
     defaultColumns: ['nom', 'email', 'roles'],
     group: 'Administration',
   },
-  auth: true,
+  auth: {
+    // 5 essais ratés → compte verrouillé 15 min ; session de 8 h
+    maxLoginAttempts: 5,
+    lockTime: 15 * 60 * 1000,
+    tokenExpiration: 8 * 60 * 60,
+    cookies: { secure: process.env.NODE_ENV === 'production', sameSite: 'Lax' },
+  },
   access: {
     // Le premier compte peut être créé sans être connecté (écran « create-first-user »).
     create: async ({ req }) => {

@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
+import { hooksRegeneration } from '../hooks/revalider'
+
 import { anyone, loggedIn } from '../access'
 
 export const Partenaires: CollectionConfig = {
@@ -10,6 +12,7 @@ export const Partenaires: CollectionConfig = {
     useAsTitle: 'nom',
     defaultColumns: ['nom', 'type', 'ordre'],
   },
+  hooks: hooksRegeneration,
   access: { read: anyone, create: loggedIn, update: loggedIn, delete: loggedIn },
   defaultSort: 'ordre',
   fields: [

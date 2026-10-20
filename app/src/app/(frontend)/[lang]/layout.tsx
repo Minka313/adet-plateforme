@@ -3,6 +3,7 @@ import { Fraunces, Inter } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
+import { BandeauApercu } from '@/components/BandeauApercu'
 import { EnTete } from '@/components/EnTete'
 import { JsonLd } from '@/components/JsonLd'
 import { Pied } from '@/components/Pied'
@@ -64,6 +65,7 @@ export default async function Racine({ children, params }: { children: React.Rea
           libelles={{ menu: d.nav.menu, fermer: d.nav.fermer, accueil: d.nav.accueil, langue: d.nav.langue }}
         />
         <main id="contenu">{children}</main>
+        <BandeauApercu lang={lang} />
         <Pied lang={lang} />
         <Animations />
         <JsonLd lang={lang} />

@@ -1,11 +1,14 @@
 import type { GlobalConfig } from 'payload'
 
+import { revaliderGlobal } from '../hooks/revalider'
+
 import { anyone, loggedIn } from '../access'
 
 export const Association: GlobalConfig = {
   slug: 'association',
   label: "Présentation de l'ADET",
   admin: { group: "L'association" },
+  hooks: { afterChange: [revaliderGlobal] },
   access: { read: anyone, update: loggedIn },
   fields: [
     {

@@ -1,5 +1,8 @@
 import type { CollectionConfig } from 'payload'
 
+import { hooksRegeneration } from '../hooks/revalider'
+import { urlApercu } from '../lib/apercu'
+
 import { loggedIn, publishedOrLoggedIn } from '../access'
 import { slugField } from '../fields/slug'
 
@@ -7,11 +10,13 @@ export const Actualites: CollectionConfig = {
   slug: 'actualites',
   labels: { singular: 'Actualité', plural: 'Actualités' },
   admin: {
+    preview: urlApercu('actualites'),
     group: "L'association",
     useAsTitle: 'titre',
     defaultColumns: ['titre', 'categorie', 'date', '_status'],
   },
   versions: { drafts: true },
+  hooks: hooksRegeneration,
   access: {
     read: publishedOrLoggedIn,
     create: loggedIn,

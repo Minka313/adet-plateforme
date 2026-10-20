@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 
 import { EnTetePage } from '@/components/Blocs'
@@ -15,9 +16,11 @@ type Props = { params: Promise<{ lang: Langue; slug: string }> }
 
 const trouver = async (lang: Langue, slug: string) => {
   const payload = await getPayloadClient()
+  const { isEnabled: apercu } = await draftMode()
   const { docs } = await payload.find({
+    draft: apercu,
     collection: 'actualites',
-    where: { slug: { equals: slug }, _status: { equals: 'published' } },
+    where: apercu ? { slug: { equals: slug } } : { slug: { equals: slug }, _status: { equals: 'published' } },
     limit: 1,
     depth: 1,
     ...loc(lang),

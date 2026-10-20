@@ -1,11 +1,14 @@
 import type { GlobalConfig } from 'payload'
 
+import { revaliderGlobal } from '../hooks/revalider'
+
 import { anyone, loggedIn } from '../access'
 
 export const Coordonnees: GlobalConfig = {
   slug: 'coordonnees',
   label: 'Coordonnées et réseaux',
   admin: { group: "L'association" },
+  hooks: { afterChange: [revaliderGlobal] },
   access: { read: anyone, update: loggedIn },
   fields: [
     { name: 'adresse', type: 'textarea' },

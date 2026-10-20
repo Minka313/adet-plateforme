@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 
+import { hooksRegeneration } from '../hooks/revalider'
+
 import { anyone, loggedIn } from '../access'
 
 export const Documents: CollectionConfig = {
@@ -11,6 +13,7 @@ export const Documents: CollectionConfig = {
     defaultColumns: ['titre', 'categorie', 'annee'],
     description: 'Rapports, statuts, plaquettes… téléchargeables depuis le site.',
   },
+  hooks: hooksRegeneration,
   access: { read: anyone, create: loggedIn, update: loggedIn, delete: loggedIn },
   upload: { mimeTypes: ['application/pdf', 'image/*'] },
   defaultSort: '-annee',

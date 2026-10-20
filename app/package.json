@@ -1,7 +1,7 @@
 {
   "name": "adet-plateforme",
   "version": "1.0.0",
-  "description": "Plateforme web de l'ADET \u2013 Kolda",
+  "description": "Plateforme web de l'ADET – Kolda",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -17,8 +17,10 @@
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.91.0",
+    "@payloadcms/email-nodemailer": "3.91.0",
     "@payloadcms/next": "3.91.0",
     "@payloadcms/richtext-lexical": "3.91.0",
+    "@payloadcms/storage-s3": "3.91.0",
     "@payloadcms/translations": "3.91.0",
     "@payloadcms/ui": "3.91.0",
     "cross-env": "^7.0.3",
@@ -38,7 +40,9 @@
     "eslint-config-next": "16.3.3",
     "prettier": "^3.4.2",
     "tsx": "4.23.15",
-    "typescript": "5.7.3"
+    "typescript": "5.7.3",
+    "vite-tsconfig-paths": "6.0.5",
+    "vitest": "4.0.18"
   },
   "engines": {
     "node": ">=20.18.1",
