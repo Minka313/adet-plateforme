@@ -66,12 +66,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Construire l'image
-        run: >-
-          docker build --network host -t adet-plateforme:ci
-          --build-arg DATABASE_URL=postgres://adet:adet@127.0.0.1:5432/adet_image
-          --build-arg PAYLOAD_SECRET=secret-ci
-          --build-arg NEXT_PUBLIC_SITE_URL=https://adet.example
-          app
+        run: |
+          set -o pipefail
+          docker build --progress=plain --network host -t adet-plateforme:ci \
+            --build-arg DATABASE_URL=postgres://adet:adet@127.0.0.1:5432/adet_image \
+            --build-arg PAYLOAD_SECRET=secret-ci \
+            --build-arg NEXT_PUBLIC_SITE_URL=https://adet.example \
+            app 2>&1 | tee docker-build.log
+      - name: Signaler l'erreur de build
+        if: failure()
+        run: |
+          grep -iE "error|ERR_|failed" docker-build.log | tail -15 | while IFS= read -r ligne; do echo "::error::$ligne"; done
       - name: Démarrer le conteneur et vérifier /api/sante
         run: |
           docker run -d --name adet --network host \

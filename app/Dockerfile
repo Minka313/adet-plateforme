@@ -1,6 +1,7 @@
 # Image de production de la plateforme ADET (Next.js standalone + Payload)
 FROM node:22-alpine AS base
-RUN apk add --no-cache libc6-compat && corepack enable
+# pnpm épinglé (même version que le lockfile) plutôt que corepack, plus fiable en CI
+RUN apk add --no-cache libc6-compat && npm install -g pnpm@10.28.0
 
 FROM base AS deps
 WORKDIR /app
