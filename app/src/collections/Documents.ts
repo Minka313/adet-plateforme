@@ -15,7 +15,7 @@ export const Documents: CollectionConfig = {
   upload: { mimeTypes: ['application/pdf', 'image/*'] },
   defaultSort: '-annee',
   fields: [
-    { name: 'titre', type: 'text', required: true },
+    { name: 'titre', localized: true, type: 'text', required: true },
     {
       name: 'categorie',
       type: 'select',
@@ -29,6 +29,6 @@ export const Documents: CollectionConfig = {
       ],
     },
     { name: 'annee', type: 'number', label: 'Année' },
-    { name: 'description', type: 'textarea' },
+    { name: 'description', localized: true, type: 'textarea' },
   ],
 }

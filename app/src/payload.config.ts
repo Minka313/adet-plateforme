@@ -31,6 +31,14 @@ export default buildConfig({
       titleSuffix: ' · Administration ADET',
     },
   },
+  localization: {
+    locales: [
+      { code: 'fr', label: 'Français' },
+      { code: 'en', label: 'English' },
+    ],
+    defaultLocale: 'fr',
+    fallback: true,
+  },
   i18n: {
     supportedLanguages: { fr },
     fallbackLanguage: 'fr',

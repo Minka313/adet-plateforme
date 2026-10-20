@@ -28,7 +28,7 @@ export const Partenaires: CollectionConfig = {
         { label: 'Société civile', value: 'societe-civile' },
       ],
     },
-    { name: 'description', type: 'textarea', label: 'Nature du partenariat' },
+    { name: 'description', localized: true, type: 'textarea', label: 'Nature du partenariat' },
     { name: 'siteWeb', type: 'text', label: 'Site web' },
     { name: 'ordre', type: 'number', defaultValue: 0, admin: { position: 'sidebar' } },
   ],

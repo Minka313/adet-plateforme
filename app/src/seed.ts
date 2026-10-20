@@ -10,12 +10,17 @@ const payload = await getPayload({ config })
 
 await payload.updateGlobal({
   slug: 'association',
+  locale: 'fr',
   data: {
     nom: 'Association pour la promotion du Développement Économique Territorial',
     sigle: 'ADET',
     accroche: 'Révéler le potentiel économique de Kolda et de la Casamance',
     introduction:
       "La Casamance a tout pour réussir : des terres fertiles, de fortes pluies, des forêts et des ressources naturelles. Pourtant, beaucoup de jeunes manquent d'informations sur les formations, l'accompagnement et les financements. L'ADET réunit les acteurs du territoire pour changer cela.",
+    constat:
+      "La Casamance est une « zone des paradoxes » : malgré des terres fertiles, une forte pluviométrie et d'importantes ressources naturelles, elle peine à se développer. Le chômage des jeunes y est élevé et nourrit la migration irrégulière, faute d'accès à l'information, à la formation, à l'accompagnement et au financement.",
+    reponse:
+      "L'ADET fédère les acteurs du territoire autour d'une démarche concertée : renforcer les compétences, mobiliser des partenariats, valoriser les ressources locales et mesurer l'impact de chaque initiative, dans le respect de l'environnement et du cadre de vie.",
     chiffres: [
       { valeur: '5', libelle: 'axes stratégiques' },
       { valeur: '3', libelle: 'régions prioritaires' },
@@ -86,6 +91,66 @@ await payload.updateGlobal({
   },
 })
 
+// ---------- Version anglaise (mêmes éléments de liste, textes traduits) ----------
+const assoFr = await payload.findGlobal({ slug: 'association', locale: 'fr' })
+const avecIds = <T extends { id?: string | null }, U>(liste: T[] | null | undefined, traductions: U[]) =>
+  (liste ?? []).map((el, i) => ({ ...el, ...traductions[i] }))
+
+await payload.updateGlobal({
+  slug: 'association',
+  locale: 'en',
+  data: {
+    nom: 'Association for the Promotion of Territorial Economic Development',
+    accroche: 'Unlocking the economic potential of Kolda and Casamance',
+    introduction:
+      'Casamance has everything it takes to thrive: fertile land, abundant rainfall, forests and natural resources. Yet many young people lack information on training, business support and funding. ADET brings the territory’s stakeholders together to change that.',
+    constat:
+      'Casamance is a “land of paradoxes”: despite fertile land, high rainfall and abundant natural resources, it struggles to develop. Youth unemployment is high and fuels irregular migration, due to limited access to information, training, business support and funding.',
+    reponse:
+      'ADET brings the territory’s stakeholders together around a concerted approach: building skills, mobilising partnerships, making the most of local resources and measuring the impact of every initiative, with respect for the environment and living conditions.',
+    chiffres: avecIds(assoFr.chiffres, [
+      { libelle: 'strategic pillars' },
+      { libelle: 'priority regions' },
+      { libelle: 'areas of expertise' },
+    ]),
+    vision:
+      'ADET aims to be a major player in promoting sustainable territorial economic development, by creating an environment conducive to inclusive growth and prosperity for all communities.',
+    mission:
+      'To promote and support territorial economic development initiatives through innovation, collaboration and the optimal use of local resources. We are committed to strengthening the capacities of local stakeholders and fostering strategic partnerships for harmonious and sustainable development.',
+    valeurs: avecIds(assoFr.valeurs, [
+      { titre: 'Innovation', description: 'Encouraging creativity and innovation in all our initiatives.' },
+      { titre: 'Inclusion', description: 'Promoting inclusion and equity for all communities, without discrimination.' },
+      { titre: 'Collaboration', description: 'Valuing partnerships and teamwork to achieve our goals.' },
+      { titre: 'Sustainability', description: 'Promoting sustainable, environmentally friendly practices.' },
+      { titre: 'Transparency', description: 'Ensuring transparency and accountability in everything we do.' },
+      { titre: 'Integrity', description: 'Acting with honesty and ethics in all our actions.' },
+      { titre: 'Respect', description: 'Treating every individual with respect and consideration.' },
+      { titre: 'Solidarity', description: 'Encouraging solidarity and mutual support within our organisation and communities.' },
+    ]),
+    axes: (assoFr.axes ?? []).map((axe, i) => {
+      const t = [
+        { titre: 'Capacity building for local stakeholders', objectifs: ['Design and deliver training and skills development programmes for local stakeholders.', 'Support entrepreneurial initiatives and local innovation.'] },
+        { titre: 'Promoting strategic partnerships', objectifs: ['Build and strengthen partnerships with public and private actors, international organisations and local communities.', 'Facilitate inter-municipal cooperation on economic development projects.'] },
+        { titre: 'Making the most of local resources', objectifs: ['Identify and promote the natural and cultural resources of each territory.', 'Promote efficient and sustainable management of local resources.'] },
+        { titre: 'Innovation and technology', objectifs: ['Integrate innovative technologies into economic development projects.', 'Encourage Civic Tech initiatives and digital solutions for territorial development.'] },
+        { titre: 'Monitoring and evaluation', objectifs: ['Set up monitoring and evaluation mechanisms to measure the impact of initiatives and projects.', 'Ensure continuous improvement based on feedback and lessons learned.'] },
+      ][i]
+      return { ...axe, titre: t.titre, objectifs: (axe.objectifs ?? []).map((o, j) => ({ ...o, texte: t.objectifs[j] })) }
+    }),
+    demarche: avecIds(assoFr.demarche, [
+      { titre: 'Assess needs', description: 'Conduct surveys and studies to establish a baseline and identify the specific needs of each territory.' },
+      { titre: 'Mobilise resources', description: 'Seek funding and partners to support development initiatives.' },
+      { titre: 'Implement', description: 'Launch pilot projects in different territories to test and refine our approaches.' },
+      { titre: 'Monitor and evaluate', description: 'Carry out regular monitoring and evaluations to analyse results and make the necessary adjustments.' },
+      { titre: 'Capitalise', description: 'Document and capitalise on approaches before scaling up to other territories.' },
+    ]),
+    zoneTitre: 'Natural Casamance, our starting point',
+    zoneTexte:
+      'ADET aims to cover the whole of Senegal, step by step. It works first in natural Casamance, a “land of paradoxes” which, despite major assets (agriculture, forestry and livestock, high rainfall, arable land, forest resources), struggles to develop. Youth unemployment is high and drives irregular migration. Limited access to information, vocational training, business support and funding holds back entrepreneurship. ADET responds with a concerted approach that brings together all development stakeholders, with respect for the environment and living conditions.',
+    regions: assoFr.regions,
+  },
+})
+
 await payload.updateGlobal({
   slug: 'coordonnees',
   data: {
@@ -96,6 +161,15 @@ await payload.updateGlobal({
     ninea: '011193406',
   },
 })
+
+const departementsEn = [
+  { nom: 'Coordination', missions: ['Executive management: strategic and operational leadership of the association.', 'Administrative office: day-to-day management of correspondence, reports…'] },
+  { nom: 'Training and Skills Development', missions: ['Coordination of training and skills development programmes.', 'Identification of specialists offering training tailored to local stakeholders’ needs.'] },
+  { nom: 'Strategic Partnerships', missions: ['Building and maintaining relationships with strategic partners.', 'Developing and managing partnerships with various organisations.'] },
+  { nom: 'Communication, Innovation and Technology', missions: ['Communication strategies to raise the visibility of the association’s work.', 'Overseeing the integration of innovative technologies into projects.', 'Designing technology solutions for territorial development.'] },
+  { nom: 'Monitoring and Evaluation', missions: ['Managing project monitoring and evaluation activities.', 'Collecting and analysing data to assess the impact of initiatives.'] },
+  { nom: 'Finance and Administration', missions: ['Overseeing the association’s financial management.', 'Managing project finances and budgets.', 'Ensuring the smooth administrative running of the association.'] },
+]
 
 const departements = [
   {
@@ -153,9 +227,17 @@ const departements = [
 const existants = await payload.count({ collection: 'departements' })
 if (existants.totalDocs === 0) {
   for (const [ordre, d] of departements.entries()) {
-    await payload.create({
+    const cree = await payload.create({
       collection: 'departements',
+      locale: 'fr',
       data: { nom: d.nom, sigle: d.sigle, ordre, missions: d.missions.map((texte) => ({ texte })) },
+    })
+    const t = departementsEn[ordre]
+    await payload.update({
+      collection: 'departements',
+      id: cree.id,
+      locale: 'en',
+      data: { nom: t.nom, missions: (cree.missions ?? []).map((m, i) => ({ ...m, texte: t.missions[i] })) },
     })
   }
 }

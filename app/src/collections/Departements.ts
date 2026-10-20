@@ -14,13 +14,13 @@ export const Departements: CollectionConfig = {
   access: { read: anyone, create: loggedIn, update: loggedIn, delete: loggedIn },
   defaultSort: 'ordre',
   fields: [
-    { name: 'nom', type: 'text', required: true },
+    { name: 'nom', localized: true, type: 'text', required: true },
     { name: 'sigle', type: 'text' },
     {
       name: 'missions',
       type: 'array',
       labels: { singular: 'Mission', plural: 'Missions' },
-      fields: [{ name: 'texte', type: 'text', required: true }],
+      fields: [{ name: 'texte', localized: true, type: 'text', required: true }],
     },
     { name: 'ordre', type: 'number', defaultValue: 0, admin: { position: 'sidebar' } },
   ],

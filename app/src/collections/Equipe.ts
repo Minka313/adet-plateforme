@@ -14,10 +14,10 @@ export const Equipe: CollectionConfig = {
   defaultSort: 'ordre',
   fields: [
     { name: 'nom', type: 'text', required: true },
-    { name: 'fonction', type: 'text', required: true },
+    { name: 'fonction', localized: true, type: 'text', required: true },
     { name: 'departement', type: 'relationship', relationTo: 'departements', label: 'Département' },
     { name: 'photo', type: 'upload', relationTo: 'media' },
-    { name: 'bio', type: 'textarea', label: 'Courte présentation' },
+    { name: 'bio', localized: true, type: 'textarea', label: 'Courte présentation' },
     { name: 'ordre', type: 'number', defaultValue: 0, admin: { position: 'sidebar' } },
   ],
 }

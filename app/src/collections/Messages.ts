@@ -18,6 +18,13 @@ export const Messages: CollectionConfig = {
     { name: 'nom', type: 'text', required: true },
     { name: 'email', type: 'email' },
     { name: 'telephone', type: 'text', label: 'Téléphone' },
+    { name: 'organisation', type: 'text' },
+    {
+      name: 'langue',
+      type: 'select',
+      options: ['fr', 'en'],
+      admin: { position: 'sidebar', readOnly: true },
+    },
     {
       name: 'objet',
       type: 'select',

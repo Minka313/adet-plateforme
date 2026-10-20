@@ -9,7 +9,7 @@ export const Media: CollectionConfig = {
   access: { read: anyone, create: loggedIn, update: loggedIn, delete: loggedIn },
   fields: [
     {
-      name: 'alt',
+      name: 'alt', localized: true,
       type: 'text',
       label: "Description de l'image",
       required: true,

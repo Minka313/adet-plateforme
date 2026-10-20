@@ -20,16 +20,16 @@ export const Actualites: CollectionConfig = {
   },
   defaultSort: '-date',
   fields: [
-    { name: 'titre', type: 'text', required: true },
+    { name: 'titre', localized: true, type: 'text', required: true },
     {
-      name: 'resume',
+      name: 'resume', localized: true,
       type: 'textarea',
       label: 'Chapeau',
       required: true,
       maxLength: 280,
     },
     { name: 'image', type: 'upload', relationTo: 'media' },
-    { name: 'contenu', type: 'richText', label: 'Article' },
+    { name: 'contenu', localized: true, type: 'richText', label: 'Article' },
     slugField(),
     {
       name: 'date',

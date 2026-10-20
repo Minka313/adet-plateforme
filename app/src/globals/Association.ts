@@ -14,16 +14,39 @@ export const Association: GlobalConfig = {
         {
           label: 'Identité',
           fields: [
-            { name: 'nom', type: 'text', label: 'Nom complet', required: true },
+            { name: 'nom', localized: true, type: 'text', label: 'Nom complet', required: true },
             { name: 'sigle', type: 'text', defaultValue: 'ADET', required: true },
             {
-              name: 'accroche',
+              name: 'accroche', localized: true,
               type: 'text',
               label: "Phrase d'accroche (accueil)",
               admin: { description: 'Une phrase courte et parlante, affichée en grand sur la page d’accueil.' },
             },
-            { name: 'introduction', type: 'textarea', label: "Texte d'introduction (accueil)" },
+            { name: 'introduction', localized: true, type: 'textarea', label: "Texte d'introduction (accueil)" },
             { name: 'imageAccueil', type: 'upload', relationTo: 'media', label: "Photo d'accueil" },
+            {
+              type: 'row',
+              fields: [
+                { name: 'constat', type: 'textarea', label: 'Le constat', localized: true },
+                { name: 'reponse', type: 'textarea', label: 'Notre réponse', localized: true },
+              ],
+            },
+            {
+              type: 'collapsible',
+              label: 'Mot du directeur (citation, facultatif)',
+              admin: { initCollapsed: true },
+              fields: [
+                { name: 'citation', type: 'textarea', localized: true },
+                {
+                  type: 'row',
+                  fields: [
+                    { name: 'citationAuteur', type: 'text', label: 'Auteur' },
+                    { name: 'citationFonction', type: 'text', label: 'Fonction', localized: true },
+                  ],
+                },
+                { name: 'citationPhoto', type: 'upload', relationTo: 'media', label: 'Photo' },
+              ],
+            },
             {
               name: 'chiffres',
               type: 'array',
@@ -35,7 +58,7 @@ export const Association: GlobalConfig = {
                   type: 'row',
                   fields: [
                     { name: 'valeur', type: 'text', required: true, admin: { width: '30%' } },
-                    { name: 'libelle', type: 'text', label: 'Libellé', required: true },
+                    { name: 'libelle', localized: true, type: 'text', label: 'Libellé', required: true },
                   ],
                 },
               ],
@@ -45,15 +68,15 @@ export const Association: GlobalConfig = {
         {
           label: 'Vision, mission, valeurs',
           fields: [
-            { name: 'vision', type: 'textarea', required: true },
-            { name: 'mission', type: 'textarea', required: true },
+            { name: 'vision', localized: true, type: 'textarea', required: true },
+            { name: 'mission', localized: true, type: 'textarea', required: true },
             {
               name: 'valeurs',
               type: 'array',
               labels: { singular: 'Valeur', plural: 'Valeurs' },
               fields: [
-                { name: 'titre', type: 'text', required: true },
-                { name: 'description', type: 'text' },
+                { name: 'titre', localized: true, type: 'text', required: true },
+                { name: 'description', localized: true, type: 'text' },
               ],
             },
           ],
@@ -66,12 +89,12 @@ export const Association: GlobalConfig = {
               type: 'array',
               labels: { singular: 'Axe', plural: 'Axes' },
               fields: [
-                { name: 'titre', type: 'text', required: true },
+                { name: 'titre', localized: true, type: 'text', required: true },
                 {
                   name: 'objectifs',
                   type: 'array',
                   labels: { singular: 'Objectif', plural: 'Objectifs' },
-                  fields: [{ name: 'texte', type: 'text', required: true }],
+                  fields: [{ name: 'texte', localized: true, type: 'text', required: true }],
                 },
               ],
             },
@@ -86,8 +109,8 @@ export const Association: GlobalConfig = {
               label: "Plan d'action / démarche",
               labels: { singular: 'Étape', plural: 'Étapes' },
               fields: [
-                { name: 'titre', type: 'text', required: true },
-                { name: 'description', type: 'textarea' },
+                { name: 'titre', localized: true, type: 'text', required: true },
+                { name: 'description', localized: true, type: 'textarea' },
               ],
             },
           ],
@@ -95,14 +118,14 @@ export const Association: GlobalConfig = {
         {
           label: "Zone d'intervention",
           fields: [
-            { name: 'zoneTitre', type: 'text', label: 'Titre', defaultValue: 'La Casamance naturelle, notre point de départ' },
-            { name: 'zoneTexte', type: 'textarea', label: 'Pourquoi cette zone ?' },
+            { name: 'zoneTitre', localized: true, type: 'text', label: 'Titre', defaultValue: 'La Casamance naturelle, notre point de départ' },
+            { name: 'zoneTexte', localized: true, type: 'textarea', label: 'Pourquoi cette zone ?' },
             {
               name: 'regions',
               type: 'array',
               label: 'Régions prioritaires',
               labels: { singular: 'Région', plural: 'Régions' },
-              fields: [{ name: 'nom', type: 'text', required: true }],
+              fields: [{ name: 'nom', localized: true, type: 'text', required: true }],
             },
           ],
         },

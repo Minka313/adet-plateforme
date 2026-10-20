@@ -100,7 +100,7 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  fallbackLocale: null;
+  fallbackLocale: ('false' | 'none' | 'null') | false | null | ('fr' | 'en') | ('fr' | 'en')[];
   globals: {
     association: Association;
     coordonnees: Coordonnee;
@@ -109,7 +109,7 @@ export interface Config {
     association: AssociationSelect<false> | AssociationSelect<true>;
     coordonnees: CoordonneesSelect<false> | CoordonneesSelect<true>;
   };
-  locale: null;
+  locale: 'fr' | 'en';
   widgets: {
     collections: CollectionsWidget;
   };
@@ -360,6 +360,8 @@ export interface Message {
   nom: string;
   email?: string | null;
   telephone?: string | null;
+  organisation?: string | null;
+  langue?: ('fr' | 'en') | null;
   objet?: ('information' | 'partenariat' | 'adhesion' | 'formation' | 'autre') | null;
   message: string;
   traite?: boolean | null;
@@ -671,6 +673,8 @@ export interface MessagesSelect<T extends boolean = true> {
   nom?: T;
   email?: T;
   telephone?: T;
+  organisation?: T;
+  langue?: T;
   objet?: T;
   message?: T;
   traite?: T;
@@ -756,6 +760,12 @@ export interface Association {
   accroche?: string | null;
   introduction?: string | null;
   imageAccueil?: (number | null) | Media;
+  constat?: string | null;
+  reponse?: string | null;
+  citation?: string | null;
+  citationAuteur?: string | null;
+  citationFonction?: string | null;
+  citationPhoto?: (number | null) | Media;
   /**
    * Ex. : « 3 » / « régions ciblées ». Affichés sur l’accueil.
    */
@@ -845,6 +855,12 @@ export interface AssociationSelect<T extends boolean = true> {
   accroche?: T;
   introduction?: T;
   imageAccueil?: T;
+  constat?: T;
+  reponse?: T;
+  citation?: T;
+  citationAuteur?: T;
+  citationFonction?: T;
+  citationPhoto?: T;
   chiffres?:
     | T
     | {

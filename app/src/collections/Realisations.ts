@@ -22,9 +22,9 @@ export const Realisations: CollectionConfig = {
   },
   defaultSort: '-dateDebut',
   fields: [
-    { name: 'titre', type: 'text', required: true },
+    { name: 'titre', localized: true, type: 'text', required: true },
     {
-      name: 'resume',
+      name: 'resume', localized: true,
       type: 'textarea',
       label: 'Résumé',
       required: true,
@@ -43,12 +43,12 @@ export const Realisations: CollectionConfig = {
           type: 'row',
           fields: [
             { name: 'valeur', type: 'text', required: true, admin: { width: '30%' } },
-            { name: 'libelle', type: 'text', label: 'Libellé', required: true },
+            { name: 'libelle', localized: true, type: 'text', label: 'Libellé', required: true },
           ],
         },
       ],
     },
-    { name: 'contenu', type: 'richText', label: 'Description détaillée' },
+    { name: 'contenu', localized: true, type: 'richText', label: 'Description détaillée' },
     {
       name: 'galerie',
       type: 'upload',
@@ -76,7 +76,7 @@ export const Realisations: CollectionConfig = {
       admin: { position: 'sidebar' },
     },
     {
-      name: 'lieu',
+      name: 'lieu', localized: true,
       type: 'text',
       label: 'Lieu (commune / département)',
       admin: { position: 'sidebar' },
