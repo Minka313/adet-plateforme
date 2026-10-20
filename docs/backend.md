@@ -86,6 +86,7 @@ Voir `app/.env.example` (développement) et `deploy/.env.example` (production). 
   1. Modifier une collection, puis `pnpm payload migrate:create nom-du-changement`
   2. Relire le fichier SQL généré et le commiter
   3. Au déploiement, `pnpm build:prod` applique les migrations **avant** le build (une seule fois) ; le serveur les applique aussi au démarrage si besoin (`prodMigrations`).
+- ⚠️ Ne jamais lancer `pnpm migrate` sur une base de **développement** (créée en mode `push`) : Payload pose alors une question interactive. Les bases de production, de CI et de build doivent naître vierges et n'évoluer que par migrations.
 
 ## 8. Mise en production (VPS Linux avec Docker)
 

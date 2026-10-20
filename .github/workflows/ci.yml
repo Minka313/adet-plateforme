@@ -38,9 +38,13 @@ jobs:
         run: npx tsc --noEmit
       - name: Tests d'intégration
         run: pnpm test
+      # Base vierge, comme lors d'un vrai déploiement (la base de test, créée en mode
+      # développement, déclencherait une question interactive de Payload lors des migrations)
+      - name: Base de build vierge
+        run: PGPASSWORD=adet psql -h localhost -U adet -d adet_test -c 'CREATE DATABASE adet_build'
       - name: Build de production (migrations + pages)
         run: pnpm build:prod
         env:
-          DATABASE_URL: postgres://adet:adet@localhost:5432/adet_test
+          DATABASE_URL: postgres://adet:adet@localhost:5432/adet_build
           PAYLOAD_SECRET: secret-ci
           NEXT_PUBLIC_SITE_URL: https://adet.example
