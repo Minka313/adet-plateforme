@@ -1,7 +1,7 @@
 {
   "name": "adet-plateforme",
   "version": "1.0.0",
-  "description": "Plateforme web de l'ADET – Kolda",
+  "description": "Plateforme web de l'ADET \u2013 Kolda",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -13,7 +13,10 @@
     "lint": "cross-env NODE_OPTIONS=--no-deprecation eslint .",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
-    "seed": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed.ts"
+    "seed": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed.ts",
+    "migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
+    "build:prod": "pnpm migrate && pnpm build",
+    "test": "cross-env NODE_OPTIONS=--no-deprecation vitest run"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.91.0",

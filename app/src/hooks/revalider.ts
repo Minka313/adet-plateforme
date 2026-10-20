@@ -7,8 +7,8 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook, GlobalAfterC
  */
 const toutRegenerer = (raison: string, logger?: { info: (m: string) => void }) => {
   try {
-    revalidatePath('/[lang]', 'layout')
-    revalidatePath('/sitemap.xml')
+    // Invalide tout le cache des pages (toutes langues) : régénération à la visite suivante
+    revalidatePath('/', 'layout')
     logger?.info(`Site régénéré : ${raison}`)
   } catch {
     // Pas de contexte Next (ex. pnpm seed) : rien à régénérer

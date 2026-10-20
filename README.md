@@ -5,6 +5,8 @@ Plateforme web de l'**Association pour la promotion du Développement Économiqu
 - Vision, arborescence et feuille de route : [`docs/vision-plateforme.md`](docs/vision-plateforme.md)
 - Checklist des contenus à fournir : [`docs/contenus-a-collecter.md`](docs/contenus-a-collecter.md)
 - Cadre stratégique source : [`docs/cadre-strategique-ADET.pdf`](docs/cadre-strategique-ADET.pdf)
+- **Backend (architecture, sécurité, déploiement, sauvegardes)** : [`docs/backend.md`](docs/backend.md)
+- **Guide de l'éditeur (équipe ADET)** : [`docs/guide-editeur.md`](docs/guide-editeur.md)
 
 ## Stack
 Next.js (App Router) avec Payload CMS 3 (back-office `/admin` en français) et PostgreSQL.
@@ -19,6 +21,7 @@ docker compose up -d          # lance PostgreSQL (adet/adet)
 pnpm install
 pnpm seed                     # charge le contenu du cadre stratégique (vision, axes, départements…)
 pnpm dev
+pnpm test                     # tests d'intégration (base adet_test à créer : createdb adet_test)
 ```
 
 - Site : http://localhost:3000 (redirige vers `/fr` ou `/en` selon la langue du navigateur)

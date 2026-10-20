@@ -1,3 +1,7 @@
 node_modules/
 .next/
 .env
+
+# Déploiement
+deploy/.env
+deploy/sauvegardes/

@@ -1,0 +1,59 @@
+# Déploiement sur un serveur (VPS) : base PostgreSQL + application + HTTPS automatique (Caddy)
+# Usage : voir docs/backend.md, section « Mise en production »
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: adet
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?définir POSTGRES_PASSWORD dans .env}
+      POSTGRES_DB: adet
+    # Port ouvert uniquement sur le serveur lui-même (nécessaire au build), jamais sur Internet
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U adet']
+      interval: 10s
+      retries: 5
+
+  app:
+    build:
+      context: ../app
+      network: host
+      args:
+        DATABASE_URL: postgres://adet:${POSTGRES_PASSWORD}@127.0.0.1:5432/adet
+        PAYLOAD_SECRET: ${PAYLOAD_SECRET}
+        NEXT_PUBLIC_SITE_URL: https://${DOMAINE}
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://adet:${POSTGRES_PASSWORD}@postgres:5432/adet
+      NEXT_PUBLIC_SITE_URL: https://${DOMAINE}
+    volumes:
+      - medias:/app/media
+      - documents:/app/documents
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    environment:
+      DOMAINE: ${DOMAINE}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+    depends_on:
+      - app
+
+volumes:
+  pgdata:
+  medias:
+  documents:
+  caddy_data:

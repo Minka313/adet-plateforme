@@ -1,5 +1,6 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -19,6 +20,7 @@ import { Realisations } from './collections/Realisations'
 import { Users } from './collections/Users'
 import { Association } from './globals/Association'
 import { Coordonnees } from './globals/Coordonnees'
+import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -84,7 +86,44 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
+    // En production, le schéma évolue uniquement par migrations (src/migrations), appliquées au démarrage
+    prodMigrations: migrations,
   }),
+  endpoints: [
+    {
+      // GET /api/sante : supervision (base de données joignable ?)
+      path: '/sante',
+      method: 'get',
+      handler: async (req) => {
+        try {
+          await req.payload.count({ collection: 'users', overrideAccess: true })
+          return Response.json({ statut: 'ok', heure: new Date().toISOString() })
+        } catch {
+          return Response.json({ statut: 'erreur', detail: 'base de données injoignable' }, { status: 503 })
+        }
+      },
+    },
+  ],
   sharp,
-  plugins: [],
+  plugins: [
+    // Médias et documents dans un stockage objet (S3, Cloudflare R2, Scaleway…) si configuré ;
+    // sinon fichiers locaux (dossiers media/ et documents/)
+    ...(process.env.S3_BUCKET
+      ? [
+          s3Storage({
+            collections: { media: true, documents: true },
+            bucket: process.env.S3_BUCKET,
+            config: {
+              endpoint: process.env.S3_ENDPOINT || undefined,
+              region: process.env.S3_REGION || 'auto',
+              forcePathStyle: Boolean(process.env.S3_ENDPOINT),
+              credentials: {
+                accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+                secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+              },
+            },
+          }),
+        ]
+      : []),
+  ],
 })

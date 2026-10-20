@@ -1,0 +1,46 @@
+name: Vérifications
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: adet
+          POSTGRES_PASSWORD: adet
+          POSTGRES_DB: adet_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U adet" --health-interval 5s --health-retries 10
+    env:
+      DATABASE_URL_TEST: postgres://adet:adet@localhost:5432/adet_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: app/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - name: Types TypeScript
+        run: npx tsc --noEmit
+      - name: Tests d'intégration
+        run: pnpm test
+      - name: Build de production (migrations + pages)
+        run: pnpm build:prod
+        env:
+          DATABASE_URL: postgres://adet:adet@localhost:5432/adet_test
+          PAYLOAD_SECRET: secret-ci
+          NEXT_PUBLIC_SITE_URL: https://adet.example

@@ -1,0 +1,7 @@
+# Certificat HTTPS Let's Encrypt automatique pour le domaine
+{$DOMAINE}, www.{$DOMAINE} {
+	encode zstd gzip
+	@www host www.{$DOMAINE}
+	redir @www https://{$DOMAINE}{uri} permanent
+	reverse_proxy app:3000
+}
