@@ -29,6 +29,13 @@ export default buildConfig({
     },
     meta: {
       titleSuffix: ' · Administration ADET',
+      icons: [{ rel: 'icon', type: 'image/svg+xml', url: '/icon.svg' }],
+    },
+    components: {
+      graphics: {
+        Logo: '/components/admin/Logo',
+        Icon: '/components/admin/Icone',
+      },
     },
   },
   localization: {

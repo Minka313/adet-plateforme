@@ -791,7 +791,7 @@ a:hover .lien-fleche svg {
   line-height: 1.04;
   letter-spacing: -0.025em;
   margin-bottom: 0.45em;
-  animation: entree 1.1s var(--ease) both 0.1s;
+  animation: glisse 1.1s var(--ease) both 0.1s;
 }
 
 .hero__lieu {
@@ -821,6 +821,13 @@ a:hover .lien-fleche svg {
   from {
     opacity: 0;
     transform: translateY(24px);
+  }
+}
+
+/* Titres principaux : mouvement seul, sans fondu, pour ne pas retarder l'affichage (LCP) */
+@keyframes glisse {
+  from {
+    transform: translateY(18px);
   }
 }
 
@@ -1807,7 +1814,7 @@ a:hover .lien-fleche svg {
   color: var(--blanc);
   max-width: 20ch;
   font-size: clamp(2.2rem, 6vw, 4rem);
-  animation: entree 1s var(--ease) both 0.05s;
+  animation: glisse 1s var(--ease) both 0.05s;
 }
 
 .entete-page .surtitre {
@@ -2729,4 +2736,10 @@ a:hover .lien-fleche svg {
 
 .pied__legal a {
   color: #a9b6cc;
+}
+
+.image-principale .visuel__icone,
+.carte--une .visuel__icone {
+  width: 96px;
+  height: 96px;
 }

@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import React from 'react'
 
 import { EnTete } from '@/components/EnTete'
+import { JsonLd } from '@/components/JsonLd'
 import { Pied } from '@/components/Pied'
 import { Animations } from '@/components/ui/Animations'
 import { dico, estLangue, lien, LANGUES } from '@/i18n'
@@ -65,6 +66,7 @@ export default async function Racine({ children, params }: { children: React.Rea
         <main id="contenu">{children}</main>
         <Pied lang={lang} />
         <Animations />
+        <JsonLd lang={lang} />
       </body>
     </html>
   )

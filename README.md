@@ -21,19 +21,31 @@ pnpm seed                     # charge le contenu du cadre stratégique (vision,
 pnpm dev
 ```
 
-- Site : http://localhost:3000
+- Site : http://localhost:3000 (redirige vers `/fr` ou `/en` selon la langue du navigateur)
 - Back-office : http://localhost:3000/admin (le premier compte créé devient administrateur)
+
+## Design et langues
+- **Bilingue FR / EN** : chaque contenu se traduit dans `/admin` grâce au sélecteur de langue en haut des fiches. Une traduction manquante affiche le français.
+- **Identité visuelle** : polices Fraunces (titres) et Inter (texte), couleurs du logo, motif inspiré du pagne manjak, étoiles du logo, carte de la Casamance (limites geoBoundaries, licence CC BY 4.0, régénérable avec `scripts/generer-carte.py`).
+- **Sans photo**, chaque carte affiche une illustration aux couleurs de son axe ; dès qu'une photo est ajoutée dans `/admin`, elle la remplace.
+- **Mesures Lighthouse mobile (build de production)** : Performance 90 à 92, Accessibilité 100, Bonnes pratiques 100, SEO 100.
+- **SEO** : `sitemap.xml`, `robots.txt`, balises hreflang, images de partage générées automatiquement, données structurées schema.org (NGO).
+- Variable d'environnement de production : `NEXT_PUBLIC_SITE_URL=https://votre-domaine` (pour les liens absolus du sitemap et des partages).
 
 ## Ce qui existe (Phase 1 : vitrine de l'ADET)
 | Page | Contenu | Géré dans `/admin` |
 |---|---|---|
-| `/` | Accueil : accroche, chiffres clés, vision/mission, 5 axes, réalisations, actualités, partenaires | Présentation de l'ADET + collections |
+| `/fr`, `/en` | Accueil : accroche, chiffres clés, vision/mission, 5 axes, réalisations, actualités, partenaires | Présentation de l'ADET + collections |
 | `/a-propos` | Vision, mission, valeurs, axes stratégiques, démarche, zone d'intervention | Présentation de l'ADET |
 | `/equipe` | Pôles (DFDC, DPS, DCIT, DSE, DFA, Coordination) et membres | Départements ADET, Équipe |
 | `/realisations` et `/realisations/[slug]` | Projets avec chiffres d'impact, galerie, partenaires | Réalisations (brouillon / publié) |
 | `/actualites` et `/actualites/[slug]` | Articles | Actualités (brouillon / publié) |
 | `/partenaires` | Partenaires et appel à partenariat | Partenaires |
 | `/contact` | Formulaire (enregistré dans « Messages reçus »), coordonnées, WhatsApp | Coordonnées et réseaux |
+| `/documents` | Rapports et publications téléchargeables | Documents |
+| `/mentions-legales` | Éditeur, données personnelles, crédits | Coordonnées |
+
+Toutes les pages existent en `/fr/...` et `/en/...`.
 
 Rôles : **Administrateur** (tout, y compris les comptes) et **Éditeur** (contenus).
 

@@ -1,0 +1,15 @@
+// Back-office aux couleurs de l'ADET (discret pour rester lisible)
+.template-minimal {
+  background:
+    radial-gradient(circle at 85% 10%, rgb(249 219 95 / 22%), transparent 40%),
+    radial-gradient(circle at 10% 90%, rgb(60 110 241 / 14%), transparent 45%),
+    var(--theme-bg);
+
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0 0 auto;
+    height: 8px;
+    background: repeating-linear-gradient(90deg, #244c8a 0 28px, #f9db5f 28px 34px, #0b7a1e 34px 62px, #fff 62px 64px, #00586e 64px 92px, #ffae5d 92px 98px, #3c6ef1 98px 126px, #fff 126px 128px);
+  }
+}
