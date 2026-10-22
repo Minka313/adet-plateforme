@@ -40,16 +40,26 @@ export function CarteConstellation({ className }: { className?: string }) {
 }
 
 /** Carte du territoire : départements de Casamance, Kolda mis en avant. */
-export function CarteTerritoire({ titre }: { titre: string }) {
+export function CarteTerritoire({ titre, liens }: { titre: string; liens?: Record<string, string> }) {
   const regions = ['Ziguinchor', 'Sédhiou', 'Kolda'] as const
   return (
     <figure className="carte-territoire">
       <svg viewBox={`-10 -10 ${L + 20} ${H + 20}`} role="img" aria-label={titre}>
-        {departements.map((d) => (
-          <path key={d.nom} d={d.d} pathLength={1} className={`dept ${d.kolda ? 'dept--kolda' : `dept--${d.region === 'Sédhiou' ? 'sedhiou' : 'ziguinchor'}`}`}>
-            <title>{`${d.nom} (${d.region})`}</title>
-          </path>
-        ))}
+        {departements.map((d) => {
+          const forme = (
+            <path key={d.nom} d={d.d} pathLength={1} className={`dept ${d.kolda ? 'dept--kolda' : `dept--${d.region === 'Sédhiou' ? 'sedhiou' : 'ziguinchor'}`}`}>
+              <title>{`${d.nom} (${d.region})`}</title>
+            </path>
+          )
+          // Départements de Kolda cliquables vers leur fiche (rubrique Découvrir Kolda)
+          return liens?.[d.nom] ? (
+            <a key={d.nom} href={liens[d.nom]} className="dept__lien" aria-label={d.nom}>
+              {forme}
+            </a>
+          ) : (
+            forme
+          )
+        })}
         {departements
           .filter((d) => d.kolda)
           .map((d) => (

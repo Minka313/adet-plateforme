@@ -80,6 +80,6 @@ Rôles : `admin`, `editeur`, `formateur` et, en V2, `apprenant`.
 ## Feuille de route
 - **Phase 0 (terminée)** : dossier, cadrage et socle Next.js + Payload + Postgres.
 - **Phase 1 (vitrine ADET, en cours)** : pages ADET, réalisations, actualités, équipe, partenaires, contact et back-office. Priorité demandée par le directeur : mettre l'association en avant.
-- **Phase 2 (Kolda)** : fiches territoire, carte, indicateurs et opportunités.
+- **Phase 2 (Kolda, en cours)** : « Découvrir Kolda » en ligne (région, 3 départements, 5 filières, chiffres sourcés RGPH-5, carte cliquable). Restent : communes, « Kolda en chiffres » détaillé, opportunités.
 - **Phase 3 (Formations V1)** : catalogue, sessions, inscriptions et exports.
 - **Phase 4** : e-learning léger, PWA hors ligne, langues locales, suivi-évaluation.

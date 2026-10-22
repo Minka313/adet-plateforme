@@ -67,6 +67,8 @@ export interface Config {
   };
   blocks: {};
   collections: {
+    territoires: Territoire;
+    filieres: Filiere;
     realisations: Realisation;
     actualites: Actualite;
     partenaires: Partenaire;
@@ -84,6 +86,8 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
+    territoires: TerritoiresSelect<false> | TerritoiresSelect<true>;
+    filieres: FilieresSelect<false> | FilieresSelect<true>;
     realisations: RealisationsSelect<false> | RealisationsSelect<true>;
     actualites: ActualitesSelect<false> | ActualitesSelect<true>;
     partenaires: PartenairesSelect<false> | PartenairesSelect<true>;
@@ -142,6 +146,164 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * La région de Kolda et ses départements (rubrique « Découvrir Kolda »).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "territoires".
+ */
+export interface Territoire {
+  id: number;
+  nom: string;
+  /**
+   * Générée automatiquement à partir du titre si laissée vide.
+   */
+  slug?: string | null;
+  type: 'region' | 'departement';
+  /**
+   * Ordre d’affichage (croissant).
+   */
+  ordre?: number | null;
+  /**
+   * Deux ou trois phrases, affichées sur les cartes.
+   */
+  resume: string;
+  /**
+   * Texte de la page. Séparez les paragraphes par une ligne vide.
+   */
+  presentation?: string | null;
+  photo?: (number | null) | Media;
+  /**
+   * Chaque chiffre affiche sa source et son année. N’en saisissez pas sans source fiable.
+   */
+  indicateurs?:
+    | {
+        /**
+         * Ex. : 914 798 ou 54,3 %
+         */
+        valeur: string;
+        libelle: string;
+        /**
+         * Ex. : ANSD, RGPH-5
+         */
+        source: string;
+        annee: string;
+        lien?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  reperes?:
+    | {
+        titre: string;
+        texte: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  /**
+   * Décrivez brièvement l’image (accessibilité et référencement).
+   */
+  alt: string;
+  credit?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    vignette?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    carte?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    large?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
+ * Les filières et ressources économiques du territoire (axe 3 : ressources locales).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "filieres".
+ */
+export interface Filiere {
+  id: number;
+  nom: string;
+  /**
+   * Générée automatiquement à partir du titre si laissée vide.
+   */
+  slug?: string | null;
+  ordre?: number | null;
+  /**
+   * Pictogramme affiché sans photo.
+   */
+  icone?: ('ressources' | 'partenariats' | 'capacites' | 'innovation' | 'suivi') | null;
+  resume: string;
+  /**
+   * Séparez les paragraphes par une ligne vide.
+   */
+  presentation?: string | null;
+  photo?: (number | null) | Media;
+  /**
+   * Chaque chiffre affiche sa source et son année. N’en saisissez pas sans source fiable.
+   */
+  indicateurs?:
+    | {
+        /**
+         * Ex. : 914 798 ou 54,3 %
+         */
+        valeur: string;
+        libelle: string;
+        /**
+         * Ex. : ANSD, RGPH-5
+         */
+        source: string;
+        annee: string;
+        lien?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  reperes?:
+    | {
+        titre: string;
+        texte: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Projets et activités menés par l'ADET.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -195,55 +357,6 @@ export interface Realisation {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  /**
-   * Décrivez brièvement l’image (accessibilité et référencement).
-   */
-  alt: string;
-  credit?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-  sizes?: {
-    vignette?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    carte?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    large?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -448,6 +561,14 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
+        relationTo: 'territoires';
+        value: number | Territoire;
+      } | null)
+    | ({
+        relationTo: 'filieres';
+        value: number | Filiere;
+      } | null)
+    | ({
         relationTo: 'realisations';
         value: number | Realisation;
       } | null)
@@ -528,6 +649,70 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "territoires_select".
+ */
+export interface TerritoiresSelect<T extends boolean = true> {
+  nom?: T;
+  slug?: T;
+  type?: T;
+  ordre?: T;
+  resume?: T;
+  presentation?: T;
+  photo?: T;
+  indicateurs?:
+    | T
+    | {
+        valeur?: T;
+        libelle?: T;
+        source?: T;
+        annee?: T;
+        lien?: T;
+        id?: T;
+      };
+  reperes?:
+    | T
+    | {
+        titre?: T;
+        texte?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "filieres_select".
+ */
+export interface FilieresSelect<T extends boolean = true> {
+  nom?: T;
+  slug?: T;
+  ordre?: T;
+  icone?: T;
+  resume?: T;
+  presentation?: T;
+  photo?: T;
+  indicateurs?:
+    | T
+    | {
+        valeur?: T;
+        libelle?: T;
+        source?: T;
+        annee?: T;
+        lien?: T;
+        id?: T;
+      };
+  reperes?:
+    | T
+    | {
+        titre?: T;
+        texte?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -11,9 +11,11 @@ export const revalidate = 3600
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const payload = await getPayloadClient()
   const publie = { _status: { equals: 'published' } } as const
-  const [realisations, actualites] = await Promise.all([
+  const [realisations, actualites, territoires, filieres] = await Promise.all([
     payload.find({ collection: 'realisations', where: publie, limit: 1000, depth: 0, select: { slug: true, updatedAt: true } }),
     payload.find({ collection: 'actualites', where: publie, limit: 1000, depth: 0, select: { slug: true, updatedAt: true } }),
+    payload.find({ collection: 'territoires', where: { type: { equals: 'departement' } }, limit: 100, depth: 0, select: { slug: true, updatedAt: true } }),
+    payload.find({ collection: 'filieres', limit: 100, depth: 0, select: { slug: true, updatedAt: true } }),
   ])
   const entree = (chemin: string, modif?: string): MetadataRoute.Sitemap[number] => ({
     url: `${SITE}/fr${chemin}`,
@@ -24,5 +26,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...PAGES.map((p) => entree(p)),
     ...realisations.docs.map((r) => entree(`/realisations/${r.slug}`, r.updatedAt)),
     ...actualites.docs.map((a) => entree(`/actualites/${a.slug}`, a.updatedAt)),
+    ...[...territoires.docs, ...filieres.docs].map((x) => entree(`/decouvrir-kolda/${x.slug}`, x.updatedAt)),
   ]
 }

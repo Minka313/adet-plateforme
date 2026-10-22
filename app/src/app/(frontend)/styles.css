@@ -3070,3 +3070,203 @@ a:hover .lien-fleche svg {
     aspect-ratio: 21 / 8;
   }
 }
+
+/* ==========================================================================
+   Découvrir Kolda
+   ========================================================================== */
+.fiche {
+  display: grid;
+  gap: 2.5rem;
+}
+
+@media (min-width: 960px) {
+  .fiche {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    align-items: start;
+    gap: 4rem;
+  }
+}
+
+.fiche .prose p {
+  font-size: 1.08rem;
+}
+
+.reperes {
+  padding: 1.6rem;
+  border-radius: var(--rayon);
+  background: var(--sable);
+  border: 1px solid var(--bordure);
+}
+
+.reperes dl {
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.reperes dt {
+  font-weight: 700;
+  color: var(--nuit);
+}
+
+.reperes dd {
+  margin: 0.15rem 0 0;
+  color: var(--texte-doux);
+}
+
+.indicateurs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+}
+
+.indicateur {
+  display: flex;
+  flex-direction: column;
+  padding: 1.4rem 1.4rem 1.2rem;
+  border-radius: var(--rayon);
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  border-top: 3px solid var(--or);
+}
+
+.indicateur__valeur {
+  margin: 0;
+  font-family: var(--police-t);
+  font-size: 2.1rem;
+  line-height: 1.1;
+  color: var(--nuit);
+}
+
+.indicateur__libelle {
+  margin: 0.4rem 0 1rem;
+  flex: 1;
+  color: var(--encre);
+}
+
+.indicateur__source {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--texte-doux);
+}
+
+.indicateur__source a {
+  color: inherit;
+}
+
+.liste-depts {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 900px) {
+  .liste-depts--ligne {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.carte-dept__lien {
+  display: block;
+  padding: 1.4rem 1.5rem;
+  border-radius: var(--rayon);
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+  color: inherit;
+  text-decoration: none;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s,
+    transform 0.3s var(--ease);
+}
+
+.carte-dept__lien:hover {
+  border-color: var(--or);
+  box-shadow: 0 14px 30px rgb(15 34 64 / 10%);
+  transform: translateY(-2px);
+}
+
+.carte-dept h3 {
+  margin: 0 0 0.3rem;
+}
+
+.carte-dept p {
+  margin: 0 0 0.8rem;
+  color: var(--texte-doux);
+}
+
+.carte-dept__pop strong {
+  color: var(--nuit);
+  font-size: 1.15rem;
+}
+
+.dept__lien {
+  cursor: pointer;
+}
+
+.dept__lien .dept--kolda {
+  fill: var(--bleu);
+}
+
+.dept__lien:nth-of-type(2) .dept--kolda {
+  fill: var(--nuit-2);
+}
+
+.dept__lien:hover .dept--kolda,
+.dept__lien:focus-visible .dept--kolda {
+  fill: var(--vert);
+}
+
+.sources {
+  padding: 1.6rem 1.8rem;
+  border-left: 3px solid var(--or);
+  background: var(--sable);
+  border-radius: 0 var(--rayon) var(--rayon) 0;
+}
+
+.sources h2 {
+  font-size: 1.3rem;
+  margin: 0 0 0.5rem;
+}
+
+.sources p {
+  color: var(--texte-doux);
+}
+
+.lien-retour {
+  color: inherit;
+  text-decoration: none;
+}
+
+.lien-retour:hover {
+  text-decoration: underline;
+}
+
+.fiche__retour {
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 559px) {
+  .indicateurs {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+
+  .indicateur {
+    padding: 1rem 0.9rem 0.9rem;
+  }
+
+  .indicateur__valeur {
+    font-size: 1.45rem;
+  }
+
+  .indicateur__libelle {
+    font-size: 0.92rem;
+  }
+
+  .indicateur__source {
+    font-size: 0.7rem;
+  }
+}

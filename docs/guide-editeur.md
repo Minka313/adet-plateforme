@@ -41,6 +41,13 @@ En haut de chaque fiche, le menu **Paramètres régionaux** permet de passer de 
 En attendant les photos de l'ADET, l'accueil et les rubriques « Découvrir Kolda », « Opportunités » et « Se former » affichent des photos d'illustration libres de droits (Kolda, Diaobé, Kounkané, Casamance).
 Pour mettre les vôtres : **L'association → Photos du site**, choisissez l'emplacement, déposez la photo (format paysage de préférence), puis **Enregistrer**. Elle remplace aussitôt l'illustration, et le crédit de l'ancienne photo disparaît des mentions légales.
 
+## Mettre à jour « Découvrir Kolda »
+Dans **Découvrir Kolda → Territoires** (la région et ses départements) et **Économie et filières** :
+- **Présentation** : séparez les paragraphes par une ligne vide.
+- **Chiffres clés** : chaque chiffre exige une **source** et une **année** (par exemple « ANSD, RGPH-5 » / « 2023 »), avec si possible le lien vers le document. N'ajoutez jamais un chiffre sans source fiable.
+- **Repères** : courtes lignes (arrondissements, marchés, sites…).
+- **Photo** : remplacez l'illustration par une photo de l'ADET quand vous en avez une, en indiquant le crédit.
+
 ## Traiter un message
 1. **Messages reçus** → ouvrez le message.
 2. Répondez par e-mail ou téléphone.

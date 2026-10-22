@@ -13,10 +13,12 @@ import { Actualites } from './collections/Actualites'
 import { Departements } from './collections/Departements'
 import { Documents } from './collections/Documents'
 import { Equipe } from './collections/Equipe'
+import { Filieres } from './collections/Filieres'
 import { Media } from './collections/Media'
 import { Messages } from './collections/Messages'
 import { Partenaires } from './collections/Partenaires'
 import { Realisations } from './collections/Realisations'
+import { Territoires } from './collections/Territoires'
 import { Users } from './collections/Users'
 import { Association } from './globals/Association'
 import { Coordonnees } from './globals/Coordonnees'
@@ -63,7 +65,7 @@ export default buildConfig({
     supportedLanguages: { fr },
     fallbackLanguage: 'fr',
   },
-  collections: [Realisations, Actualites, Partenaires, Equipe, Departements, Documents, Media, Messages, Abonnes, Users],
+  collections: [Territoires, Filieres, Realisations, Actualites, Partenaires, Equipe, Departements, Documents, Media, Messages, Abonnes, Users],
   globals: [Association, Coordonnees, Photos],
   editor: lexicalEditor(),
   // E-mails : SMTP configuré par variables d'environnement (sinon affichés dans la console)
