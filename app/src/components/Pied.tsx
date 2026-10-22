@@ -12,6 +12,9 @@ export async function Pied({ lang }: { lang: Langue }) {
   const d = dico(lang)
   const [asso, co] = await Promise.all([getAssociation(lang), getCoordonnees()])
   const nav = [
+    { href: lien(lang, '/decouvrir-kolda'), label: d.nav.decouvrirKolda },
+    { href: lien(lang, '/opportunites'), label: d.nav.opportunites },
+    { href: lien(lang, '/se-former'), label: d.nav.seFormer },
     { href: lien(lang, '/a-propos'), label: d.nav.association },
     { href: lien(lang, '/realisations'), label: d.nav.realisations },
     { href: lien(lang, '/actualites'), label: d.nav.actualites },
@@ -82,7 +85,7 @@ export async function Pied({ lang }: { lang: Langue }) {
             )}
           </div>
         </div>
-        <div className="conteneur">
+        <div className="conteneur" id="newsletter">
           <Newsletter
             lang={lang}
             libelles={{

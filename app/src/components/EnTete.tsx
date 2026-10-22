@@ -3,26 +3,27 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { LANGUES, type Langue } from '@/i18n/config'
-
-type Lien = { href: string; label: string }
+import type { EntreeMenu, Lien } from '@/lib/menu'
 
 export function EnTete({
   lang,
-  liens,
+  menu,
   contact,
   libelles,
 }: {
   lang: Langue
-  liens: Lien[]
+  menu: EntreeMenu[]
   contact: Lien
   libelles: { menu: string; fermer: string; accueil: string; langue: string }
 }) {
   const chemin = usePathname()
   const [defile, setDefile] = useState(false)
   const [ouvert, setOuvert] = useState(false)
+  const [sousMenu, setSousMenu] = useState<string | null>(null)
+  const navRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const surDefilement = () => setDefile(window.scrollY > 24)
@@ -31,17 +32,43 @@ export function EnTete({
     return () => window.removeEventListener('scroll', surDefilement)
   }, [])
 
-  useEffect(() => setOuvert(false), [chemin])
+  // Referme les menus à chaque changement de page
+  const [cheminPrecedent, setCheminPrecedent] = useState(chemin)
+  if (chemin !== cheminPrecedent) {
+    setCheminPrecedent(chemin)
+    setOuvert(false)
+    setSousMenu(null)
+  }
 
   useEffect(() => {
     document.documentElement.classList.toggle('menu-ouvert', ouvert)
-    const echap = (e: KeyboardEvent) => e.key === 'Escape' && setOuvert(false)
+    const echap = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      setOuvert(false)
+      setSousMenu(null)
+    }
+    // Ferme le sous-menu au clic en dehors de la navigation
+    const clic = (e: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) setSousMenu(null)
+    }
     window.addEventListener('keydown', echap)
-    return () => window.removeEventListener('keydown', echap)
+    document.addEventListener('click', clic)
+    return () => {
+      window.removeEventListener('keydown', echap)
+      document.removeEventListener('click', clic)
+    }
   }, [ouvert])
 
   const autreLangue = (l: Langue) => chemin.replace(/^\/(fr|en)(?=\/|$)/, `/${l}`) || `/${l}`
-  const actif = (href: string) => chemin === href || chemin.startsWith(`${href}/`)
+  const actif = (href: string) => {
+    const cible = href.split(/[?#]/)[0]
+    if (!cible) return false
+    return cible === `/${lang}` ? chemin === cible : chemin === cible || chemin.startsWith(`${cible}/`)
+  }
+  const fermerTout = () => {
+    setOuvert(false)
+    setSousMenu(null)
+  }
 
   return (
     <header className={`entete ${defile ? 'entete--plein' : ''} ${ouvert ? 'entete--ouvert' : ''}`}>
@@ -51,15 +78,41 @@ export function EnTete({
           <Image src="/brand/adet-logo.png" alt="" width={1251} height={795} priority sizes="120px" className="logo-sombre" />
         </Link>
 
-        <nav className="entete__nav" aria-label="Navigation principale">
+        <nav className="entete__nav" aria-label="Navigation principale" ref={navRef}>
           <ul>
-            {liens.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} className={actif(l.href) ? 'est-actif' : undefined} aria-current={actif(l.href) ? 'page' : undefined}>
-                  {l.label}
-                </Link>
-              </li>
-            ))}
+            {menu.map((e, i) =>
+              'enfants' in e ? (
+                <li key={e.label} className="a-sous-menu">
+                  <button
+                    type="button"
+                    className={e.enfants.some((l) => actif(l.href)) ? 'est-actif' : undefined}
+                    aria-expanded={sousMenu === e.label}
+                    aria-controls={`sous-menu-${i}`}
+                    onClick={() => setSousMenu((s) => (s === e.label ? null : e.label))}
+                  >
+                    {e.label}
+                    <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+                      <path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                    </svg>
+                  </button>
+                  <ul id={`sous-menu-${i}`} className={`sous-menu ${sousMenu === e.label ? 'est-ouvert' : ''}`}>
+                    {e.enfants.map((l) => (
+                      <li key={l.href}>
+                        <Link href={l.href} aria-current={actif(l.href) ? 'page' : undefined} onClick={fermerTout}>
+                          {l.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ) : (
+                <li key={e.href}>
+                  <Link href={e.href} className={actif(e.href) ? 'est-actif' : undefined} aria-current={actif(e.href) ? 'page' : undefined}>
+                    {e.label}
+                  </Link>
+                </li>
+              ),
+            )}
           </ul>
         </nav>
 
@@ -91,11 +144,28 @@ export function EnTete({
       <div id="menu-plein-ecran" className="menu-plein" hidden={!ouvert}>
         <nav className="conteneur" aria-label={libelles.menu}>
           <ul>
-            {[...liens, contact].map((l, i) => (
-              <li key={l.href} style={{ ['--i' as string]: i }}>
-                <Link href={l.href}>{l.label}</Link>
-              </li>
-            ))}
+            {menu.map((e, i) =>
+              'enfants' in e ? (
+                <li key={e.label} className="menu-plein__groupe" style={{ ['--i' as string]: i }}>
+                  <p className="menu-plein__titre">{e.label}</p>
+                  <ul>
+                    {e.enfants.map((l) => (
+                      <li key={l.href}>
+                        <Link href={l.href} onClick={fermerTout}>
+                          {l.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ) : (
+                <li key={e.href} style={{ ['--i' as string]: i }}>
+                  <Link href={e.href} onClick={fermerTout}>
+                    {e.label}
+                  </Link>
+                </li>
+              ),
+            )}
           </ul>
         </nav>
       </div>

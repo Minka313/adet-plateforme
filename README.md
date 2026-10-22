@@ -47,6 +47,9 @@ pnpm test                     # tests d'intégration (base adet_test à créer :
 | `/contact` | Formulaire (enregistré dans « Messages reçus »), coordonnées, WhatsApp | Coordonnées et réseaux |
 | `/documents` | Rapports et publications téléchargeables | Documents |
 | `/mentions-legales` | Éditeur, données personnelles, crédits | Coordonnées |
+| `/decouvrir-kolda`, `/opportunites`, `/se-former` | Pages « Bientôt disponible » des phases 2 et 3 (contenu de la rubrique, inscription à la lettre) | Textes dans `src/i18n` |
+
+Menu principal (conforme à `docs/vision-plateforme.md`) : Accueil · Découvrir Kolda · Opportunités · Se former · L'ADET ▾ · Agir ▾, défini dans `app/src/lib/menu.ts`.
 
 Toutes les pages existent en `/fr/...` et `/en/...`.
 

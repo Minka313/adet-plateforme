@@ -4,7 +4,7 @@ import { LANGUES } from '@/i18n/config'
 import { getPayloadClient } from '@/lib/payload'
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
-const PAGES = ['', '/a-propos', '/realisations', '/actualites', '/equipe', '/partenaires', '/documents', '/contact']
+const PAGES = ['', '/decouvrir-kolda', '/opportunites', '/se-former', '/a-propos', '/realisations', '/actualites', '/equipe', '/partenaires', '/documents', '/contact']
 
 export const revalidate = 3600
 

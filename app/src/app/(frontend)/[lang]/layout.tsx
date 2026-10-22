@@ -9,6 +9,7 @@ import { JsonLd } from '@/components/JsonLd'
 import { Pied } from '@/components/Pied'
 import { Animations } from '@/components/ui/Animations'
 import { dico, estLangue, lien, LANGUES } from '@/i18n'
+import { menuPrincipal } from '@/lib/menu'
 
 import '../styles.css'
 
@@ -41,13 +42,6 @@ export default async function Racine({ children, params }: { children: React.Rea
   const { lang } = await params
   if (!estLangue(lang)) notFound()
   const d = dico(lang)
-  const liens = [
-    { href: lien(lang, '/a-propos'), label: d.nav.association },
-    { href: lien(lang, '/realisations'), label: d.nav.realisations },
-    { href: lien(lang, '/actualites'), label: d.nav.actualites },
-    { href: lien(lang, '/equipe'), label: d.nav.equipe },
-    { href: lien(lang, '/partenaires'), label: d.nav.partenaires },
-  ]
   return (
     <html lang={lang} className={`${titres.variable} ${texte.variable}`} suppressHydrationWarning>
       <head>
@@ -60,7 +54,7 @@ export default async function Racine({ children, params }: { children: React.Rea
         </a>
         <EnTete
           lang={lang}
-          liens={liens}
+          menu={menuPrincipal(lang)}
           contact={{ href: lien(lang, '/contact'), label: d.nav.nousContacter }}
           libelles={{ menu: d.nav.menu, fermer: d.nav.fermer, accueil: d.nav.accueil, langue: d.nav.langue }}
         />

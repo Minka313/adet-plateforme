@@ -630,6 +630,103 @@ a:hover .lien-fleche svg {
   color: var(--or);
 }
 
+/* Sous-menus (L'ADET, Agir) */
+.entete__nav .a-sous-menu {
+  position: relative;
+}
+
+.entete__nav button {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 0.8rem;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.97rem;
+  opacity: 0.88;
+  cursor: pointer;
+}
+
+.entete__nav button svg {
+  transition: transform 0.25s var(--ease);
+}
+
+.entete__nav button:hover,
+.entete__nav button.est-actif,
+.entete__nav button[aria-expanded='true'] {
+  opacity: 1;
+}
+
+.entete__nav button.est-actif {
+  text-decoration: underline 2px var(--or);
+  text-underline-offset: 0.45rem;
+}
+
+.entete__nav button[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+
+.entete__nav .sous-menu {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  left: 0;
+  min-width: 15rem;
+  display: none;
+  flex-direction: column;
+  gap: 0;
+  padding: 0.5rem;
+  border-radius: var(--rayon);
+  background: var(--blanc);
+  color: var(--nuit);
+  box-shadow: 0 18px 40px rgb(15 34 64 / 18%);
+}
+
+.entete__nav .sous-menu.est-ouvert {
+  display: flex;
+}
+
+.entete__nav .sous-menu a {
+  padding: 0.6rem 0.8rem;
+  border-radius: calc(var(--rayon) / 2);
+  opacity: 1;
+}
+
+.entete__nav .sous-menu a::after {
+  display: none;
+}
+
+.entete__nav .sous-menu a:hover,
+.entete__nav .sous-menu a[aria-current='page'] {
+  background: var(--sable);
+}
+
+/* Menu mobile : rubriques groupées */
+.menu-plein__groupe {
+  padding: 1rem 0;
+}
+
+.menu-plein__titre {
+  margin: 0 0 0.3rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--or);
+}
+
+.menu-plein__groupe li {
+  border: 0;
+  animation: none;
+}
+
+.menu-plein__groupe a {
+  padding: 0.45rem 0;
+  font-size: 1.3rem;
+}
+
 @keyframes entree-menu {
   from {
     opacity: 0;
@@ -2852,5 +2949,36 @@ a:hover .lien-fleche svg {
   .newsletter__erreur,
   .newsletter__mentions {
     grid-column: 2;
+  }
+}
+
+/* Pages « Bientôt » */
+.valeurs + .bientot {
+  margin-top: 3rem;
+}
+
+.bientot__titre {
+  font-size: 1.6rem;
+  color: var(--blanc);
+}
+
+.bientot .bientot__texte {
+  margin: 0.6rem auto 1.6rem;
+  max-width: 34rem;
+  font-family: var(--police);
+  font-size: 1.05rem;
+}
+
+.bientot__actions {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+@media (min-width: 1000px) {
+  .valeurs--trois {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
