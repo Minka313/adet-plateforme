@@ -12,5 +12,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function DecouvrirKolda({ params }: Props) {
   const { lang } = await params
-  return <PageBientot lang={lang} rubrique={dico(lang).bientot.kolda} lienHref={lien(lang, '/a-propos#zone')} />
+  return <PageBientot lang={lang} rubrique={dico(lang).bientot.kolda} lienHref={lien(lang, '/a-propos#zone')} photo="kolda" />
 }

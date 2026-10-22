@@ -37,6 +37,10 @@ En haut de chaque fiche, le menu **Paramètres régionaux** permet de passer de 
 - Les photos sont automatiquement allégées pour les connexions lentes.
 - Indiquez le **crédit photo** et assurez-vous d'avoir l'**accord des personnes photographiées**.
 
+### Remplacer les photos d'illustration
+En attendant les photos de l'ADET, l'accueil et les rubriques « Découvrir Kolda », « Opportunités » et « Se former » affichent des photos d'illustration libres de droits (Kolda, Diaobé, Kounkané, Casamance).
+Pour mettre les vôtres : **L'association → Photos du site**, choisissez l'emplacement, déposez la photo (format paysage de préférence), puis **Enregistrer**. Elle remplace aussitôt l'illustration, et le crédit de l'ancienne photo disparaît des mentions légales.
+
 ## Traiter un message
 1. **Messages reçus** → ouvrez le message.
 2. Répondez par e-mail ou téléphone.

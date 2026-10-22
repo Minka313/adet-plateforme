@@ -74,6 +74,8 @@ export const fr = {
     defiler: 'Défiler',
     raisonEtre: "Notre raison d'être",
     constat: 'Le constat',
+    imagesSurtitre: 'En images',
+    imagesTitre: 'Une terre de potentiel',
     reponse: 'Notre réponse',
     vision: 'Vision',
     mission: 'Mission',

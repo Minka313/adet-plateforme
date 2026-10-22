@@ -12,5 +12,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Opportunites({ params }: Props) {
   const { lang } = await params
-  return <PageBientot lang={lang} rubrique={dico(lang).bientot.opportunites} lienHref={lien(lang, '/contact?objet=information')} />
+  return <PageBientot lang={lang} rubrique={dico(lang).bientot.opportunites} lienHref={lien(lang, '/contact?objet=information')} photo="opportunites" />
 }

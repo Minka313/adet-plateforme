@@ -20,6 +20,7 @@ import { Realisations } from './collections/Realisations'
 import { Users } from './collections/Users'
 import { Association } from './globals/Association'
 import { Coordonnees } from './globals/Coordonnees'
+import { Photos } from './globals/Photos'
 import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
@@ -63,7 +64,7 @@ export default buildConfig({
     fallbackLanguage: 'fr',
   },
   collections: [Realisations, Actualites, Partenaires, Equipe, Departements, Documents, Media, Messages, Abonnes, Users],
-  globals: [Association, Coordonnees],
+  globals: [Association, Coordonnees, Photos],
   editor: lexicalEditor(),
   // E-mails : SMTP configuré par variables d'environnement (sinon affichés dans la console)
   email: process.env.SMTP_HOST

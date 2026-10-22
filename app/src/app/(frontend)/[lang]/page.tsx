@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 import { AppelAction, CarteActualite, CarteRealisation, LogoPartenaire, TitreSection, Vide } from '@/components/Blocs'
 import { Picture } from '@/components/Picture'
+import { PhotoSite } from '@/components/PhotoSite'
 import { CarteConstellation, CarteSenegal, CarteTerritoire } from '@/components/ui/Carte'
 import { Etoiles } from '@/components/ui/Etoiles'
 import { Icone } from '@/components/ui/Icone'
@@ -100,6 +101,18 @@ export default async function Accueil({ params }: { params: Promise<{ lang: Lang
           </div>
         </section>
       )}
+
+      {/* ---------- En images ---------- */}
+      <section className="section section--court">
+        <div className="conteneur">
+          <TitreSection surtitre={d.accueil.imagesSurtitre} titre={d.accueil.imagesTitre} />
+          <div className="mosaique" data-reveal>
+            <PhotoSite emplacement="accueil1" lang={lang} className="mosaique__grande" sizes="(max-width: 800px) 100vw, 60vw" />
+            <PhotoSite emplacement="accueil2" lang={lang} sizes="(max-width: 800px) 100vw, 40vw" />
+            <PhotoSite emplacement="accueil3" lang={lang} sizes="(max-width: 800px) 100vw, 40vw" />
+          </div>
+        </div>
+      </section>
 
       {/* ---------- Vision / mission ---------- */}
       <section className="section section--sable">

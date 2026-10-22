@@ -76,6 +76,8 @@ export const en: Dictionnaire = {
     defiler: 'Scroll',
     raisonEtre: 'Why we exist',
     constat: 'The challenge',
+    imagesSurtitre: 'In pictures',
+    imagesTitre: 'A land of potential',
     reponse: 'Our response',
     vision: 'Vision',
     mission: 'Mission',

@@ -106,10 +106,12 @@ export interface Config {
   globals: {
     association: Association;
     coordonnees: Coordonnee;
+    photos: Photo;
   };
   globalsSelect: {
     association: AssociationSelect<false> | AssociationSelect<true>;
     coordonnees: CoordonneesSelect<false> | CoordonneesSelect<true>;
+    photos: PhotosSelect<false> | PhotosSelect<true>;
   };
   locale: 'fr' | 'en';
   widgets: {
@@ -886,6 +888,41 @@ export interface Coordonnee {
   createdAt?: string | null;
 }
 /**
+ * Photos des grandes rubriques du site. Privilégiez des photos de l’ADET sur le terrain, au format paysage, avec l’accord des personnes visibles.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "photos".
+ */
+export interface Photo {
+  id: number;
+  /**
+   * Laissez vide pour garder la photo d’illustration actuelle. Une photo de l’ADET la remplace aussitôt.
+   */
+  accueil1?: (number | null) | Media;
+  /**
+   * Laissez vide pour garder la photo d’illustration actuelle. Une photo de l’ADET la remplace aussitôt.
+   */
+  accueil2?: (number | null) | Media;
+  /**
+   * Laissez vide pour garder la photo d’illustration actuelle. Une photo de l’ADET la remplace aussitôt.
+   */
+  accueil3?: (number | null) | Media;
+  /**
+   * Laissez vide pour garder la photo d’illustration actuelle. Une photo de l’ADET la remplace aussitôt.
+   */
+  kolda?: (number | null) | Media;
+  /**
+   * Laissez vide pour garder la photo d’illustration actuelle. Une photo de l’ADET la remplace aussitôt.
+   */
+  opportunites?: (number | null) | Media;
+  /**
+   * Laissez vide pour garder la photo d’illustration actuelle. Une photo de l’ADET la remplace aussitôt.
+   */
+  formations?: (number | null) | Media;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "association_select".
  */
@@ -971,6 +1008,21 @@ export interface CoordonneesSelect<T extends boolean = true> {
       };
   recepisse?: T;
   ninea?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "photos_select".
+ */
+export interface PhotosSelect<T extends boolean = true> {
+  accueil1?: T;
+  accueil2?: T;
+  accueil3?: T;
+  kolda?: T;
+  opportunites?: T;
+  formations?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

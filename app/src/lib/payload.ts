@@ -16,5 +16,10 @@ export const getCoordonnees = cache(async () => {
   return payload.findGlobal({ slug: 'coordonnees' })
 })
 
+export const getPhotos = cache(async () => {
+  const payload = await getPayloadClient()
+  return payload.findGlobal({ slug: 'photos', depth: 1 })
+})
+
 /** Options communes de lecture localisée */
 export const loc = (lang: Langue) => ({ locale: lang, fallbackLocale: 'fr' as const })

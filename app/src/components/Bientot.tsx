@@ -1,8 +1,10 @@
 import Link from 'next/link'
 
+import type { Emplacement } from '@/data/photos'
 import { dico, type Langue } from '@/i18n'
 
 import { EnTetePage, TitreSection } from './Blocs'
+import { PhotoSite } from './PhotoSite'
 import { Etoiles } from './ui/Etoiles'
 
 type Rubrique = {
@@ -13,13 +15,24 @@ type Rubrique = {
 }
 
 /** Page d'attente d'une rubrique prévue mais pas encore ouverte (Phase 2 et suivantes) */
-export function PageBientot({ lang, rubrique, lienHref }: { lang: Langue; rubrique: Rubrique; lienHref: string }) {
+export function PageBientot({
+  lang,
+  rubrique,
+  lienHref,
+  photo,
+}: {
+  lang: Langue
+  rubrique: Rubrique
+  lienHref: string
+  photo: Emplacement
+}) {
   const b = dico(lang).bientot
   return (
     <>
       <EnTetePage surtitre={b.surtitre} titre={rubrique.titre} intro={rubrique.intro} />
       <section className="section">
         <div className="conteneur">
+          <PhotoSite emplacement={photo} lang={lang} className="bandeau-photo" sizes="(max-width: 1240px) 100vw, 1200px" priority />
           <TitreSection titre={b.contenu} />
           <ul className={`valeurs ${rubrique.elements.length === 3 ? 'valeurs--trois' : ''}`} data-reveal>
             {rubrique.elements.map((e) => (
