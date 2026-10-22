@@ -36,6 +36,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: Types TypeScript
         run: npx tsc --noEmit
+      - name: Lint
+        run: pnpm lint
       - name: Tests d'intégration
         run: pnpm test
       # Base vierge, comme lors d'un vrai déploiement (la base de test, créée en mode
