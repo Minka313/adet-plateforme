@@ -10,13 +10,23 @@ type Props = {
   priority?: boolean
 }
 
+/**
+ * Payload renvoie des URL absolues (serverURL) ; next/image n'autorise que les chemins locaux
+ * déclarés dans next.config (images.localPatterns). On repasse donc les médias du site en relatif.
+ */
+const cheminLocal = (url: string) => {
+  if (!/^https?:\/\//.test(url)) return url
+  const { pathname, search } = new URL(url)
+  return pathname.startsWith('/api/media/') ? pathname + search : url
+}
+
 /** Image Payload optimisée (WebP, variantes pré-calculées), avec repli neutre si absente. */
 export function Picture({ media, taille = 'carte', sizes = '(max-width: 700px) 100vw, 50vw', className, priority }: Props) {
   if (!media || typeof media === 'number' || !media.url) {
     return <div className={`picture-vide ${className ?? ''}`} aria-hidden="true" />
   }
   const variante = media.sizes?.[taille]
-  const src = variante?.url || media.url
+  const src = cheminLocal(variante?.url || media.url)
   const width = variante?.width || media.width || 800
   const height = variante?.height || media.height || 600
   return (
