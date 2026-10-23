@@ -100,7 +100,7 @@ Le site tourne sur **https://adet-plateforme.vercel.app** (compte Vercel `minka3
 
 **Variables Vercel (production)** : `DATABASE_URL` (Neon, connexion *pooler*), `PAYLOAD_SECRET`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_INDEXATION=non`, `BLOB_READ_WRITE_TOKEN`. Copie locale privée des secrets : `~/.config/adet/production.env` (hors Git).
 
-**Déployer** (depuis `app/`) : `vercel deploy --prod`. La commande de build `pnpm build:prod` applique d'abord les migrations sur la base Neon.
+**Déployer** : automatique. Le projet Vercel est relié au dépôt GitHub (dossier racine `app`) : chaque `git push` sur `main` publie le site. Les autres branches ne sont pas déployées (`ignoreCommand` dans `app/vercel.json`), car elles n'ont pas accès à la base. La commande de build `pnpm build:prod` applique d'abord les migrations sur la base Neon. Déploiement manuel possible depuis la **racine du dépôt** (pas depuis `app/`, le dossier racine est déjà réglé) : `vercel deploy --prod`.
 
 **Ouvrir le site au public** : supprimer la variable `NEXT_PUBLIC_INDEXATION` dans Vercel (`vercel env rm NEXT_PUBLIC_INDEXATION production`), puis redéployer. Brancher ensuite le nom de domaine (Vercel → Domains) et mettre à jour `NEXT_PUBLIC_SITE_URL`.
 
