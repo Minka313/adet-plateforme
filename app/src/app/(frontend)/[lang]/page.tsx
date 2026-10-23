@@ -108,8 +108,8 @@ export default async function Accueil({ params }: { params: Promise<{ lang: Lang
           <TitreSection surtitre={d.accueil.imagesSurtitre} titre={d.accueil.imagesTitre} />
           <div className="mosaique" data-reveal>
             <PhotoSite emplacement="accueil1" lang={lang} className="mosaique__grande" sizes="(max-width: 800px) 100vw, 60vw" />
-            <PhotoSite emplacement="accueil2" lang={lang} sizes="(max-width: 800px) 100vw, 40vw" />
-            <PhotoSite emplacement="accueil3" lang={lang} sizes="(max-width: 800px) 100vw, 40vw" />
+            <PhotoSite emplacement="accueil2" lang={lang} sizes="(max-width: 800px) 50vw, 40vw" />
+            <PhotoSite emplacement="accueil3" lang={lang} sizes="(max-width: 800px) 50vw, 40vw" />
           </div>
         </div>
       </section>

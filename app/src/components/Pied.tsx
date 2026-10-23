@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { dico, lien, type Langue } from '@/i18n'
@@ -30,8 +31,7 @@ export async function Pied({ lang }: { lang: Langue }) {
         <Motif couleur="#fff" opacite={0.035} taille={64} />
         <div className="conteneur pied__grille">
           <div className="pied__marque">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/adet-logo-blanc.png" alt="ADET" width={150} height={95} loading="lazy" />
+            <Image src="/brand/adet-logo-blanc.png" alt="ADET" width={1251} height={795} sizes="150px" className="pied__logo" />
             <p className="pied__nom">{asso.nom}</p>
             <p className="pied__tagline">{d.pied.tagline}</p>
           </div>
