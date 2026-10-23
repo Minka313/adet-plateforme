@@ -130,6 +130,10 @@ Puis ouvrir `https://adet.sn/admin`, créer le premier compte (administrateur), 
 
 ## 9. Sauvegardes et restauration
 
+**Hébergement actuel (Neon)** : sauvegarde automatique chaque nuit à 2 h par le dépôt **privé** `Minka313/adet-sauvegardes` (GitHub Actions). La base est exportée, **restaurée à blanc pour vérification**, chiffrée (AES-256) et conservée 30 jours. En cas d'échec, GitHub prévient par e-mail. Restauration : `restaurer.sh` de ce dépôt, dans une base vide uniquement. La phrase de chiffrement est indispensable : la garder en lieu sûr.
+
+**Option VPS (Docker)** :
+
 - `deploy/sauvegarde.sh` : dump PostgreSQL + archive des fichiers, rotation 14 jours. À planifier : `0 3 * * * /…/deploy/sauvegarde.sh`.
 - **Copier régulièrement `deploy/sauvegardes/` hors du serveur** (autre machine, stockage objet).
 - `deploy/restauration.sh sauvegardes/base_….dump` : restauration (demande confirmation).
