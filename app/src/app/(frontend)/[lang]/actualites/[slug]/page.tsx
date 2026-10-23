@@ -54,6 +54,7 @@ export default async function Actualite({ params }: Props) {
         <div className="conteneur conteneur--texte">
           <div className="image-principale">
             <Visuel media={a.image} taille="large" priority sizes="(max-width: 800px) 100vw, 800px" />
+            {a.image && typeof a.image === 'object' && a.image.credit && <span className="photo-site__credit">{a.image.credit}</span>}
           </div>
         </div>
       )}

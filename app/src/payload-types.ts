@@ -69,6 +69,9 @@ export interface Config {
   collections: {
     territoires: Territoire;
     filieres: Filiere;
+    opportunites: Opportunite;
+    structures: Structure;
+    formations: Formation;
     realisations: Realisation;
     actualites: Actualite;
     partenaires: Partenaire;
@@ -88,6 +91,9 @@ export interface Config {
   collectionsSelect: {
     territoires: TerritoiresSelect<false> | TerritoiresSelect<true>;
     filieres: FilieresSelect<false> | FilieresSelect<true>;
+    opportunites: OpportunitesSelect<false> | OpportunitesSelect<true>;
+    structures: StructuresSelect<false> | StructuresSelect<true>;
+    formations: FormationsSelect<false> | FormationsSelect<true>;
     realisations: RealisationsSelect<false> | RealisationsSelect<true>;
     actualites: ActualitesSelect<false> | ActualitesSelect<true>;
     partenaires: PartenairesSelect<false> | PartenairesSelect<true>;
@@ -212,6 +218,7 @@ export interface Media {
    */
   alt: string;
   credit?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -302,6 +309,91 @@ export interface Filiere {
     | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * Financements, appels à projets, emplois… Chaque opportunité disparaît automatiquement du site après sa date limite.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "opportunites".
+ */
+export interface Opportunite {
+  id: number;
+  titre: string;
+  type: 'financement' | 'appel-a-projets' | 'emploi' | 'formation' | 'concours';
+  /**
+   * Après cette date, l’opportunité n’est plus affichée.
+   */
+  dateLimite: string;
+  resume: string;
+  /**
+   * Ex. : jeunes de 18 à 35 ans de la région de Kolda.
+   */
+  publicCible?: string | null;
+  structure?: (number | null) | Structure;
+  lien: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * Annuaire des structures qui financent, accompagnent, emploient ou forment. Affiché dans « Opportunités » (et « Se former » pour la formation).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "structures".
+ */
+export interface Structure {
+  id: number;
+  sigle?: string | null;
+  nom: string;
+  type: 'financement' | 'accompagnement' | 'emploi' | 'formation';
+  ordre?: number | null;
+  /**
+   * Ce que la structure propose, en langage simple.
+   */
+  description: string;
+  /**
+   * Antenne, actions récentes dans la région… Uniquement des informations vérifiées.
+   */
+  aKolda?: string | null;
+  /**
+   * Lien vers l’article ou le document.
+   */
+  source?: string | null;
+  siteWeb?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Le catalogue des formations proposées par l’ADET (axe 1 : renforcement de capacités).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "formations".
+ */
+export interface Formation {
+  id: number;
+  titre: string;
+  resume: string;
+  publicCible?: string | null;
+  /**
+   * Ex. : 3 jours
+   */
+  duree?: string | null;
+  lieu?: string | null;
+  /**
+   * Ex. : gratuit, 10 000 FCFA
+   */
+  cout?: string | null;
+  /**
+   * Laisser vide si aucune date n’est encore fixée.
+   */
+  prochaineSession?: string | null;
+  /**
+   * Affiche le bouton « S’inscrire » (formulaire de contact, objet Formations).
+   */
+  inscriptionsOuvertes?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * Projets et activités menés par l'ADET.
@@ -454,6 +546,7 @@ export interface Document {
   categorie?: ('rapport' | 'institutionnel' | 'etude' | 'plaquette') | null;
   annee?: number | null;
   description?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -567,6 +660,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'filieres';
         value: number | Filiere;
+      } | null)
+    | ({
+        relationTo: 'opportunites';
+        value: number | Opportunite;
+      } | null)
+    | ({
+        relationTo: 'structures';
+        value: number | Structure;
+      } | null)
+    | ({
+        relationTo: 'formations';
+        value: number | Formation;
       } | null)
     | ({
         relationTo: 'realisations';
@@ -716,6 +821,55 @@ export interface FilieresSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "opportunites_select".
+ */
+export interface OpportunitesSelect<T extends boolean = true> {
+  titre?: T;
+  type?: T;
+  dateLimite?: T;
+  resume?: T;
+  publicCible?: T;
+  structure?: T;
+  lien?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "structures_select".
+ */
+export interface StructuresSelect<T extends boolean = true> {
+  sigle?: T;
+  nom?: T;
+  type?: T;
+  ordre?: T;
+  description?: T;
+  aKolda?: T;
+  source?: T;
+  siteWeb?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "formations_select".
+ */
+export interface FormationsSelect<T extends boolean = true> {
+  titre?: T;
+  resume?: T;
+  publicCible?: T;
+  duree?: T;
+  lieu?: T;
+  cout?: T;
+  prochaineSession?: T;
+  inscriptionsOuvertes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "realisations_select".
  */
 export interface RealisationsSelect<T extends boolean = true> {
@@ -813,6 +967,7 @@ export interface DocumentsSelect<T extends boolean = true> {
   categorie?: T;
   annee?: T;
   description?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -832,6 +987,7 @@ export interface DocumentsSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   credit?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

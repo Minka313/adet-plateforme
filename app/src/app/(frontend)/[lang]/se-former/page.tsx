@@ -1,16 +1,64 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
-import { PageBientot } from '@/components/Bientot'
+import { EnTetePage, TitreSection } from '@/components/Blocs'
+import { CarteFormation, CarteStructure, EncadreVide } from '@/components/Opportunites'
+import { PhotoSite } from '@/components/PhotoSite'
 import { dico, lien, type Langue } from '@/i18n'
+import { getFormations, getStructures } from '@/lib/payload'
+
+export const revalidate = 60
 
 type Props = { params: Promise<{ lang: Langue }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang } = await params
-  return { title: dico(lang).bientot.formations.titre }
+  const d = dico(lang).formations
+  return { title: d.titre, description: d.intro }
 }
 
 export default async function SeFormer({ params }: Props) {
   const { lang } = await params
-  return <PageBientot lang={lang} rubrique={dico(lang).bientot.formations} lienHref={lien(lang, '/contact?objet=formation')} photo="formations" />
+  const d = dico(lang).formations
+  const [formations, structures] = await Promise.all([getFormations(lang), getStructures(lang)])
+  const organismes = structures.filter((s) => s.type === 'formation')
+
+  return (
+    <>
+      <EnTetePage surtitre={d.titre} titre={d.titre} intro={d.intro} />
+
+      <section className="section">
+        <div className="conteneur">
+          <PhotoSite emplacement="formations" lang={lang} className="bandeau-photo" sizes="(max-width: 1240px) 100vw, 1200px" priority />
+          <TitreSection titre={d.catalogueTitre} />
+          {formations.length ? (
+            <div className="grille-opportunites">
+              {formations.map((f, i) => (
+                <CarteFormation key={f.id} f={f} lang={lang} i={i} />
+              ))}
+            </div>
+          ) : (
+            <EncadreVide titre={d.catalogueVide} texte={d.catalogueVideTexte}>
+              <Link href={lien(lang, '/contact?objet=formation')} className="bouton bouton--or">
+                {d.besoinBouton}
+              </Link>
+            </EncadreVide>
+          )}
+        </div>
+      </section>
+
+      {!!organismes.length && (
+        <section className="section section--sable">
+          <div className="conteneur">
+            <TitreSection titre={d.financerTitre} intro={d.financerIntro} />
+            <div className="grille-structures">
+              {organismes.map((s, i) => (
+                <CarteStructure key={s.id} s={s} lang={lang} i={i} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+    </>
+  )
 }

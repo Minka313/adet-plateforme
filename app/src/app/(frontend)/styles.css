@@ -3270,3 +3270,119 @@ a:hover .lien-fleche svg {
     font-size: 0.7rem;
   }
 }
+
+/* ==========================================================================
+   Opportunités et formations
+   ========================================================================== */
+.grille-opportunites,
+.grille-structures {
+  display: grid;
+  gap: 1.2rem;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+}
+
+.opportunite,
+.structure {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.5rem;
+  border-radius: var(--rayon);
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+}
+
+.opportunite {
+  border-top: 3px solid var(--vert);
+}
+
+.opportunite h3,
+.structure h3 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+.opportunite p,
+.structure p {
+  margin: 0;
+  color: var(--texte-doux);
+}
+
+.opportunite .lien-fleche,
+.structure .lien-fleche,
+.opportunite .bouton {
+  margin-top: auto;
+  padding-top: 0.4rem;
+  align-self: flex-start;
+}
+
+.opportunite__type,
+.structure__sigle {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--vert);
+}
+
+.structure__sigle {
+  font-family: var(--police-t);
+  font-size: 1.5rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--nuit);
+}
+
+.opportunite__echeance {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--encre);
+}
+
+.opportunite__detail strong,
+.structure__kolda strong {
+  color: var(--encre);
+}
+
+.structure__kolda {
+  padding: 0.7rem 0.9rem;
+  border-radius: calc(var(--rayon) / 2);
+  background: var(--sable);
+  font-size: 0.92rem;
+}
+
+.structure__kolda a {
+  color: inherit;
+}
+
+.famille-structures + .famille-structures {
+  margin-top: 2.5rem;
+}
+
+.famille-structures__titre {
+  margin: 0 0 1rem;
+  font-size: 1.05rem;
+  font-family: var(--police);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--texte-doux);
+}
+
+.formation__infos {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem 1rem;
+  font-size: 0.92rem;
+}
+
+.formation__infos dt {
+  font-weight: 700;
+  color: var(--encre);
+}
+
+.formation__infos dd {
+  margin: 0;
+  color: var(--texte-doux);
+}

@@ -4,7 +4,9 @@
  */
 import { getPayload } from 'payload'
 
+import { chargerActualites } from './contenus/actualites'
 import { chargerKolda } from './contenus/kolda'
+import { chargerStructures } from './contenus/structures'
 import config from './payload.config'
 
 const payload = await getPayload({ config })
@@ -244,6 +246,8 @@ if (existants.totalDocs === 0) {
 }
 
 await chargerKolda(payload)
+await chargerStructures(payload)
+await chargerActualites(payload)
 
 payload.logger.info('Contenu du cadre stratégique chargé.')
 process.exit(0)

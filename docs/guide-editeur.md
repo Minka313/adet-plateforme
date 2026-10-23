@@ -48,6 +48,15 @@ Dans **Découvrir Kolda → Territoires** (la région et ses départements) et *
 - **Repères** : courtes lignes (arrondissements, marchés, sites…).
 - **Photo** : remplacez l'illustration par une photo de l'ADET quand vous en avez une, en indiquant le crédit.
 
+## Publier une opportunité
+**Opportunités et formations → Opportunités → Créer** : titre, type (financement, appel à projets, emploi…), **date limite** (obligatoire), description, public visé, structure qui la propose et lien pour postuler. **Publier**.
+- L'opportunité **disparaît toute seule du site le lendemain de sa date limite** : pas besoin de la supprimer.
+- Ne publiez que des opportunités vérifiées (source officielle), avec un lien qui fonctionne.
+- L'annuaire **Structures d'accompagnement** se complète de la même façon. N'indiquez la « présence à Kolda » que si elle est vérifiée, avec sa source.
+
+## Ajouter une formation de l'ADET
+**Opportunités et formations → Formations de l'ADET → Créer** : titre, objectifs, public, durée, lieu, coût, date de la prochaine session. Cochez **Inscriptions ouvertes** pour afficher le bouton « S'inscrire » (il mène au formulaire de contact, objet « Formations »).
+
 ## Traiter un message
 1. **Messages reçus** → ouvrez le message.
 2. Répondez par e-mail ou téléphone.

@@ -60,6 +60,7 @@ export default async function Realisation({ params }: Props) {
       <div className="conteneur">
         <div className="image-principale">
           <Visuel media={r.image} axe={r.axe} taille="large" priority sizes="(max-width: 1200px) 100vw, 1200px" />
+          {r.image && typeof r.image === 'object' && r.image.credit && <span className="photo-site__credit">{r.image.credit}</span>}
         </div>
       </div>
 
