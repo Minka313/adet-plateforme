@@ -1,7 +1,7 @@
 {
   "name": "adet-plateforme",
   "version": "1.0.0",
-  "description": "Plateforme web de l'ADET \u2013 Kolda",
+  "description": "Plateforme web de l'ADET – Kolda",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -24,6 +24,7 @@
     "@payloadcms/next": "3.91.0",
     "@payloadcms/richtext-lexical": "3.91.0",
     "@payloadcms/storage-s3": "3.91.0",
+    "@payloadcms/storage-vercel-blob": "3.91.0",
     "@payloadcms/translations": "3.91.0",
     "@payloadcms/ui": "3.91.0",
     "cross-env": "^7.0.3",

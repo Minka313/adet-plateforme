@@ -1,0 +1,6 @@
+node_modules
+.next
+media
+.env*
+tests
+tsconfig.tsbuildinfo

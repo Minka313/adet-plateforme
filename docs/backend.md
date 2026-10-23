@@ -88,7 +88,30 @@ Voir `app/.env.example` (développement) et `deploy/.env.example` (production). 
   3. Au déploiement, `pnpm build:prod` applique les migrations **avant** le build (une seule fois) ; le serveur les applique aussi au démarrage si besoin (`prodMigrations`).
 - ⚠️ Ne jamais lancer `pnpm migrate` sur une base de **développement** (créée en mode `push`) : Payload pose alors une question interactive. Les bases de production, de CI et de build doivent naître vierges et n'évoluer que par migrations.
 
-## 8. Mise en production (VPS Linux avec Docker)
+## 8. Hébergement actuel : Vercel + Neon (prévisualisation)
+
+Le site tourne sur **https://adet-plateforme.vercel.app** (compte Vercel `minka313`, projet `adet-plateforme`), en **prévisualisation** : en ligne et partageable, mais caché des moteurs de recherche.
+
+| Élément | Service |
+|---|---|
+| Site + back-office + API | Vercel, région Londres (`lhr1`), voir `app/vercel.json` |
+| Base PostgreSQL | Neon, projet `adet-plateforme` (`noisy-bonus-72054032`), branche `production`, région `aws-eu-west-2` |
+| Photos et documents | Vercel Blob, magasin `adet-medias` (variable `BLOB_READ_WRITE_TOKEN`, ajoutée automatiquement) |
+
+**Variables Vercel (production)** : `DATABASE_URL` (Neon, connexion *pooler*), `PAYLOAD_SECRET`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_INDEXATION=non`, `BLOB_READ_WRITE_TOKEN`. Copie locale privée des secrets : `~/.config/adet/production.env` (hors Git).
+
+**Déployer** (depuis `app/`) : `vercel deploy --prod`. La commande de build `pnpm build:prod` applique d'abord les migrations sur la base Neon.
+
+**Ouvrir le site au public** : supprimer la variable `NEXT_PUBLIC_INDEXATION` dans Vercel (`vercel env rm NEXT_PUBLIC_INDEXATION production`), puis redéployer. Brancher ensuite le nom de domaine (Vercel → Domains) et mettre à jour `NEXT_PUBLIC_SITE_URL`.
+
+**Charger le contenu de départ** dans la base de production (depuis `app/`, avec les variables de production et `NODE_ENV=production`, pour ne jamais modifier le schéma hors migrations) : `pnpm seed`.
+
+**Premier administrateur** : `ADMIN_EMAIL=… ADMIN_PASSWORD=… pnpm payload run scripts/creer-admin.ts` avec les variables de production. Toujours le faire **juste après** la création d'une base : sinon, le premier visiteur de `/admin` deviendrait administrateur.
+
+⚠️ **Migrations et Vercel Blob** : l'adaptateur Blob ajoute une colonne `_objectkey` aux tables `media` et `documents`. Créez toujours les migrations avec une valeur factice pour que l'état de référence l'inclue :
+`BLOB_READ_WRITE_TOKEN=vercel_blob_rw_factice_000 pnpm payload migrate:create nom-du-changement`
+
+## 8 bis. Autre option : serveur VPS avec Docker
 
 Prérequis : un serveur (2 vCPU / 4 Go conseillés), un nom de domaine pointant vers son IP (enregistrements A pour `adet.sn` et `www`), Docker installé.
 

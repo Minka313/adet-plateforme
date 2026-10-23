@@ -14,10 +14,13 @@ const ENTETES_SECURITE = [
   ...(process.env.NODE_ENV === 'production'
     ? [{ key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains' }]
     : []),
+  // Prévisualisation : aucune page indexée tant que le site n'est pas ouvert au public
+  ...(process.env.NEXT_PUBLIC_INDEXATION === 'non' ? [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] : []),
 ]
 
 const nextConfig: NextConfig = {
-  output: 'standalone',
+  // « standalone » pour l'image Docker ; Vercel a son propre format de sortie (incompatible)
+  output: process.env.VERCEL ? undefined : 'standalone',
   poweredByHeader: false,
   async headers() {
     return [{ source: '/:chemin*', headers: ENTETES_SECURITE }]

@@ -8,6 +8,9 @@ Plateforme web de l'**Association pour la promotion du Développement Économiqu
 - **Backend (architecture, sécurité, déploiement, sauvegardes)** : [`docs/backend.md`](docs/backend.md)
 - **Guide de l'éditeur (équipe ADET)** : [`docs/guide-editeur.md`](docs/guide-editeur.md)
 
+## En ligne
+Prévisualisation (cachée des moteurs de recherche) : **https://adet-plateforme.vercel.app** · back-office : `/admin`. Hébergement Vercel + Neon + Vercel Blob, voir [`docs/backend.md`](docs/backend.md) § 8.
+
 ## Stack
 Next.js (App Router) avec Payload CMS 3 (back-office `/admin` en français) et PostgreSQL.
 

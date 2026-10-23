@@ -1,6 +1,7 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { s3Storage } from '@payloadcms/storage-s3'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -109,8 +110,16 @@ export default buildConfig({
   ],
   sharp,
   plugins: [
-    // Médias et documents dans un stockage objet (S3, Cloudflare R2, Scaleway…) si configuré ;
+    // Médias et documents : Vercel Blob (hébergement Vercel) ou stockage S3 (R2, Scaleway…) si configuré ;
     // sinon fichiers locaux (dossiers media/ et documents/)
+    ...(process.env.BLOB_READ_WRITE_TOKEN
+      ? [
+          vercelBlobStorage({
+            collections: { media: true, documents: true },
+            token: process.env.BLOB_READ_WRITE_TOKEN,
+          }),
+        ]
+      : []),
     ...(process.env.S3_BUCKET
       ? [
           s3Storage({

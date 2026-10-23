@@ -33,6 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     manifest: '/manifest.webmanifest',
     alternates: { canonical: `/${lang}`, languages: { fr: '/fr', en: '/en', 'x-default': '/fr' } },
     openGraph: { siteName: 'ADET', locale: lang === 'fr' ? 'fr_SN' : 'en_GB', type: 'website' },
+    ...(process.env.NEXT_PUBLIC_INDEXATION === 'non' && { robots: { index: false, follow: false } }),
   }
 }
 
