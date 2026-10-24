@@ -36,6 +36,17 @@ export const Users: CollectionConfig = {
     },
     delete: adminOnly,
   },
+  hooks: {
+    // Le tout premier compte d'une installation devient administrateur ; les suivants sont éditeurs par défaut
+    beforeChange: [
+      async ({ data, operation, req }) => {
+        if (operation !== 'create') return data
+        const { totalDocs } = await req.payload.count({ collection: 'users', overrideAccess: true })
+        if (totalDocs === 0) return { ...data, roles: ['admin'] }
+        return data
+      },
+    ],
+  },
   fields: [
     { name: 'nom', type: 'text', label: 'Nom complet' },
     {
@@ -43,7 +54,8 @@ export const Users: CollectionConfig = {
       type: 'select',
       label: 'Rôles',
       hasMany: true,
-      defaultValue: ['admin'],
+      // Moindre privilège : un nouveau compte est éditeur, sauf choix explicite d'un administrateur
+      defaultValue: ['editeur'],
       saveToJWT: true,
       options: [
         { label: 'Administrateur', value: 'admin' },

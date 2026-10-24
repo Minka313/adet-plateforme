@@ -54,6 +54,17 @@ describe('Droits d’accès du public (non connecté)', () => {
 })
 
 describe('Rôles du back-office', () => {
+  it('un compte créé sans rôle précisé est éditeur, pas administrateur', async () => {
+    const admin = (await payload.find({ collection: 'users', where: { email: { equals: 'admin@test.sn' } }, overrideAccess: true })).docs[0]
+    const cree = await payload.create({
+      collection: 'users',
+      data: { email: 'nouveau@test.sn', password: 'MotDePasse-123' },
+      user: admin,
+      overrideAccess: false,
+    })
+    expect(cree.roles).toEqual(['editeur'])
+  })
+
   it('un éditeur ne peut pas s’attribuer le rôle administrateur', async () => {
     const editeur = await payload.create({
       collection: 'users',
