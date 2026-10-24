@@ -5,11 +5,12 @@ Ce guide s'adresse aux membres de l'ADET qui publient sur le site. Aucune compé
 ## Se connecter
 1. Ouvrez **adresse-du-site/admin** (ou cliquez sur « Espace membres » en bas du site).
 2. Saisissez votre e-mail et votre mot de passe.
-   - Après **5 erreurs**, le compte est bloqué 15 minutes : patientez puis réessayez, ou utilisez « Mot de passe oublié ».
+   - Après **5 erreurs**, le compte est bloqué 15 minutes : patientez puis réessayez.
+   - Mot de passe perdu : demandez à l'administrateur du site de le réinitialiser (**Administration → Utilisateurs**). Le lien « Mot de passe oublié » n'enverra un e-mail qu'une fois l'envoi d'e-mails configuré.
 
 ## Le tableau de bord
 Dès la connexion, vous voyez :
-- **Messages à traiter** (en jaune s'il y en a) : les demandes reçues via le formulaire de contact. Une copie arrive aussi par e-mail.
+- **Messages à traiter** (en jaune s'il y en a) : les demandes reçues via le formulaire de contact. Une copie arrivera aussi par e-mail une fois l'envoi d'e-mails configuré ; d'ici là, consultez cette rubrique régulièrement.
 - **Brouillons en attente** : contenus pas encore publiés.
 - Des **raccourcis** : nouvelle actualité, nouvelle réalisation, export des abonnés, voir le site…
 
