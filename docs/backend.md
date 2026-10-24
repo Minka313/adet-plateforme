@@ -141,8 +141,11 @@ Puis ouvrir `https://adet.sn/admin`, créer le premier compte (administrateur), 
 
 ## 10. Supervision
 
-- `GET /api/sante` → `200 {"statut":"ok"}` ou `503` si la base est injoignable. À brancher sur un service de surveillance gratuit (UptimeRobot, Better Stack…) avec alerte e-mail/SMS.
-- Journaux : `docker compose -f docker-compose.prod.yml logs -f app`.
+- **Disponibilité** : Sentry (organisation `minka`, projet `adet-plateforme`) appelle `GET /api/sante` toutes les 5 minutes. Deux échecs de suite (base injoignable ou site arrêté) ouvrent un problème et déclenchent un e-mail.
+- **Erreurs serveur** : `src/instrumentation.ts` (`onRequestError` de Next) transmet chaque erreur serveur à Sentry via `src/lib/sentry.ts`, **sans SDK** (aucune dépendance, aucun poids ajouté aux pages). Seul le chemin de la page est envoyé : ni en-têtes, ni cookies, ni adresse IP. Actif uniquement si la variable `SENTRY_DSN` est définie (production).
+- Le navigateur n'embarque pas Sentry (choix volontaire : environ 40 Ko de JavaScript en moins sur chaque page, pour les connexions 3G).
+- Journaux : tableau de bord Vercel → projet `adet-plateforme` → Logs.
+- **Vitesse** : workflow « Mesure de vitesse (mobile) » du dépôt privé `adet-sauvegardes` (Lighthouse, à lancer à la demande). Note : le score SEO est pénalisé tant que le site est en prévisualisation (`noindex`), et l'audit « redirections » est un artefact de la protection anti-robots de Vercel face aux serveurs de GitHub.
 
 ## 11. Qualité
 
