@@ -5,7 +5,7 @@ import { EnTetePage, TitreSection } from '@/components/Blocs'
 import { CarteFormation, CarteStructure, EncadreVide } from '@/components/Opportunites'
 import { PhotoSite } from '@/components/PhotoSite'
 import { dico, lien, type Langue } from '@/i18n'
-import { getFormations, getStructures } from '@/lib/payload'
+import { getFormations, getSessionsAVenir, getStructures } from '@/lib/payload'
 
 export const revalidate = 60
 
@@ -20,8 +20,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function SeFormer({ params }: Props) {
   const { lang } = await params
   const d = dico(lang).formations
-  const [formations, structures] = await Promise.all([getFormations(lang), getStructures(lang)])
+  const [catalogue, sessions, structures] = await Promise.all([getFormations(lang), getSessionsAVenir(lang), getStructures(lang)])
   const organismes = structures.filter((s) => s.type === 'formation')
+  const sessionsDe = (id: number) => sessions.filter((s) => s.formation === id)
+  // Les formations qui ont une session à venir d'abord, de la plus proche à la plus lointaine
+  const rang = (id: number) => {
+    const i = sessions.findIndex((s) => s.formation === id)
+    return i === -1 ? sessions.length : i
+  }
+  const formations = [...catalogue].sort((a, b) => rang(a.id) - rang(b.id))
 
   return (
     <>
@@ -34,7 +41,7 @@ export default async function SeFormer({ params }: Props) {
           {formations.length ? (
             <div className="grille-opportunites">
               {formations.map((f, i) => (
-                <CarteFormation key={f.id} f={f} lang={lang} i={i} />
+                <CarteFormation key={f.id} f={f} sessions={sessionsDe(f.id)} lang={lang} i={i} />
               ))}
             </div>
           ) : (

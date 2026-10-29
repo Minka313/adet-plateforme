@@ -3,6 +3,7 @@ import * as migration_20261022_074418_photos_du_site from './20261022_074418_pho
 import * as migration_20261022_083130_decouvrir_kolda from './20261022_083130_decouvrir_kolda';
 import * as migration_20261023_061446_stockage_vercel_blob from './20261023_061446_stockage_vercel_blob';
 import * as migration_20261023_164152_opportunites_formations from './20261023_164152_opportunites_formations';
+import * as migration_20261029_055059_formations_sessions_inscriptions from './20261029_055059_formations_sessions_inscriptions';
 
 export const migrations = [
   {
@@ -28,6 +29,11 @@ export const migrations = [
   {
     up: migration_20261023_164152_opportunites_formations.up,
     down: migration_20261023_164152_opportunites_formations.down,
-    name: '20261023_164152_opportunites_formations'
+    name: '20261023_164152_opportunites_formations',
+  },
+  {
+    up: migration_20261029_055059_formations_sessions_inscriptions.up,
+    down: migration_20261029_055059_formations_sessions_inscriptions.down,
+    name: '20261029_055059_formations_sessions_inscriptions'
   },
 ];

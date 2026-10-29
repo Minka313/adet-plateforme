@@ -56,7 +56,16 @@ Dans **Découvrir Kolda → Territoires** (la région et ses départements) et *
 - L'annuaire **Structures d'accompagnement** se complète de la même façon. N'indiquez la « présence à Kolda » que si elle est vérifiée, avec sa source.
 
 ## Ajouter une formation de l'ADET
-**Opportunités et formations → Formations de l'ADET → Créer** : titre, objectifs, public, durée, lieu, coût, date de la prochaine session. Cochez **Inscriptions ouvertes** pour afficher le bouton « S'inscrire » (il mène au formulaire de contact, objet « Formations »).
+1. **Opportunités et formations → Formations de l'ADET → Créer** : titre, objectifs, public, durée, lieu, coût. **Publier**. La formation apparaît dans le catalogue avec la mention « date à venir ».
+2. **Sessions de formation → Créer** : choisissez la formation, puis la **date de début** (obligatoire), la date de fin, le lieu et le **nombre de places** (laisser vide si illimité). Une date limite d'inscription est possible ; sinon on peut s'inscrire jusqu'à la veille. Enregistrez : la session s'affiche sur la carte de la formation avec un bouton **S'inscrire**.
+3. Une session passée disparaît d'elle-même. Pour fermer les inscriptions plus tôt, décochez **Inscriptions ouvertes**.
+
+## Traiter les inscriptions
+- Chaque demande arrive dans **Inscriptions aux formations** (et sur le tableau de bord, en jaune). Une copie arrivera aussi par e-mail une fois l'envoi d'e-mails configuré.
+- Appelez la personne, puis changez son **statut** : *Confirmée*, *Liste d'attente* ou *Annulée*. Une inscription annulée libère sa place : la session se rouvre si elle était complète.
+- Dans la fiche d'une session, la rubrique **Inscriptions reçues** liste les inscrits de cette session.
+- Liste à imprimer ou à ouvrir dans Excel : raccourci **Exporter les inscriptions (CSV)** du tableau de bord, ou `/api/inscriptions/export?session=NUMÉRO` pour une seule session (le numéro figure dans l'adresse de la fiche).
+- Le sexe et l'âge, facultatifs, servent au suivi des femmes et des jeunes formés (pôle Suivi et Évaluation).
 
 ## Traiter un message
 1. **Messages reçus** → ouvrez le message.

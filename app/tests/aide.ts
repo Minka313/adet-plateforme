@@ -11,7 +11,7 @@ export const payloadTest = async (): Promise<Payload> => {
 }
 
 export const vider = async (payload: Payload) => {
-  for (const collection of ['messages', 'abonnes', 'realisations', 'actualites', 'territoires', 'filieres', 'opportunites', 'structures', 'formations', 'users'] as const) {
+  for (const collection of ['messages', 'abonnes', 'realisations', 'actualites', 'territoires', 'filieres', 'opportunites', 'structures', 'inscriptions', 'sessions', 'formations', 'users'] as const) {
     await payload.delete({ collection, where: { id: { exists: true } }, overrideAccess: true, context: { sansRegeneration: true } })
   }
 }

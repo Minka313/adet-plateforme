@@ -2,8 +2,10 @@ import { getPayload } from 'payload'
 import { cache } from 'react'
 
 import type { Langue } from '@/i18n/config'
+import type { Session } from '@/payload-types'
 import config from '@/payload.config'
 
+import { etatSession, filtreInscriptionsActives, filtreSessionsAVenir } from './formations'
 import { filtreOpportunitesEnCours } from './opportunites'
 
 export const getPayloadClient = cache(async () => getPayload({ config }))
@@ -60,11 +62,53 @@ export const getFormations = cache(async (lang: Langue) => {
   const { docs } = await payload.find({
     collection: 'formations',
     where: { _status: { equals: 'published' } },
-    sort: 'prochaineSession',
+    sort: 'titre',
     limit: 100,
     ...loc(lang),
   })
   return docs
+})
+
+/** Ajoute à une session le nombre de places restantes et l'état des inscriptions */
+const avecPlaces = async (session: Session) => {
+  const payload = await getPayloadClient()
+  const { totalDocs } = await payload.count({ collection: 'inscriptions', where: filtreInscriptionsActives(session.id), overrideAccess: true })
+  return {
+    ...session,
+    restantes: session.places ? Math.max(session.places - totalDocs, 0) : null,
+    etat: etatSession(session, totalDocs),
+  }
+}
+
+export type SessionAffichee = Awaited<ReturnType<typeof avecPlaces>>
+
+/** Sessions à venir des formations publiées, de la plus proche à la plus lointaine */
+export const getSessionsAVenir = cache(async (lang: Langue) => {
+  const payload = await getPayloadClient()
+  const { docs } = await payload.find({
+    collection: 'sessions',
+    where: filtreSessionsAVenir(),
+    sort: 'dateDebut',
+    limit: 200,
+    depth: 0,
+    ...loc(lang),
+  })
+  return Promise.all(docs.map(avecPlaces))
+})
+
+/** Une session à venir et sa formation publiée, ou null */
+export const getSessionAVenir = cache(async (id: number, lang: Langue) => {
+  const payload = await getPayloadClient()
+  const { docs } = await payload.find({
+    collection: 'sessions',
+    where: { and: [{ id: { equals: id } }, filtreSessionsAVenir()] },
+    limit: 1,
+    depth: 1,
+    ...loc(lang),
+  })
+  const session = docs[0]
+  if (!session || typeof session.formation !== 'object') return null
+  return { ...(await avecPlaces(session)), formation: session.formation }
 })
 
 /** Options communes de lecture localisée */
