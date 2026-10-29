@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
+import { empecherSiLie } from '../hooks/empecherSuppression'
 import { hooksRegeneration } from '../hooks/revalider'
 
 import { loggedIn, publishedOrLoggedIn } from '../access'
@@ -10,13 +11,16 @@ export const Formations: CollectionConfig = {
   admin: {
     group: 'Opportunités et formations',
     useAsTitle: 'titre',
-    defaultColumns: ['titre', 'prochaineSession', '_status'],
+    defaultColumns: ['titre', '_status', 'updatedAt'],
     description: 'Le catalogue des formations proposées par l’ADET (axe 1 : renforcement de capacités).',
   },
   versions: { drafts: true },
-  hooks: hooksRegeneration,
+  hooks: {
+    ...hooksRegeneration,
+    beforeDelete: [empecherSiLie('sessions', 'formation', 'Cette formation a des sessions. Supprimez d’abord ses sessions, ou repassez-la en brouillon pour la retirer du site.')],
+  },
   access: { read: publishedOrLoggedIn, create: loggedIn, update: loggedIn, delete: loggedIn },
-  defaultSort: 'prochaineSession',
+  defaultSort: 'titre',
   fields: [
     { name: 'titre', type: 'text', localized: true, required: true },
     { name: 'resume', type: 'textarea', localized: true, label: 'Objectifs', required: true, maxLength: 500 },
@@ -35,17 +39,12 @@ export const Formations: CollectionConfig = {
       ],
     },
     {
-      name: 'prochaineSession',
-      type: 'date',
-      label: 'Prochaine session',
-      admin: { date: { displayFormat: 'd MMMM yyyy' }, description: 'Laisser vide si aucune date n’est encore fixée.' },
-    },
-    {
-      name: 'inscriptionsOuvertes',
-      type: 'checkbox',
-      label: 'Inscriptions ouvertes',
-      defaultValue: false,
-      admin: { description: 'Affiche le bouton « S’inscrire » (formulaire de contact, objet Formations).' },
+      name: 'sessions',
+      type: 'join',
+      collection: 'sessions',
+      on: 'formation',
+      label: 'Sessions',
+      admin: { description: 'Les dates de cette formation. Ajoutez-en depuis « Sessions de formation ».', defaultColumns: ['dateDebut', 'lieu', 'places', 'inscriptionsOuvertes'] },
     },
   ],
 }

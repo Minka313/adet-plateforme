@@ -2,7 +2,8 @@ import Link from 'next/link'
 
 import type { Formation, Opportunite, Structure } from '@/payload-types'
 import { dico, lien, type Langue } from '@/i18n'
-import { formatDate } from '@/lib/format'
+import { datesSession, formatDate, placesRestantes } from '@/lib/format'
+import type { SessionAffichee } from '@/lib/payload'
 
 import { Etoiles } from './ui/Etoiles'
 import { Icone } from './ui/Icone'
@@ -73,7 +74,7 @@ export function CarteStructure({ s, lang, i = 0 }: { s: Structure; lang: Langue;
   )
 }
 
-export function CarteFormation({ f, lang, i = 0 }: { f: Formation; lang: Langue; i?: number }) {
+export function CarteFormation({ f, sessions, lang, i = 0 }: { f: Formation; sessions: SessionAffichee[]; lang: Langue; i?: number }) {
   const d = dico(lang).formations
   const infos = [
     [d.public, f.publicCible],
@@ -83,9 +84,6 @@ export function CarteFormation({ f, lang, i = 0 }: { f: Formation; lang: Langue;
   ].filter(([, v]) => v)
   return (
     <article className="opportunite" data-reveal style={{ ['--i' as string]: i % 3 }}>
-      <p className="opportunite__type">
-        {d.prochaineSession} : {f.prochaineSession ? formatDate(f.prochaineSession, lang) : d.dateAVenir}
-      </p>
       <h3>{f.titre}</h3>
       <p>{f.resume}</p>
       {!!infos.length && (
@@ -98,10 +96,34 @@ export function CarteFormation({ f, lang, i = 0 }: { f: Formation; lang: Langue;
           ))}
         </dl>
       )}
-      {f.inscriptionsOuvertes && (
-        <Link href={lien(lang, '/contact?objet=formation')} className="bouton bouton--or bouton--petit">
-          {d.inscrire}
-        </Link>
+      {sessions.length ? (
+        <div className="sessions">
+          <p className="opportunite__type">{d.sessionsTitre}</p>
+          <ul>
+            {sessions.map((s) => (
+              <li key={s.id} className="session">
+                <p className="session__quand">
+                  <Icone nom="calendrier" taille={16} /> <strong>{datesSession(s.dateDebut, s.dateFin, lang)}</strong>
+                  {s.lieu && <span> · {s.lieu}</span>}
+                </p>
+                {s.etat === 'ouverte' ? (
+                  <p className="session__action">
+                    {s.restantes !== null && <span className="session__places">{placesRestantes(s.restantes, d)}</span>}
+                    <Link href={lien(lang, `/se-former/inscription/${s.id}`)} className="bouton bouton--or bouton--petit">
+                      {d.inscrire}
+                    </Link>
+                  </p>
+                ) : (
+                  <p className="session__action">
+                    <span className="session__etat">{s.etat === 'complete' ? d.complet : d.fermee}</span>
+                  </p>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <p className="opportunite__type">{d.dateAVenir}</p>
       )}
     </article>
   )

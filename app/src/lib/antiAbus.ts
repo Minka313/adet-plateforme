@@ -21,7 +21,7 @@ export const empreinteVisiteur = async (): Promise<string> => {
 /** Vrai si cette empreinte a déjà envoyé `max` éléments dans la fenêtre donnée. */
 export const tropDeRequetes = async (
   payload: Payload,
-  collection: 'messages' | 'abonnes',
+  collection: 'messages' | 'abonnes' | 'inscriptions',
   empreinte: string,
   { max = 3, minutes = 10 } = {},
 ): Promise<boolean> => {
