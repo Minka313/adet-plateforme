@@ -8,15 +8,15 @@ import type { ServerProps } from 'payload'
 export default async function TableauDeBord({ payload, user }: ServerProps) {
   const brouillon = { _status: { equals: 'draft' } } as const
   const publie = { _status: { equals: 'published' } } as const
-  const [aTraiter, derniers, rBrouillons, aBrouillons, rPubliees, aPubliees, abonnes, partenaires] = await Promise.all([
+  const [aTraiter, derniers, inscriptions, rBrouillons, aBrouillons, rPubliees, aPubliees, abonnes] = await Promise.all([
     payload.count({ collection: 'messages', where: { traite: { not_equals: true } } }),
     payload.find({ collection: 'messages', where: { traite: { not_equals: true } }, limit: 4, depth: 0, sort: '-createdAt' }),
+    payload.count({ collection: 'inscriptions', where: { statut: { equals: 'recue' } } }),
     payload.count({ collection: 'realisations', where: brouillon }),
     payload.count({ collection: 'actualites', where: brouillon }),
     payload.count({ collection: 'realisations', where: publie }),
     payload.count({ collection: 'actualites', where: publie }),
     payload.count({ collection: 'abonnes', where: { actif: { equals: true } } }),
-    payload.count({ collection: 'partenaires' }),
   ])
   const prenom = (user as { nom?: string | null } | undefined)?.nom?.split(' ')[0]
   const heure = new Date().getHours()
@@ -26,16 +26,17 @@ export default async function TableauDeBord({ payload, user }: ServerProps) {
     { valeur: rBrouillons.totalDocs + aBrouillons.totalDocs, libelle: 'brouillons en attente', href: '/admin/collections/actualites?where[_status][equals]=draft', alerte: false },
     { valeur: rPubliees.totalDocs, libelle: 'réalisations publiées', href: '/admin/collections/realisations' },
     { valeur: aPubliees.totalDocs, libelle: 'actualités publiées', href: '/admin/collections/actualites' },
-    { valeur: partenaires.totalDocs, libelle: 'partenaires', href: '/admin/collections/partenaires' },
+    { valeur: inscriptions.totalDocs, libelle: 'inscriptions à traiter', href: '/admin/collections/inscriptions?where[statut][equals]=recue', alerte: inscriptions.totalDocs > 0 },
     { valeur: abonnes.totalDocs, libelle: 'abonnés newsletter', href: '/admin/collections/abonnes' },
   ]
 
   const raccourcis = [
     { href: '/admin/collections/actualites/create', libelle: '＋ Nouvelle actualité' },
     { href: '/admin/collections/realisations/create', libelle: '＋ Nouvelle réalisation' },
-    { href: '/admin/collections/partenaires/create', libelle: '＋ Nouveau partenaire' },
+    { href: '/admin/collections/sessions/create', libelle: '＋ Nouvelle session de formation' },
     { href: '/admin/globals/association', libelle: 'Modifier la présentation' },
     { href: '/api/abonnes/export', libelle: '⬇ Exporter les abonnés (CSV)' },
+    { href: '/api/inscriptions/export', libelle: '⬇ Exporter les inscriptions (CSV)' },
     { href: '/fr', libelle: '↗ Voir le site' },
   ]
 

@@ -72,6 +72,8 @@ export interface Config {
     opportunites: Opportunite;
     structures: Structure;
     formations: Formation;
+    sessions: Session;
+    inscriptions: Inscription;
     realisations: Realisation;
     actualites: Actualite;
     partenaires: Partenaire;
@@ -87,13 +89,22 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  collectionsJoins: {};
+  collectionsJoins: {
+    formations: {
+      sessions: 'sessions';
+    };
+    sessions: {
+      inscrits: 'inscriptions';
+    };
+  };
   collectionsSelect: {
     territoires: TerritoiresSelect<false> | TerritoiresSelect<true>;
     filieres: FilieresSelect<false> | FilieresSelect<true>;
     opportunites: OpportunitesSelect<false> | OpportunitesSelect<true>;
     structures: StructuresSelect<false> | StructuresSelect<true>;
     formations: FormationsSelect<false> | FormationsSelect<true>;
+    sessions: SessionsSelect<false> | SessionsSelect<true>;
+    inscriptions: InscriptionsSelect<false> | InscriptionsSelect<true>;
     realisations: RealisationsSelect<false> | RealisationsSelect<true>;
     actualites: ActualitesSelect<false> | ActualitesSelect<true>;
     partenaires: PartenairesSelect<false> | PartenairesSelect<true>;
@@ -384,16 +395,83 @@ export interface Formation {
    */
   cout?: string | null;
   /**
-   * Laisser vide si aucune date n’est encore fixée.
+   * Les dates de cette formation. Ajoutez-en depuis « Sessions de formation ».
    */
-  prochaineSession?: string | null;
-  /**
-   * Affiche le bouton « S’inscrire » (formulaire de contact, objet Formations).
-   */
-  inscriptionsOuvertes?: boolean | null;
+  sessions?: {
+    docs?: (number | Session)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * Les dates de chaque formation. Une session passée disparaît du site ; les inscriptions se ferment seules quand les places sont prises.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sessions".
+ */
+export interface Session {
+  id: number;
+  titre?: string | null;
+  formation: number | Formation;
+  dateDebut: string;
+  /**
+   * Laisser vide pour une formation d’une journée.
+   */
+  dateFin?: string | null;
+  /**
+   * Ex. : salle de la mairie, Vélingara
+   */
+  lieu?: string | null;
+  /**
+   * Laisser vide si le nombre n’est pas limité.
+   */
+  places?: number | null;
+  /**
+   * Facultatif. Par défaut, les inscriptions restent possibles jusqu’à la veille du début.
+   */
+  dateLimiteInscription?: string | null;
+  /**
+   * Décocher pour fermer les inscriptions en ligne de cette session.
+   */
+  inscriptionsOuvertes?: boolean | null;
+  inscrits?: {
+    docs?: (number | Inscription)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Demandes d’inscription reçues depuis le site. Appelez ou écrivez à la personne, puis changez son statut. Une inscription annulée libère sa place.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inscriptions".
+ */
+export interface Inscription {
+  id: number;
+  session: number | Session;
+  nom: string;
+  telephone: string;
+  email?: string | null;
+  commune?: string | null;
+  /**
+   * Facultatif : sert au suivi des femmes formées.
+   */
+  sexe?: ('femme' | 'homme') | null;
+  /**
+   * Facultatif : sert au suivi des jeunes formés.
+   */
+  age?: number | null;
+  motivation?: string | null;
+  statut: 'recue' | 'confirmee' | 'attente' | 'annulee';
+  langue?: ('fr' | 'en') | null;
+  empreinte?: string | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * Projets et activités menés par l'ADET.
@@ -674,6 +752,14 @@ export interface PayloadLockedDocument {
         value: number | Formation;
       } | null)
     | ({
+        relationTo: 'sessions';
+        value: number | Session;
+      } | null)
+    | ({
+        relationTo: 'inscriptions';
+        value: number | Inscription;
+      } | null)
+    | ({
         relationTo: 'realisations';
         value: number | Realisation;
       } | null)
@@ -862,11 +948,46 @@ export interface FormationsSelect<T extends boolean = true> {
   duree?: T;
   lieu?: T;
   cout?: T;
-  prochaineSession?: T;
-  inscriptionsOuvertes?: T;
+  sessions?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sessions_select".
+ */
+export interface SessionsSelect<T extends boolean = true> {
+  titre?: T;
+  formation?: T;
+  dateDebut?: T;
+  dateFin?: T;
+  lieu?: T;
+  places?: T;
+  dateLimiteInscription?: T;
+  inscriptionsOuvertes?: T;
+  inscrits?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inscriptions_select".
+ */
+export interface InscriptionsSelect<T extends boolean = true> {
+  session?: T;
+  nom?: T;
+  telephone?: T;
+  email?: T;
+  commune?: T;
+  sexe?: T;
+  age?: T;
+  motivation?: T;
+  statut?: T;
+  langue?: T;
+  empreinte?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

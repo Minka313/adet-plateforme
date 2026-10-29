@@ -21,3 +21,14 @@ export const telHref = (numero: string): string => {
   const chiffres = numero.replace(/\D/g, '')
   return `tel:+${chiffres.startsWith('221') ? chiffres : `221${chiffres}`}`
 }
+
+/** « 12 mars 2027 » ou « 12 mars 2027 – 14 mars 2027 » */
+export const datesSession = (debut: string, fin: string | null | undefined, lang: Langue): string => {
+  const d = formatDate(debut, lang)
+  const f = fin ? formatDate(fin, lang) : ''
+  return f && f !== d ? `${d} – ${f}` : d
+}
+
+/** « 3 places restantes », « 1 place restante » */
+export const placesRestantes = (n: number, t: { placesRestantes: string; placeRestante: string }): string =>
+  n === 1 ? t.placeRestante : t.placesRestantes.replace('{n}', String(n))

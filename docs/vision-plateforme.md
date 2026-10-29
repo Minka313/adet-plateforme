@@ -81,5 +81,5 @@ Rôles : `admin`, `editeur`, `formateur` et, en V2, `apprenant`.
 - **Phase 0 (terminée)** : dossier, cadrage et socle Next.js + Payload + Postgres.
 - **Phase 1 (vitrine ADET, en cours)** : pages ADET, réalisations, actualités, équipe, partenaires, contact et back-office. Priorité demandée par le directeur : mettre l'association en avant.
 - **Phase 2 (Kolda, en cours)** : « Découvrir Kolda » en ligne (région, 3 départements, 5 filières, chiffres sourcés RGPH-5, carte cliquable). « Opportunités » ouverte (annuaire de 8 structures vérifiées, offres avec date limite). Restent : communes, « Kolda en chiffres » détaillé.
-- **Phase 3 (Formations V1, amorcée)** : catalogue des formations de l'ADET prêt à remplir dans `/admin`, organismes de formation référencés. Restent : sessions, inscriptions en ligne, exports.
+- **Phase 3 (Formations V1, en cours)** : catalogue des formations de l'ADET, sessions datées avec nombre de places, inscriptions en ligne (statuts, places libérées à l'annulation, alertes e-mail, export CSV), organismes de formation référencés. Restent : rôle `formateur`, e-mail de confirmation quand l'équipe valide une place.
 - **Phase 4** : e-learning léger, PWA hors ligne, langues locales, suivi-évaluation.

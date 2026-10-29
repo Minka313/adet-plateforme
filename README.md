@@ -53,7 +53,8 @@ pnpm test                     # tests d'intégration (base adet_test à créer :
 | `/decouvrir-kolda` | La région : présentation, repères, chiffres sourcés (ANSD, RGPH-5 2023), carte cliquable, départements et filières | Territoires, Économie et filières |
 | `/decouvrir-kolda/[slug]` | Fiche d'un département (Kolda, Vélingara, Médina Yoro Foulah) ou d'une filière | Territoires, Économie et filières |
 | `/opportunites` | Opportunités en cours (masquées automatiquement après leur date limite) et annuaire des structures (financement, accompagnement, emploi) | Opportunités, Structures d'accompagnement |
-| `/se-former` | Catalogue des formations de l'ADET et organismes de formation professionnelle | Formations de l'ADET, Structures d'accompagnement |
+| `/se-former` | Catalogue des formations de l'ADET avec leurs prochaines sessions et places restantes, organismes de formation professionnelle | Formations de l'ADET, Sessions de formation, Structures d'accompagnement |
+| `/se-former/inscription/[session]` | Inscription en ligne à une session (fermée automatiquement si complète, passée ou après la date limite) | Inscriptions aux formations (statut, export CSV) |
 
 Menu principal (conforme à `docs/vision-plateforme.md`) : Accueil · Découvrir Kolda · Opportunités · Se former · L'ADET ▾ · Agir ▾, défini dans `app/src/lib/menu.ts`.
 
