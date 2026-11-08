@@ -5,6 +5,7 @@
 import { getPayload } from 'payload'
 
 import { chargerActualites } from './contenus/actualites'
+import { chargerCommunes } from './contenus/communes'
 import { chargerKolda } from './contenus/kolda'
 import { chargerStructures } from './contenus/structures'
 import config from './payload.config'
@@ -246,6 +247,7 @@ if (existants.totalDocs === 0) {
 }
 
 await chargerKolda(payload)
+await chargerCommunes(payload)
 await chargerStructures(payload)
 await chargerActualites(payload)
 

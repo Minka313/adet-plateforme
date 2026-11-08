@@ -49,6 +49,8 @@ Dans **Découvrir Kolda → Territoires** (la région et ses départements) et *
 - **Repères** : courtes lignes (arrondissements, marchés, sites…).
 - **Photo** : remplacez l'illustration par une photo de l'ADET quand vous en avez une, en indiquant le crédit.
 
+**Les 40 communes** sont aussi des territoires (type **Commune**). Chacune a son département, son arrondissement (vide pour la commune chef-lieu) et sa population avec la source (ANSD, RGPH-5 2023). Leur fiche ne contient pour l'instant que ces chiffres : complétez-la quand vous avez des informations fiables (présentation, repères comme les marchés ou les structures présentes, photo). Les totaux de la page **Kolda en chiffres** se calculent tout seuls à partir de la population des communes : si vous corrigez un chiffre, mettez aussi à jour sa source.
+
 ## Publier une opportunité
 **Opportunités et formations → Opportunités → Créer** : titre, type (financement, appel à projets, emploi…), **date limite** (obligatoire), description, public visé, structure qui la propose et lien pour postuler. **Publier**.
 - L'opportunité **disparaît toute seule du site le lendemain de sa date limite** : pas besoin de la supprimer.

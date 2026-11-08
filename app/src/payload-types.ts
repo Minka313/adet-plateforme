@@ -163,7 +163,7 @@ export interface UserAuthOperations {
   };
 }
 /**
- * La région de Kolda et ses départements (rubrique « Découvrir Kolda »).
+ * La région de Kolda, ses départements et ses communes (rubrique « Découvrir Kolda »).
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "territoires".
@@ -175,11 +175,21 @@ export interface Territoire {
    * Générée automatiquement à partir du titre si laissée vide.
    */
   slug?: string | null;
-  type: 'region' | 'departement';
+  type: 'region' | 'departement' | 'commune';
   /**
    * Ordre d’affichage (croissant).
    */
   ordre?: number | null;
+  departement?: (number | null) | Territoire;
+  /**
+   * Laisser vide pour une commune chef-lieu de département.
+   */
+  arrondissement?: string | null;
+  /**
+   * Population totale (nombre, sans espaces).
+   */
+  habitants?: number | null;
+  habitantsSource?: string | null;
   /**
    * Deux ou trois phrases, affichées sur les cartes.
    */
@@ -229,6 +239,7 @@ export interface Media {
    */
   alt: string;
   credit?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -623,6 +634,7 @@ export interface Document {
   categorie?: ('rapport' | 'institutionnel' | 'etude' | 'plaquette') | null;
   annee?: number | null;
   description?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -848,6 +860,10 @@ export interface TerritoiresSelect<T extends boolean = true> {
   slug?: T;
   type?: T;
   ordre?: T;
+  departement?: T;
+  arrondissement?: T;
+  habitants?: T;
+  habitantsSource?: T;
   resume?: T;
   presentation?: T;
   photo?: T;
@@ -1086,6 +1102,7 @@ export interface DocumentsSelect<T extends boolean = true> {
   categorie?: T;
   annee?: T;
   description?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -1105,6 +1122,7 @@ export interface DocumentsSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   credit?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

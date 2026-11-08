@@ -12,8 +12,8 @@ export const Territoires: CollectionConfig = {
   admin: {
     group: 'Découvrir Kolda',
     useAsTitle: 'nom',
-    defaultColumns: ['nom', 'type', 'ordre'],
-    description: 'La région de Kolda et ses départements (rubrique « Découvrir Kolda »).',
+    defaultColumns: ['nom', 'type', 'departement', 'habitants'],
+    description: 'La région de Kolda, ses départements et ses communes (rubrique « Découvrir Kolda »).',
   },
   hooks: hooksRegeneration,
   access: { read: anyone, create: loggedIn, update: loggedIn, delete: loggedIn },
@@ -32,9 +32,34 @@ export const Territoires: CollectionConfig = {
           options: [
             { label: 'Région', value: 'region' },
             { label: 'Département', value: 'departement' },
+            { label: 'Commune', value: 'commune' },
           ],
         },
         { name: 'ordre', type: 'number', defaultValue: 10, admin: { description: 'Ordre d’affichage (croissant).' } },
+      ],
+    },
+    {
+      type: 'row',
+      admin: { condition: (data) => data?.type === 'commune' },
+      fields: [
+        {
+          name: 'departement',
+          type: 'relationship',
+          relationTo: 'territoires',
+          label: 'Département',
+          index: true,
+          filterOptions: { type: { equals: 'departement' } },
+          validate: (valeur: unknown, { data }: { data: { type?: string } }) =>
+            data?.type !== 'commune' || valeur ? true : 'Choisissez le département de la commune.',
+        },
+        { name: 'arrondissement', type: 'text', admin: { description: 'Laisser vide pour une commune chef-lieu de département.' } },
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
+        { name: 'habitants', type: 'number', min: 0, admin: { width: '40%', description: 'Population totale (nombre, sans espaces).' } },
+        { name: 'habitantsSource', type: 'text', label: 'Source de la population', defaultValue: 'ANSD, RGPH-5 (2023)' },
       ],
     },
     {

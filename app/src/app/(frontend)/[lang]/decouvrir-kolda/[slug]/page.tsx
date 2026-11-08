@@ -3,11 +3,12 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { AppelAction, EnTetePage, TitreSection } from '@/components/Blocs'
+import { ListeCommunes } from '@/components/Communes'
 import { CarteDepartement, CarteFiliere, Indicateurs, Paragraphes, Reperes } from '@/components/Kolda'
 import { Picture } from '@/components/Picture'
 import { Icone } from '@/components/ui/Icone'
 import { dico, lien, LANGUES, type Langue } from '@/i18n'
-import { getFilieres, getTerritoires } from '@/lib/payload'
+import { getCommunes, getFilieres, getTerritoires } from '@/lib/payload'
 
 export const revalidate = 60
 
@@ -43,6 +44,7 @@ export default async function FicheKolda({ params }: Props) {
   if (!f) notFound()
   const fiche = f.territoire ?? f.filiere
   if (!fiche) notFound()
+  const communes = f.territoire ? (await getCommunes(lang)).filter((c) => c.departement === f.territoire.id) : []
 
   return (
     <>
@@ -82,7 +84,21 @@ export default async function FicheKolda({ params }: Props) {
         </section>
       )}
 
-      <section className="section">
+      {!!communes.length && f.territoire && (
+        <section className="section">
+          <div className="conteneur">
+            <TitreSection titre={d.communesTitre} intro={d.communesIntro.replace('{n}', String(communes.length))} />
+            <ListeCommunes dep={f.territoire} communes={communes} lang={lang} />
+            <p className="fiche__retour">
+              <Link href={lien(lang, '/decouvrir-kolda/en-chiffres')} className="lien-fleche">
+                {d.voirChiffres} <Icone nom="fleche" taille={18} />
+              </Link>
+            </p>
+          </div>
+        </section>
+      )}
+
+      <section className={`section${communes.length ? ' section--sable' : ''}`}>
         <div className="conteneur">
           {f.autres && (
             <>
