@@ -3414,8 +3414,8 @@ a:hover .lien-fleche svg {
   color: var(--blanc);
 }
 
-/* Sessions d'une formation (Se former) */
-.sessions {
+/* Sessions d'une formation (Se former) : toujours en bas de la carte */
+.opportunite .sessions {
   margin-top: auto;
   padding-top: 0.6rem;
   display: grid;
@@ -3444,10 +3444,20 @@ a:hover .lien-fleche svg {
 }
 
 .session__quand {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.35rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem;
+  align-items: start;
+}
+
+.session__quand svg {
+  margin-top: 0.2rem;
+}
+
+.session__lieu {
+  display: block;
+  color: var(--texte-doux);
+  font-size: 0.92rem;
 }
 
 .opportunite .session__action {
