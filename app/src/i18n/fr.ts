@@ -80,7 +80,7 @@ export const fr = {
     colCommunes: 'Communes',
     colHabitants: 'Habitants',
     colPart: 'Part de la région',
-    sourceCommunes: 'Source : ANSD, RGPH-5 (2023), population de chaque commune publiée sur le portail officiel Vie publique.',
+    sourceCommunes: 'Source : ANSD, RGPH-5 (2023), population de chaque commune publiée sur le portail officiel Vie publique. Les totaux de Vélingara et de Médina Yoro Foulah diffèrent de deux habitants de ceux du rapport régional de l’ANSD ; le total de la région est identique.',
     autresReperesTitre: 'D’autres repères sur la région',
   },
   opportunites: {
