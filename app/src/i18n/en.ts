@@ -82,7 +82,7 @@ export const en: Dictionnaire = {
     colCommunes: 'Municipalities',
     colHabitants: 'Inhabitants',
     colPart: 'Share of the region',
-    sourceCommunes: 'Source: ANSD, RGPH-5 (2023), population of each municipality published on the official Vie publique portal.',
+    sourceCommunes: 'Source: ANSD, RGPH-5 (2023), population of each municipality published on the official Vie publique portal. The Vélingara and Médina Yoro Foulah totals differ by two inhabitants from those in the ANSD regional report; the regional total is the same.',
     autresReperesTitre: 'More facts about the region',
   },
   opportunites: {

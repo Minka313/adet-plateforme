@@ -50,7 +50,7 @@ const FR = {
   contenu: document([
     p('L’Agence nationale de la statistique et de la démographie (ANSD) a publié le rapport régional de Kolda du 5e Recensement général de la population et de l’habitat (RGPH-5), réalisé en 2023. Ses chiffres confirment le constat qui a conduit à la création de l’ADET.'),
     h2('Une région parmi les plus jeunes du pays'),
-    p('La région compte 914 798 habitants. La moitié d’entre eux a moins de 16 ans (19 ans au niveau national) et 45 % ont moins de 15 ans. Vélingara est le département le plus peuplé (405 151 habitants), devant Kolda (324 192) et Médina Yoro Foulah (185 454).'),
+    p('La région compte 914 797 habitants. La moitié d’entre eux a moins de 16 ans (19 ans au niveau national) et 45 % ont moins de 15 ans. Vélingara est le département le plus peuplé (405 151 habitants), devant Kolda (324 192) et Médina Yoro Foulah (185 454).'),
     h2('Une jeunesse en attente d’opportunités'),
     p('54,3 % des jeunes de 15 à 24 ans ne sont ni en emploi, ni en études, ni en formation. La situation est plus marquée chez les jeunes femmes (64,5 %) et en milieu rural (58,2 %).'),
     h2('Une économie tournée vers la terre'),
@@ -71,7 +71,7 @@ const EN = {
   contenu: document([
     p('Senegal’s National Agency for Statistics and Demography (ANSD) has published the Kolda regional report of the 5th General Population and Housing Census (RGPH-5), carried out in 2023. Its figures confirm the situation that led to ADET’s creation.'),
     h2('One of the youngest regions in the country'),
-    p('The region has 914,798 inhabitants. Half of them are under 16 (19 nationally) and 45% are under 15. Vélingara is the most populous department (405,151 inhabitants), ahead of Kolda (324,192) and Médina Yoro Foulah (185,454).'),
+    p('The region has 914,797 inhabitants. Half of them are under 16 (19 nationally) and 45% are under 15. Vélingara is the most populous department (405,151 inhabitants), ahead of Kolda (324,192) and Médina Yoro Foulah (185,454).'),
     h2('Young people waiting for opportunities'),
     p('54.3% of 15-24 year-olds are not in employment, education or training. The figure is higher among young women (64.5%) and in rural areas (58.2%).'),
     h2('An economy rooted in the land'),

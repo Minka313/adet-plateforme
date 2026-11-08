@@ -85,7 +85,8 @@ The Fouladou is mostly Fula, yet remains diverse: Mandinka, Wolof, Soninke, Jola
 The potential is real: some two million hectares of arable land, the Casamance river and its tributaries, the Anambé and Ndiandouba dams, more than 300,000 hectares of classified forest. But the region remains isolated (71% of its road network is unpaved) and only 21% of households have access to electricity. Its population is one of the youngest in the country: half of its inhabitants are under 16.`,
     ],
     indicateurs: [
-      ind('914 798', 'habitants', 'inhabitants'),
+      // Somme exacte des trois départements (324 192 + 405 149 + 185 456), comme les 40 communes
+      ind('914 797', 'habitants', 'inhabitants'),
       ind('13 771 km²', 'de superficie, 7 % du territoire national', 'in area, 7% of Senegal', PRESENTATION),
       ind('16 ans', 'âge médian (19 ans au niveau national)', 'median age (19 nationally)'),
       ind('45 %', 'de la population a moins de 15 ans', 'of the population is under 15'),
