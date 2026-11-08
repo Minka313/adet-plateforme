@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
 import { AppelAction, EnTetePage, TitreSection } from '@/components/Blocs'
 import { CarteDepartement, CarteFiliere, Indicateurs, Paragraphes, Reperes } from '@/components/Kolda'
@@ -63,6 +64,11 @@ export default async function DecouvrirKolda({ params }: Props) {
           <div className="conteneur">
             <TitreSection titre={d.chiffresTitre} intro={d.chiffresIntro} />
             <Indicateurs indicateurs={region.indicateurs} lang={lang} />
+            <p className="fiche__retour">
+              <Link href={lien(lang, '/decouvrir-kolda/en-chiffres')} className="bouton">
+                {d.voirChiffres}
+              </Link>
+            </p>
           </div>
         </section>
       )}

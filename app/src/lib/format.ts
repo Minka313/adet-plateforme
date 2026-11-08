@@ -31,3 +31,11 @@ export const datesSession = (debut: string, fin: string | null | undefined, lang
 /** « 3 places restantes », « 1 place restante » */
 export const placesRestantes = (n: number, t: { placesRestantes: string; placeRestante: string }): string =>
   n === 1 ? t.placeRestante : t.placesRestantes.replace('{n}', String(n))
+
+/** « 914 797 » (fr) ou « 914,797 » (en) */
+// L'espace fine insécable du français est presque invisible à l'écran : espace insécable normale
+export const formatNombre = (n: number, lang: Langue): string => new Intl.NumberFormat(LOCALE_INTL[lang]).format(n).replace(/\u202f/g, '\u00a0')
+
+/** Part en pourcentage, une décimale : « 35,4 % » (fr) ou « 35.4% » (en) */
+export const formatPart = (part: number, lang: Langue): string =>
+  new Intl.NumberFormat(LOCALE_INTL[lang], { style: 'percent', minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(part)

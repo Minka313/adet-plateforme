@@ -3485,3 +3485,290 @@ a:hover .lien-fleche svg {
   font-weight: 700;
   color: var(--texte-doux);
 }
+
+/* Communes et « Kolda en chiffres » */
+.communes {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 760px) {
+  .communes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.communes__groupe {
+  padding: 1.25rem 1.4rem;
+  border-radius: var(--rayon);
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+}
+
+.communes__groupe--chef-lieu {
+  grid-column: 1 / -1;
+}
+
+.communes__groupe h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1.1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.25rem 1rem;
+}
+
+.communes__total {
+  font-family: var(--police);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--texte-doux);
+  font-variant-numeric: tabular-nums;
+}
+
+.communes__groupe ul,
+.communes__voisines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.communes__groupe li,
+.communes__voisines li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-top: 1px solid var(--bordure);
+}
+
+.communes__groupe li:first-child {
+  border-top: 0;
+}
+
+.communes__groupe a,
+.communes__voisines a {
+  color: var(--encre);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.communes__groupe a:hover,
+.communes__voisines a:hover {
+  color: var(--bleu);
+  text-decoration: underline;
+}
+
+.communes__habitants {
+  color: var(--texte-doux);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.communes__voisines {
+  display: grid;
+  gap: 0 2rem;
+}
+
+@media (min-width: 760px) {
+  .communes__voisines {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.tuiles-chiffres {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 760px) {
+  .tuiles-chiffres {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.tuiles-chiffres li {
+  display: grid;
+  gap: 0.2rem;
+  padding: 1.2rem 1.3rem;
+  border-radius: var(--rayon);
+  background: var(--sable);
+}
+
+.tuiles-chiffres strong {
+  font-family: var(--police-t);
+  font-size: clamp(1.6rem, 4vw, 2.3rem);
+  color: var(--nuit);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.tuiles-chiffres span {
+  color: var(--texte-doux);
+}
+
+.source-note {
+  margin: 1rem 0 0;
+  font-size: 0.85rem;
+  color: var(--texte-doux);
+}
+
+.barres,
+.classement__liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.barres__ligne {
+  display: grid;
+  grid-template-columns: minmax(8rem, 13rem) 1fr auto;
+  align-items: center;
+  gap: 0.4rem 1rem;
+  padding: 0.35rem 0;
+}
+
+@media (max-width: 620px) {
+  .barres__ligne {
+    grid-template-columns: 1fr auto;
+  }
+
+  .barres__piste {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+.barres__nom {
+  min-width: 0;
+  color: var(--encre);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.barres__nom:hover {
+  color: var(--bleu);
+  text-decoration: underline;
+}
+
+.barres__piste {
+  display: block;
+  height: 12px;
+}
+
+.barres__barre {
+  display: block;
+  height: 100%;
+  min-width: 4px;
+  border-radius: 0 4px 4px 0;
+}
+
+.barres__valeur {
+  font-variant-numeric: tabular-nums;
+  color: var(--texte-doux);
+  white-space: nowrap;
+  text-align: right;
+}
+
+.barres__valeur strong {
+  color: var(--encre);
+}
+
+.classement__filtres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.classement__filtres button {
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--bordure);
+  background: var(--blanc);
+  color: var(--encre);
+  cursor: pointer;
+}
+
+.classement__filtres button[aria-pressed='true'] {
+  border-color: var(--nuit);
+  background: var(--nuit);
+  color: var(--blanc);
+}
+
+.classement__filtres button:focus-visible {
+  outline: 3px solid var(--or);
+  outline-offset: 2px;
+}
+
+.classement__dep {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--texte-doux);
+}
+
+.puce-couleur {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 0.45rem;
+  vertical-align: 0;
+  flex: none;
+}
+
+.classement__filtres .puce-couleur {
+  margin-right: 0;
+}
+
+.tableau-defilant {
+  overflow-x: auto;
+  border-radius: var(--rayon);
+  background: var(--blanc);
+  border: 1px solid var(--bordure);
+}
+
+.tableau {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.tableau th,
+.tableau td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--bordure);
+  white-space: nowrap;
+}
+
+.tableau thead th {
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+
+.tableau tbody tr:last-child th,
+.tableau tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.tableau .nombre {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}

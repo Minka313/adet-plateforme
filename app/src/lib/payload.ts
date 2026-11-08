@@ -27,7 +27,21 @@ export const getPhotos = cache(async () => {
 
 export const getTerritoires = cache(async (lang: Langue) => {
   const payload = await getPayloadClient()
-  const { docs } = await payload.find({ collection: 'territoires', sort: 'ordre', limit: 50, depth: 1, ...loc(lang) })
+  const { docs } = await payload.find({
+    collection: 'territoires',
+    where: { type: { not_equals: 'commune' } },
+    sort: 'ordre',
+    limit: 50,
+    depth: 1,
+    ...loc(lang),
+  })
+  return docs
+})
+
+/** Les communes, rangées par nom (le département n'est pas chargé : seulement son identifiant) */
+export const getCommunes = cache(async (lang: Langue) => {
+  const payload = await getPayloadClient()
+  const { docs } = await payload.find({ collection: 'territoires', where: { type: { equals: 'commune' } }, sort: 'nom', limit: 200, depth: 0, ...loc(lang) })
   return docs
 })
 
