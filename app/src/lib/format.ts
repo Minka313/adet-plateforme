@@ -22,11 +22,10 @@ export const telHref = (numero: string): string => {
   return `tel:+${chiffres.startsWith('221') ? chiffres : `221${chiffres}`}`
 }
 
-/** « 12 mars 2027 » ou « 12 mars 2027 – 14 mars 2027 » */
+/** « 12 mars 2027 », « 12–14 mars 2027 » ou « 30 mars – 2 avril 2027 » */
 export const datesSession = (debut: string, fin: string | null | undefined, lang: Langue): string => {
-  const d = formatDate(debut, lang)
-  const f = fin ? formatDate(fin, lang) : ''
-  return f && f !== d ? `${d} – ${f}` : d
+  const format = new Intl.DateTimeFormat(LOCALE_INTL[lang], { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
+  return fin ? format.formatRange(new Date(debut), new Date(fin)) : format.format(new Date(debut))
 }
 
 /** « 3 places restantes », « 1 place restante » */

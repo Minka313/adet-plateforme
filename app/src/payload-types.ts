@@ -229,7 +229,6 @@ export interface Media {
    */
   alt: string;
   credit?: string | null;
-  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -624,7 +623,6 @@ export interface Document {
   categorie?: ('rapport' | 'institutionnel' | 'etude' | 'plaquette') | null;
   annee?: number | null;
   description?: string | null;
-  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -1088,7 +1086,6 @@ export interface DocumentsSelect<T extends boolean = true> {
   categorie?: T;
   annee?: T;
   description?: T;
-  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -1108,7 +1105,6 @@ export interface DocumentsSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   credit?: T;
-  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;

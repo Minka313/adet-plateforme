@@ -103,8 +103,11 @@ export function CarteFormation({ f, sessions, lang, i = 0 }: { f: Formation; ses
             {sessions.map((s) => (
               <li key={s.id} className="session">
                 <p className="session__quand">
-                  <Icone nom="calendrier" taille={16} /> <strong>{datesSession(s.dateDebut, s.dateFin, lang)}</strong>
-                  {s.lieu && <span> · {s.lieu}</span>}
+                  <Icone nom="calendrier" taille={16} />
+                  <span>
+                    <strong>{datesSession(s.dateDebut, s.dateFin, lang)}</strong>
+                    {s.lieu && <span className="session__lieu">{s.lieu}</span>}
+                  </span>
                 </p>
                 {s.etat === 'ouverte' ? (
                   <p className="session__action">
@@ -123,7 +126,7 @@ export function CarteFormation({ f, sessions, lang, i = 0 }: { f: Formation; ses
           </ul>
         </div>
       ) : (
-        <p className="opportunite__type">{d.dateAVenir}</p>
+        <p className="opportunite__type sessions">{d.dateAVenir}</p>
       )}
     </article>
   )
