@@ -9,6 +9,11 @@ Deux portes, selon votre rôle :
 
 Dans les deux cas : après **5 erreurs**, le compte est bloqué 15 minutes. Mot de passe perdu : demandez à un administrateur de le réinitialiser (**Administration → Comptes de l'équipe**). Le lien « Mot de passe oublié » n'enverra un e-mail qu'une fois l'envoi d'e-mails configuré.
 
+## L'espace pro au quotidien
+- **Tâches** (`/espace/taches`) : « Nouvelle tâche » (titre, échéance, priorité, pôle, responsables). Chaque responsable est prévenu. « Commencer » et « Terminer » font avancer la tâche ; la personne qui l'a créée est prévenue quand elle est faite. Une échéance dépassée s'affiche en rouge. Vues : mes tâches, mon pôle, toutes.
+- **Réunions** (`/espace/reunions`) : le bureau et les responsables de pôle planifient (date, heure de Dakar, lieu, ordre du jour, toute l'équipe ou quelques personnes). Les participants sont prévenus tout de suite, puis la veille et le matin même. Après la réunion, l'organisateur écrit le compte rendu dans la fiche.
+- **Notifications** : la cloche en haut compte les non-lues. Pour les recevoir sur le téléphone : **Profil → Cet appareil → Activer** (sur iPhone, installer d'abord l'application sur l'écran d'accueil).
+
 ## Gérer les comptes de l'équipe (administrateurs)
 **Administration → Comptes de l'équipe → Créer** : nom, e-mail, un mot de passe provisoire (à transmettre à la personne, qui le change dans son profil), fonction, pôle, téléphone et rôles :
 - **Administrateur** : tout, y compris les comptes.

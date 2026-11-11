@@ -7,9 +7,10 @@ import { IconeEspace, type NomIconeEspace } from './Icones'
 
 const LIENS: { href: string; label: string; icone: NomIconeEspace }[] = [
   { href: '/espace', label: 'Accueil', icone: 'accueil' },
+  { href: '/espace/taches', label: 'Tâches', icone: 'taches' },
+  { href: '/espace/reunions', label: 'Réunions', icone: 'reunions' },
   { href: '/espace/annonces', label: 'Annonces', icone: 'annonces' },
   { href: '/espace/annuaire', label: 'Équipe', icone: 'equipe' },
-  { href: '/espace/profil', label: 'Profil', icone: 'profil' },
 ]
 
 /** Onglets en haut sur ordinateur, barre du bas sur téléphone (comme une application) */

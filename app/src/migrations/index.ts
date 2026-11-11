@@ -7,6 +7,7 @@ import * as migration_20261029_055059_formations_sessions_inscriptions from './2
 import * as migration_20261108_123929_communes from './20261108_123929_communes';
 import * as migration_20261111_153811_espace_pro from './20261111_153811_espace_pro';
 import * as migration_20261111_184812_notifications from './20261111_184812_notifications';
+import * as migration_20261111_231542_taches_reunions from './20261111_231542_taches_reunions';
 
 export const migrations = [
   {
@@ -52,6 +53,11 @@ export const migrations = [
   {
     up: migration_20261111_184812_notifications.up,
     down: migration_20261111_184812_notifications.down,
-    name: '20261111_184812_notifications'
+    name: '20261111_184812_notifications',
+  },
+  {
+    up: migration_20261111_231542_taches_reunions.up,
+    down: migration_20261111_231542_taches_reunions.down,
+    name: '20261111_231542_taches_reunions'
   },
 ];

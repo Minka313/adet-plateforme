@@ -25,8 +25,10 @@ import { Notifications } from './collections/Notifications'
 import { Opportunites } from './collections/Opportunites'
 import { Partenaires } from './collections/Partenaires'
 import { Realisations } from './collections/Realisations'
+import { Reunions } from './collections/Reunions'
 import { Sessions } from './collections/Sessions'
 import { Structures } from './collections/Structures'
+import { Taches } from './collections/Taches'
 import { Territoires } from './collections/Territoires'
 import { Users } from './collections/Users'
 import { Association } from './globals/Association'
@@ -93,6 +95,8 @@ export default buildConfig({
     Media,
     Documents,
     Annonces,
+    Taches,
+    Reunions,
     Notifications,
     Users,
     Abonnes,
