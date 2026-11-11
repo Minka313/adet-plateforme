@@ -315,7 +315,7 @@ export const fr = {
     joindre: 'Nous joindre',
     reconnue: 'Reconnue sous le n°',
     mentions: 'Mentions légales',
-    espaceMembres: 'Espace membres',
+    espaceMembres: 'Espace pro (équipe)',
     tagline: 'Pour un développement économique territorial inclusif et durable.',
   },
   mentions: {

@@ -19,6 +19,6 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // Tout sauf le back-office, l'API, les fichiers Next et les fichiers statiques
-  matcher: ['/((?!admin|api|_next|brand|.*\\..*).*)'],
+  // Tout sauf le back-office, l'espace pro (en français seulement), l'API, les fichiers Next et les fichiers statiques
+  matcher: ['/((?!admin|espace|api|_next|brand|.*\\..*).*)'],
 }

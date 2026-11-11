@@ -54,7 +54,7 @@ describe('Droits d’accès du public (non connecté)', () => {
 })
 
 describe('Rôles du back-office', () => {
-  it('un compte créé sans rôle précisé est éditeur, pas administrateur', async () => {
+  it('un compte créé sans rôle précisé est membre de l’équipe, sans accès aux contenus du site', async () => {
     const admin = (await payload.find({ collection: 'users', where: { email: { equals: 'admin@test.sn' } }, overrideAccess: true })).docs[0]
     const cree = await payload.create({
       collection: 'users',
@@ -62,7 +62,7 @@ describe('Rôles du back-office', () => {
       user: admin,
       overrideAccess: false,
     })
-    expect(cree.roles).toEqual(['editeur'])
+    expect(cree.roles).toEqual(['membre'])
   })
 
   it('un éditeur ne peut pas s’attribuer le rôle administrateur', async () => {
@@ -81,9 +81,13 @@ describe('Rôles du back-office', () => {
     expect(modifie.roles).toEqual(['editeur'])
   })
 
-  it('un éditeur ne peut pas lire les autres comptes', async () => {
+  it('un éditeur voit l’annuaire de l’équipe mais ne modifie que son propre compte', async () => {
     const editeur = (await payload.find({ collection: 'users', where: { email: { equals: 'editeur@test.sn' } }, overrideAccess: true })).docs[0]
+    const admin = (await payload.find({ collection: 'users', where: { email: { equals: 'admin@test.sn' } }, overrideAccess: true })).docs[0]
     const { docs } = await payload.find({ collection: 'users', overrideAccess: false, user: { ...editeur, collection: 'users' } })
-    expect(docs.map((u) => u.email)).toEqual(['editeur@test.sn'])
+    expect(docs.map((u) => u.email)).toContain('admin@test.sn')
+    await expect(
+      payload.update({ collection: 'users', id: admin.id, data: { nom: 'Piraté' }, overrideAccess: false, user: { ...editeur, collection: 'users' } }),
+    ).rejects.toThrow()
   })
 })

@@ -1,6 +1,7 @@
 import { draftMode, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
+import { estEquipeSite } from '@/access'
 import { getPayloadClient } from '@/lib/payload'
 
 /** Active le mode aperçu (brouillons visibles) pour un membre connecté au back-office. */
@@ -19,7 +20,7 @@ export async function GET(request: Request) {
 
   const payload = await getPayloadClient()
   const { user } = await payload.auth({ headers: await headers() })
-  if (!user) return new Response('Connectez-vous au back-office pour utiliser l’aperçu.', { status: 401 })
+  if (!estEquipeSite(user)) return new Response('Connectez-vous au back-office pour utiliser l’aperçu.', { status: 401 })
 
   draft.enable()
   redirect(destination)

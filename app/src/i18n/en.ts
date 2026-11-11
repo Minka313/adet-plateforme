@@ -317,7 +317,7 @@ export const en: Dictionnaire = {
     joindre: 'Contact us',
     reconnue: 'Registered under no.',
     mentions: 'Legal notice',
-    espaceMembres: 'Members area',
+    espaceMembres: 'Team workspace',
     tagline: 'For inclusive and sustainable territorial economic development.',
   },
   mentions: {

@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { hooksRegeneration } from '../hooks/revalider'
 
-import { anyone, loggedIn } from '../access'
+import { anyone, equipeSite } from '../access'
 
 export const Documents: CollectionConfig = {
   slug: 'documents',
@@ -14,7 +14,7 @@ export const Documents: CollectionConfig = {
     description: 'Rapports, statuts, plaquettes… téléchargeables depuis le site.',
   },
   hooks: hooksRegeneration,
-  access: { read: anyone, create: loggedIn, update: loggedIn, delete: loggedIn },
+  access: { read: anyone, create: equipeSite, update: equipeSite, delete: equipeSite },
   upload: { mimeTypes: ['application/pdf', 'image/*'] },
   defaultSort: '-annee',
   fields: [

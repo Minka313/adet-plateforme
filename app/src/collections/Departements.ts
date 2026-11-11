@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { hooksRegeneration } from '../hooks/revalider'
 
-import { anyone, loggedIn } from '../access'
+import { anyone, equipeSite } from '../access'
 
 export const Departements: CollectionConfig = {
   slug: 'departements',
@@ -14,7 +14,7 @@ export const Departements: CollectionConfig = {
     description: "Organisation interne de l'association (Coordination, DFDC, DPS…).",
   },
   hooks: hooksRegeneration,
-  access: { read: anyone, create: loggedIn, update: loggedIn, delete: loggedIn },
+  access: { read: anyone, create: equipeSite, update: equipeSite, delete: equipeSite },
   defaultSort: 'ordre',
   fields: [
     { name: 'nom', localized: true, type: 'text', required: true },

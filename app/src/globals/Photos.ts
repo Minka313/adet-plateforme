@@ -2,7 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 import { revaliderGlobal } from '../hooks/revalider'
 
-import { anyone, loggedIn } from '../access'
+import { anyone, equipeSite } from '../access'
 
 const aide = 'Laissez vide pour garder la photo d’illustration actuelle. Une photo de l’ADET la remplace aussitôt.'
 
@@ -23,7 +23,7 @@ export const Photos: GlobalConfig = {
       'Photos des grandes rubriques du site. Privilégiez des photos de l’ADET sur le terrain, au format paysage, avec l’accord des personnes visibles.',
   },
   hooks: { afterChange: [revaliderGlobal] },
-  access: { read: anyone, update: loggedIn },
+  access: { read: anyone, update: equipeSite },
   fields: [
     {
       type: 'collapsible',
