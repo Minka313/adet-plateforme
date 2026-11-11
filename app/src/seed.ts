@@ -160,7 +160,8 @@ await payload.updateGlobal({
   data: {
     adresse: 'Fass Diaé, en face de l’usine de coton de la SODEFITEX\nKolda, Sénégal',
     email: 'adetsenegal1@gmail.com',
-    telephones: [{ numero: '76 941 23 25' }, { numero: '77 810 36 36' }, { numero: '77 458 61 05' }],
+    telephones: [{ numero: '76 941 23 25' }, { numero: '77 458 61 05' }, { numero: '77 163 26 72' }],
+    whatsapp: '221769412325',
     recepisse: '12/GRK/YAN',
     ninea: '011193406',
   },
