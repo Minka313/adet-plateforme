@@ -20,7 +20,7 @@
   /* Neutres */
   --encre: #142033;
   --texte-doux: #4a5568;
-  --sable: #f7f4ec;
+  --sable: #f1f4f0;
   --brume: #eef2f8;
   --blanc: #ffffff;
   --bordure: #e2e6ee;
@@ -84,18 +84,16 @@ h1,
 h2,
 h3 {
   font-family: var(--police-t);
-  font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -0.015em;
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.012em;
   color: var(--nuit);
-  margin: 0 0 0.55em;
-  font-variation-settings: 'SOFT' 50, 'opsz' 96;
+  margin: 0 0 0.5em;
   text-wrap: balance;
 }
 
 h1 {
-  font-size: clamp(2.2rem, 6.4vw, 4.4rem);
-  font-weight: 600;
+  font-size: clamp(2.4rem, 6.6vw, 4.6rem);
 }
 
 h2 {
@@ -103,8 +101,10 @@ h2 {
 }
 
 h3 {
-  font-size: 1.28rem;
-  font-variation-settings: 'SOFT' 50, 'opsz' 24;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
 }
 
 p {
@@ -210,14 +210,18 @@ p {
     linear-gradient(90deg, transparent 0 0) 0 0 / 100% 100%,
     repeating-linear-gradient(
       90deg,
-      var(--bleu) 0 28px,
-      var(--or) 28px 34px,
-      var(--vert) 34px 62px,
-      var(--blanc) 62px 64px,
-      var(--petrole) 64px 92px,
-      var(--orange) 92px 98px,
-      var(--bleu-vif) 98px 126px,
-      var(--blanc) 126px 128px
+      var(--bleu-vif) 0 18px,
+      var(--or) 18px 22px,
+      var(--vert) 22px 50px,
+      var(--blanc) 50px 56px,
+      var(--petrole) 56px 68px,
+      var(--orange) 68px 90px,
+      var(--nuit) 90px 94px,
+      var(--or) 94px 110px,
+      var(--bleu) 110px 142px,
+      var(--blanc) 142px 148px,
+      var(--vert) 148px 162px,
+      var(--orange) 162px 172px
     );
   position: relative;
 }
@@ -260,19 +264,10 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: 0.78rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 600;
   color: var(--vert);
-  margin-bottom: 1rem;
-}
-
-.surtitre::before {
-  content: '';
-  width: 28px;
-  height: 2px;
-  background: currentColor;
+  margin-bottom: 0.9rem;
 }
 
 .surtitre--or {
@@ -712,8 +707,6 @@ a:hover .lien-fleche svg {
   margin: 0 0 0.3rem;
   font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
   color: var(--or);
 }
 
@@ -1141,19 +1134,15 @@ a:hover .lien-fleche svg {
 
 .raison__etiquette {
   font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
   font-weight: 700;
   color: var(--vert);
   margin-bottom: 0.8rem;
 }
 
 .raison__texte {
-  font-family: var(--police-t);
-  font-size: clamp(1.2rem, 2.4vw, 1.5rem);
-  line-height: 1.45;
+  font-size: clamp(1.1rem, 2vw, 1.28rem);
+  line-height: 1.6;
   margin: 0;
-  font-variation-settings: 'SOFT' 50, 'opsz' 36;
 }
 
 .vision-mission {
@@ -1172,8 +1161,6 @@ a:hover .lien-fleche svg {
 .vm__etiquette {
   display: inline-block;
   font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
   font-weight: 700;
   color: var(--nuit);
   padding: 0.3rem 0.8rem;
@@ -1198,7 +1185,6 @@ a:hover .lien-fleche svg {
   line-height: 1.25;
   color: var(--nuit);
   letter-spacing: -0.01em;
-  font-variation-settings: 'SOFT' 50, 'opsz' 72;
 }
 
 /* ==========================================================================
@@ -1602,8 +1588,6 @@ a:hover .lien-fleche svg {
 
 .carte__axe {
   font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
   font-weight: 700;
   color: var(--vert);
   margin-bottom: 0.4rem;
@@ -1848,12 +1832,13 @@ a:hover .lien-fleche svg {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  padding: 5rem 0;
+  padding: 0 0 5rem;
   color: #d8e0ee;
-  background:
-    radial-gradient(circle at 15% 50%, rgb(60 110 241 / 35%), transparent 50%),
-    radial-gradient(circle at 90% 20%, rgb(11 122 30 / 30%), transparent 45%),
-    var(--nuit);
+  background: var(--nuit);
+}
+
+.appel > .lisere {
+  margin-bottom: 5rem;
 }
 
 .appel__etoiles {
@@ -1879,7 +1864,11 @@ a:hover .lien-fleche svg {
 
 @media (min-width: 900px) {
   .appel {
-    padding: 7rem 0;
+    padding: 0 0 7rem;
+  }
+
+  .appel > .lisere {
+    margin-bottom: 7rem;
   }
 
   .appel__contenu {
@@ -1895,12 +1884,13 @@ a:hover .lien-fleche svg {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  padding: calc(var(--entete) + 3rem) 0 3.5rem;
-  color: #c9d4e7;
-  background:
-    radial-gradient(ellipse at 85% 20%, rgb(60 110 241 / 35%), transparent 55%),
-    radial-gradient(ellipse at 0% 100%, rgb(11 122 30 / 28%), transparent 50%),
-    linear-gradient(160deg, #0b1a33, var(--nuit));
+  padding: calc(var(--entete) + 3.5rem) 0 0;
+  color: var(--texte-doux);
+  background: var(--blanc);
+}
+
+.entete-page__contenu {
+  padding-bottom: 3.5rem;
 }
 
 .entete-page__etoiles {
@@ -1908,9 +1898,9 @@ a:hover .lien-fleche svg {
 }
 
 .entete-page h1 {
-  color: var(--blanc);
-  max-width: 20ch;
-  font-size: clamp(2.2rem, 6vw, 4rem);
+  color: var(--nuit);
+  max-width: 18ch;
+  font-size: clamp(2.4rem, 6.4vw, 4.4rem);
   animation: glisse 1s var(--ease) both 0.05s;
 }
 
@@ -1931,7 +1921,7 @@ a:hover .lien-fleche svg {
   gap: 0.5rem 1.5rem;
   margin-top: 1.5rem;
   font-weight: 600;
-  color: var(--blanc);
+  color: var(--nuit);
 }
 
 .entete-page__details span {
@@ -1942,17 +1932,22 @@ a:hover .lien-fleche svg {
 
 @media (min-width: 900px) {
   .entete-page {
-    padding: calc(var(--entete) + 5rem) 0 5rem;
+    padding-top: calc(var(--entete) + 5rem);
+  }
+
+  .entete-page__contenu {
+    padding-bottom: 4.5rem;
   }
 }
 
 .vide {
   position: relative;
   overflow: hidden;
-  padding: 3.5rem 2rem;
+  padding: 3rem 2rem;
   border-radius: var(--rayon);
-  background: var(--nuit);
-  color: #c9d4e7;
+  background: var(--sable);
+  border: 1.5px dashed #c5cfc3;
+  color: var(--encre);
   text-align: center;
   font-family: var(--police-t);
   font-size: 1.3rem;
@@ -2019,9 +2014,7 @@ a:hover .lien-fleche svg {
 
   .sommaire p {
     font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    font-weight: 700;
+        font-weight: 700;
     color: var(--texte-doux);
   }
 
@@ -2342,8 +2335,6 @@ a:hover .lien-fleche svg {
 
 .fiche__bloc dt {
   font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
   font-weight: 700;
   color: var(--texte-doux);
 }
@@ -2500,8 +2491,6 @@ a:hover .lien-fleche svg {
 
 .fiche-partenaire__type {
   font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
   font-weight: 700;
   color: var(--vert);
   margin: 0;
@@ -2622,7 +2611,6 @@ a:hover .lien-fleche svg {
   border-radius: var(--rayon);
   background: var(--blanc);
   box-shadow: var(--ombre-forte);
-  margin-top: -5rem;
   position: relative;
   z-index: 1;
 }
@@ -2785,8 +2773,6 @@ a:hover .lien-fleche svg {
   color: var(--blanc);
   font-size: 0.78rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
   margin-bottom: 1.2rem;
 }
 
@@ -3230,6 +3216,12 @@ a:hover .lien-fleche svg {
   fill: var(--vert);
 }
 
+/* Départements colorés comme leur légende : on assombrit au survol */
+.dept__lien:hover .dept[style],
+.dept__lien:focus-visible .dept[style] {
+  filter: brightness(0.82);
+}
+
 .sources {
   padding: 1.6rem 1.8rem;
   border-left: 3px solid var(--or);
@@ -3331,8 +3323,6 @@ a:hover .lien-fleche svg {
 .structure__sigle {
   font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--vert);
 }
 
@@ -3375,8 +3365,6 @@ a:hover .lien-fleche svg {
   margin: 0 0 1rem;
   font-size: 1.05rem;
   font-family: var(--police);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
   color: var(--texte-doux);
 }
 
@@ -3406,8 +3394,6 @@ a:hover .lien-fleche svg {
 .formation__infos--sombre dt {
   color: var(--or);
   font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 .formation__infos--sombre dd {
@@ -3758,8 +3744,6 @@ a:hover .lien-fleche svg {
 
 .tableau thead th {
   font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
   color: var(--texte-doux);
 }
 
@@ -3771,4 +3755,248 @@ a:hover .lien-fleche svg {
 .tableau .nombre {
   text-align: right;
   font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   Accueil (chantier V2) : le territoire d'abord, l'identité du tissage
+   ========================================================================== */
+.bouton--vert {
+  background: var(--vert);
+  border-color: var(--vert);
+  color: var(--blanc);
+}
+
+.bouton--vert:hover {
+  background: #096a1a;
+  border-color: #096a1a;
+}
+
+.accueil-hero {
+  padding: calc(var(--entete) + 2.5rem) 0 3rem;
+  background: var(--blanc);
+}
+
+.accueil-hero__grille {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.accueil-hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4.3rem);
+  max-width: 16ch;
+  margin-bottom: 0.4em;
+}
+
+.accueil-hero__intro {
+  font-size: clamp(1.08rem, 2vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--texte-doux);
+  max-width: 36em;
+  margin: 0 0 2rem;
+}
+
+.accueil-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.accueil-hero__carte {
+  min-width: 0;
+}
+
+.accueil-hero__carte .carte-territoire {
+  margin: 0;
+}
+
+.accueil-hero__depts {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.accueil-hero__depts a {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: baseline;
+  gap: 0.25rem 0.6rem;
+  padding: 0.55rem 0;
+  border-top: 1px solid var(--bordure);
+  color: var(--encre);
+  text-decoration: none;
+}
+
+.accueil-hero__depts a:hover strong {
+  color: var(--bleu);
+  text-decoration: underline;
+}
+
+.accueil-hero__depts span:last-child {
+  justify-self: end;
+  color: var(--texte-doux);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 560px) {
+  .accueil-hero__depts a {
+    grid-template-columns: auto 1fr;
+  }
+
+  .accueil-hero__depts span:last-child {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+@media (min-width: 960px) {
+  .accueil-hero {
+    padding: calc(var(--entete) + 4rem) 0 4.5rem;
+  }
+
+  .accueil-hero__grille {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: 4rem;
+  }
+}
+
+.prochaine {
+  background: var(--nuit);
+  color: #c9d4e7;
+}
+
+.prochaine__barre {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem 2.5rem;
+  padding-block: 1.6rem;
+}
+
+.prochaine__titre {
+  margin: 0;
+  font-family: var(--police-t);
+  font-weight: 700;
+  font-size: clamp(1.2rem, 2.4vw, 1.55rem);
+  color: var(--blanc);
+}
+
+.prochaine__details {
+  margin: 0;
+}
+
+.portes {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 860px) {
+  .portes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.porte {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1.8rem;
+  border-radius: var(--rayon);
+  background: var(--sable);
+  border-top: 6px solid var(--c);
+  color: var(--encre);
+  text-decoration: none;
+  transition: transform 0.25s var(--ease), box-shadow 0.25s;
+}
+
+.porte:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--ombre);
+  color: var(--encre);
+}
+
+.porte__public {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--texte-doux);
+}
+
+.porte__titre {
+  font-family: var(--police-t);
+  font-weight: 800;
+  font-size: 1.7rem;
+  letter-spacing: -0.012em;
+  line-height: 1.1;
+}
+
+.porte__texte {
+  color: var(--texte-doux);
+  line-height: 1.55;
+}
+
+.porte__chiffre {
+  margin-top: auto;
+  padding-top: 0.6rem;
+  color: var(--texte-doux);
+}
+
+.porte__chiffre strong {
+  font-family: var(--police-t);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--encre);
+  font-variant-numeric: tabular-nums;
+  margin-right: 0.2rem;
+}
+
+.fils {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.fil {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr);
+  gap: 0.4rem 1.5rem;
+  align-items: center;
+  padding: 1.4rem 0;
+  border-top: 1px solid var(--bordure);
+}
+
+.fil__trait {
+  grid-row: span 2;
+  height: 14px;
+  border-radius: 7px;
+  background: var(--c);
+}
+
+.fil h3,
+.fil p {
+  margin: 0;
+}
+
+.fil p {
+  color: var(--texte-doux);
+  line-height: 1.6;
+}
+
+@media (min-width: 860px) {
+  .fil {
+    grid-template-columns: 7.5rem minmax(0, 1fr) minmax(0, 1.3fr);
+    gap: 2rem;
+    padding: 1.7rem 0;
+  }
+
+  .fil__trait {
+    grid-row: auto;
+  }
+
+  .fil h3 {
+    font-size: 1.55rem;
+  }
 }

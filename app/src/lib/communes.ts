@@ -7,6 +7,20 @@ export const COULEUR_DEPARTEMENT: Record<string, string> = {
   'medina-yoro-foulah': '#c99a06',
 }
 
+/** Couleurs de la carte, par nom de département, assorties à COULEUR_DEPARTEMENT */
+export const COULEURS_CARTE: Record<string, { fond: string; texte: string }> = {
+  Kolda: { fond: COULEUR_DEPARTEMENT.kolda, texte: '#ffffff' },
+  Vélingara: { fond: COULEUR_DEPARTEMENT.velingara, texte: '#ffffff' },
+  'Médina Yoro Foulah': { fond: COULEUR_DEPARTEMENT['medina-yoro-foulah'], texte: '#0f2240' },
+}
+
+/** Noms des départements dans les données de la carte → slug de leur fiche */
+export const SLUG_PAR_DEPARTEMENT: Record<string, string> = {
+  Kolda: 'kolda',
+  Vélingara: 'velingara',
+  'Médina Yoro Foulah': 'medina-yoro-foulah',
+}
+
 /** Nom court d'un département (« Vélingara » plutôt que « Département de Vélingara ») */
 const NOMS_COURTS: Record<string, string> = { kolda: 'Kolda', velingara: 'Vélingara', 'medina-yoro-foulah': 'Médina Yoro Foulah' }
 export const nomCourt = (dep: Territoire) => NOMS_COURTS[dep.slug ?? ''] ?? dep.nom

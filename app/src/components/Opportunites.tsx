@@ -5,14 +5,12 @@ import { dico, lien, type Langue } from '@/i18n'
 import { datesSession, formatDate, placesRestantes } from '@/lib/format'
 import type { SessionAffichee } from '@/lib/payload'
 
-import { Etoiles } from './ui/Etoiles'
 import { Icone } from './ui/Icone'
 
 /** Encadré sombre pour une liste vide, avec actions (lettre d'information, contact…) */
 export function EncadreVide({ titre, texte, children }: { titre: string; texte: string; children?: React.ReactNode }) {
   return (
     <div className="vide bientot" data-reveal>
-      <Etoiles className="vide__etoiles" />
       <p className="bientot__titre">{titre}</p>
       <p className="bientot__texte">{texte}</p>
       {children && <div className="bientot__actions">{children}</div>}

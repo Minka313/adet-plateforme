@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Fraunces, Inter } from 'next/font/google'
+import { Bricolage_Grotesque, Public_Sans } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
@@ -13,8 +13,9 @@ import { menuPrincipal } from '@/lib/menu'
 
 import '../styles.css'
 
-const titres = Fraunces({ subsets: ['latin'], variable: '--police-titres', display: 'swap', axes: ['opsz', 'SOFT'] })
-const texte = Inter({ subsets: ['latin'], variable: '--police-texte', display: 'swap' })
+// Identité « tissage » : grotesque expressive pour les titres, Public Sans pour le texte
+const titres = Bricolage_Grotesque({ subsets: ['latin'], variable: '--police-titres', display: 'swap', axes: ['opsz'] })
+const texte = Public_Sans({ subsets: ['latin'], variable: '--police-texte', display: 'swap' })
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
 
@@ -37,7 +38,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   }
 }
 
-export const viewport: Viewport = { themeColor: '#0F2240' }
+export const viewport: Viewport = { themeColor: '#FFFFFF' }
 
 export default async function Racine({ children, params }: { children: React.ReactNode; params: Promise<{ lang: string }> }) {
   const { lang } = await params

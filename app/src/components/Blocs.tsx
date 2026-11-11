@@ -6,12 +6,11 @@ import { dico, lien, type Langue } from '@/i18n'
 import { formatDate, periode } from '@/lib/format'
 
 import { Picture } from './Picture'
-import { Etoiles } from './ui/Etoiles'
 import { Icone } from './ui/Icone'
-import { Motif } from './ui/Motif'
+import { Lisere } from './ui/Motif'
 import { Visuel } from './ui/Visuel'
 
-/** En-tête sombre des pages intérieures */
+/** En-tête clair des pages intérieures, souligné d'une bande tissée */
 export function EnTetePage({
   surtitre,
   titre,
@@ -25,14 +24,13 @@ export function EnTetePage({
 }) {
   return (
     <section className="entete-page">
-      <Motif couleur="#fff" opacite={0.05} taille={60} />
-      <Etoiles className="entete-page__etoiles" />
       <div className="conteneur entete-page__contenu">
-        {surtitre && <p className="surtitre surtitre--or">{surtitre}</p>}
+        {surtitre && <p className="surtitre">{surtitre}</p>}
         <h1>{titre}</h1>
         {intro && <p className="entete-page__intro">{intro}</p>}
         {children}
       </div>
+      <Lisere className="entete-page__lisere" />
     </section>
   )
 }
@@ -71,7 +69,6 @@ export function TitreSection({
 export function Vide({ children }: { children: React.ReactNode }) {
   return (
     <div className="vide" data-reveal>
-      <Etoiles className="vide__etoiles" />
       <p>{children}</p>
     </div>
   )
@@ -154,8 +151,7 @@ export function LogoPartenaire({ p }: { p: Partenaire }) {
 export function AppelAction({ titre, texte, href, label }: { titre: string; texte: string; href: string; label: string }) {
   return (
     <section className="appel">
-      <Motif couleur="#F9DB5F" opacite={0.09} taille={72} />
-      <Etoiles className="appel__etoiles" />
+      <Lisere />
       <div className="conteneur appel__contenu" data-reveal>
         <div>
           <h2>{titre}</h2>
