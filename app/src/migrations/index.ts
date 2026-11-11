@@ -6,6 +6,7 @@ import * as migration_20261023_164152_opportunites_formations from './20261023_1
 import * as migration_20261029_055059_formations_sessions_inscriptions from './20261029_055059_formations_sessions_inscriptions';
 import * as migration_20261108_123929_communes from './20261108_123929_communes';
 import * as migration_20261111_153811_espace_pro from './20261111_153811_espace_pro';
+import * as migration_20261111_184812_notifications from './20261111_184812_notifications';
 
 export const migrations = [
   {
@@ -46,6 +47,11 @@ export const migrations = [
   {
     up: migration_20261111_153811_espace_pro.up,
     down: migration_20261111_153811_espace_pro.down,
-    name: '20261111_153811_espace_pro'
+    name: '20261111_153811_espace_pro',
+  },
+  {
+    up: migration_20261111_184812_notifications.up,
+    down: migration_20261111_184812_notifications.down,
+    name: '20261111_184812_notifications'
   },
 ];

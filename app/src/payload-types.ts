@@ -83,8 +83,10 @@ export interface Config {
     media: Media;
     documents: Document;
     annonces: Annonce;
+    notifications: Notification;
     users: User;
     abonnes: Abonne;
+    'abonnements-push': AbonnementsPush;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -115,8 +117,10 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     documents: DocumentsSelect<false> | DocumentsSelect<true>;
     annonces: AnnoncesSelect<false> | AnnoncesSelect<true>;
+    notifications: NotificationsSelect<false> | NotificationsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     abonnes: AbonnesSelect<false> | AbonnesSelect<true>;
+    'abonnements-push': AbonnementsPushSelect<false> | AbonnementsPushSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -731,6 +735,26 @@ export interface User {
   collection: 'users';
 }
 /**
+ * Envoyées automatiquement (annonces, inscriptions, messages…). Chacun voit les siennes dans l’espace pro.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "notifications".
+ */
+export interface Notification {
+  id: number;
+  destinataire: number | User;
+  titre: string;
+  texte?: string | null;
+  /**
+   * Adresse ouverte au clic (ex. /espace/annonces).
+   */
+  lien?: string | null;
+  type: 'annonce' | 'inscription' | 'message' | 'tache' | 'reunion' | 'systeme';
+  lue?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Inscriptions à la lettre d’information depuis le site. Export CSV : bouton du tableau de bord.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -746,6 +770,25 @@ export interface Abonne {
   actif?: boolean | null;
   consentement?: string | null;
   empreinte?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Appareils où un membre a activé les notifications. Supprimer une ligne arrête les notifications sur cet appareil.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "abonnements-push".
+ */
+export interface AbonnementsPush {
+  id: number;
+  utilisateur: number | User;
+  endpoint: string;
+  p256dh: string;
+  auth: string;
+  /**
+   * Navigateur et système, pour reconnaître l’appareil.
+   */
+  appareil?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -838,12 +881,20 @@ export interface PayloadLockedDocument {
         value: number | Annonce;
       } | null)
     | ({
+        relationTo: 'notifications';
+        value: number | Notification;
+      } | null)
+    | ({
         relationTo: 'users';
         value: number | User;
       } | null)
     | ({
         relationTo: 'abonnes';
         value: number | Abonne;
+      } | null)
+    | ({
+        relationTo: 'abonnements-push';
+        value: number | AbonnementsPush;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1236,6 +1287,20 @@ export interface AnnoncesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "notifications_select".
+ */
+export interface NotificationsSelect<T extends boolean = true> {
+  destinataire?: T;
+  titre?: T;
+  texte?: T;
+  lien?: T;
+  type?: T;
+  lue?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
@@ -1273,6 +1338,19 @@ export interface AbonnesSelect<T extends boolean = true> {
   actif?: T;
   consentement?: T;
   empreinte?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "abonnements-push_select".
+ */
+export interface AbonnementsPushSelect<T extends boolean = true> {
+  utilisateur?: T;
+  endpoint?: T;
+  p256dh?: T;
+  auth?: T;
+  appareil?: T;
   updatedAt?: T;
   createdAt?: T;
 }

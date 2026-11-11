@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { ROLES } from '@/access'
+import { ReglagesAppareil } from '@/components/espace/Appli'
 import { exigerUtilisateur } from '@/lib/session'
 
 import { FormulaireMotDePasse, FormulaireProfil } from './Formulaires'
@@ -25,6 +26,7 @@ export default async function Profil() {
         <FormulaireProfil nom={user.nom ?? ''} fonction={user.fonction ?? ''} telephone={user.telephone ?? ''} />
         <FormulaireMotDePasse />
       </div>
+      <ReglagesAppareil />
       <p className="note-espace">Votre pôle et vos rôles sont attribués par un administrateur de l’ADET.</p>
     </div>
   )

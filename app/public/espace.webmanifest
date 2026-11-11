@@ -1,0 +1,17 @@
+{
+  "name": "ADET · Espace pro",
+  "short_name": "ADET Pro",
+  "description": "L'espace de travail de l'équipe de l'ADET : annonces, équipe, notifications.",
+  "id": "/espace",
+  "start_url": "/espace",
+  "scope": "/espace",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f6f8f5",
+  "theme_color": "#ffffff",
+  "lang": "fr",
+  "icons": [
+    { "src": "/brand/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/brand/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 import { fr } from '@payloadcms/translations/languages/fr'
 
+import { AbonnementsPush } from './collections/AbonnementsPush'
 import { Abonnes } from './collections/Abonnes'
 import { Annonces } from './collections/Annonces'
 import { Actualites } from './collections/Actualites'
@@ -20,6 +21,7 @@ import { Formations } from './collections/Formations'
 import { Inscriptions } from './collections/Inscriptions'
 import { Media } from './collections/Media'
 import { Messages } from './collections/Messages'
+import { Notifications } from './collections/Notifications'
 import { Opportunites } from './collections/Opportunites'
 import { Partenaires } from './collections/Partenaires'
 import { Realisations } from './collections/Realisations'
@@ -91,8 +93,10 @@ export default buildConfig({
     Media,
     Documents,
     Annonces,
+    Notifications,
     Users,
     Abonnes,
+    AbonnementsPush,
   ],
   globals: [Association, Coordonnees, Photos],
   editor: lexicalEditor(),
