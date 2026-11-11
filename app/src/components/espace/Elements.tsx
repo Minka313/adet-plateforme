@@ -1,4 +1,7 @@
-import type { Annonce, User } from '@/payload-types'
+import Link from 'next/link'
+
+import { changerStatut } from '@/app/(espace)/espace/(app)/taches/actions'
+import type { Annonce, Reunion, Tache, User } from '@/payload-types'
 import { initiales } from '@/lib/session'
 
 import { IconeEspace } from './Icones'
@@ -57,6 +60,87 @@ export function CarteMembre({ m, pole }: { m: User; pole?: string | null }) {
           </a>
         </div>
       )}
+    </li>
+  )
+}
+
+const ACTIONS_STATUT: Record<Tache['statut'], { statut: Tache['statut']; libelle: string; principal?: boolean }[]> = {
+  'a-faire': [
+    { statut: 'en-cours', libelle: 'Commencer' },
+    { statut: 'fait', libelle: 'Terminer', principal: true },
+  ],
+  'en-cours': [{ statut: 'fait', libelle: 'Terminer', principal: true }],
+  fait: [{ statut: 'a-faire', libelle: 'Rouvrir' }],
+}
+
+const aujourdhuiUTC = () => {
+  const d = new Date()
+  return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())
+}
+
+export function CarteTache({ t, modifiable }: { t: Tache; modifiable: boolean }) {
+  const responsables = (t.responsables ?? []).filter((r): r is User => typeof r === 'object' && r !== null)
+  const pole = t.pole && typeof t.pole === 'object' ? t.pole.nom : null
+  const enRetard = t.statut !== 'fait' && t.echeance && new Date(t.echeance).getTime() < aujourdhuiUTC()
+  return (
+    <li className={`tache tache--${t.priorite}`}>
+      <div className="tache__tete">
+        <p className="tache__titre">{t.titre}</p>
+        {t.priorite === 'haute' && <span className="etiquette etiquette--haute">Priorité haute</span>}
+      </div>
+      {t.description && <p className="tache__texte">{t.description.length > 160 ? `${t.description.slice(0, 160)}…` : t.description}</p>}
+      <p className="tache__meta">
+        {t.echeance && (
+          <span className={enRetard ? 'tache__retard' : undefined}>
+            {enRetard ? 'En retard : ' : 'Pour le '}
+            {new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(new Date(t.echeance))}
+          </span>
+        )}
+        {pole && <span>{pole}</span>}
+      </p>
+      <div className="tache__pied">
+        <span className="avatars" aria-label={responsables.length ? `Responsables : ${responsables.map((r) => r.nom ?? r.email).join(', ')}` : 'Personne assignée'}>
+          {responsables.slice(0, 4).map((r) => (
+            <span key={r.id} className="avatar avatar--petit" title={r.nom ?? r.email}>
+              {initiales(r)}
+            </span>
+          ))}
+        </span>
+        {modifiable && (
+          <span className="tache__actions">
+            {ACTIONS_STATUT[t.statut].map((a) => (
+              <form key={a.statut} action={changerStatut}>
+                <input type="hidden" name="id" value={t.id} />
+                <input type="hidden" name="statut" value={a.statut} />
+                <button type="submit" className={`bouton bouton--petit ${a.principal ? 'bouton--plein' : 'bouton--clair'}`}>
+                  {a.libelle}
+                </button>
+              </form>
+            ))}
+          </span>
+        )}
+      </div>
+    </li>
+  )
+}
+
+export function CarteReunion({ r }: { r: Reunion }) {
+  const debut = new Date(r.debut)
+  return (
+    <li>
+      <Link href={`/espace/reunions/${r.id}`} className="reunion">
+        <span className="reunion__date" aria-hidden="true">
+          <strong>{new Intl.DateTimeFormat('fr-FR', { day: 'numeric', timeZone: 'Africa/Dakar' }).format(debut)}</strong>
+          <span>{new Intl.DateTimeFormat('fr-FR', { month: 'short', timeZone: 'Africa/Dakar' }).format(debut)}</span>
+        </span>
+        <span className="reunion__texte">
+          <strong>{r.titre}</strong>
+          <span>
+            {new Intl.DateTimeFormat('fr-FR', { weekday: 'long', hour: '2-digit', minute: '2-digit', timeZone: 'Africa/Dakar' }).format(debut)}
+            {r.lieu ? ` · ${r.lieu}` : ''}
+          </span>
+        </span>
+      </Link>
     </li>
   )
 }

@@ -136,6 +136,8 @@ Puis ouvrir `https://adet.sn/admin`, créer le premier compte (administrateur), 
 - **Déclencheurs** : annonce du bureau → toute l'équipe active sauf l'auteur ; message du formulaire de contact et inscription à une formation → administrateurs et éditeurs.
 - **Variables** : `NEXT_PUBLIC_VAPID_PUBLIC_KEY` (lue au build), `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`. Copie privée dans `~/.config/adet/production.env`. Sur iPhone, les notifications ne marchent qu'avec l'application installée (iOS 16.4 et plus).
 
+- **Rappels de réunions** : `GET /api/reunions/rappels` envoie les rappels du jour et du lendemain, une seule fois chacun. Sur Vercel, tâche planifiée quotidienne à 7 h UTC (= 7 h à Dakar) dans `app/vercel.json` (l'offre gratuite ne permet qu'un passage par jour). Accès : en-tête `Authorization: Bearer CRON_SECRET` si cette variable existe, sinon l'agent `vercel-cron`, ou un compte du bureau. Sur un VPS : `0 7 * * * curl -fsS -H "Authorization: Bearer $CRON_SECRET" https://adet.sn/api/reunions/rappels`.
+
 ## 9. Sauvegardes et restauration
 
 **Hébergement actuel (Neon)** : sauvegarde automatique chaque nuit à 2 h par le dépôt **privé** `Minka313/adet-sauvegardes` (GitHub Actions). La base est exportée, **restaurée à blanc pour vérification**, chiffrée (AES-256) et conservée 30 jours. En cas d'échec, GitHub prévient par e-mail. Restauration : `restaurer.sh` de ce dépôt, dans une base vide uniquement. La phrase de chiffrement est indispensable : la garder en lieu sûr.

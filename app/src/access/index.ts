@@ -24,6 +24,9 @@ export const estEquipeSite = (user: RoleUser): boolean => aRole(user, 'admin', '
 /** Dirige l'association : publie les annonces internes, valide */
 export const estBureau = (user: RoleUser): boolean => aRole(user, 'admin', 'bureau')
 
+/** Organise le travail : planifie les réunions (bureau et responsables de pôle) */
+export const estOrganisateur = (user: RoleUser): boolean => aRole(user, 'admin', 'bureau', 'responsable')
+
 export const anyone: Access = () => true
 
 /** Contenus du site : réservés à l'équipe du site (un membre de l'espace pro ne peut pas les modifier) */

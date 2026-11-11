@@ -83,6 +83,8 @@ export interface Config {
     media: Media;
     documents: Document;
     annonces: Annonce;
+    taches: Tache;
+    reunions: Reunion;
     notifications: Notification;
     users: User;
     abonnes: Abonne;
@@ -117,6 +119,8 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     documents: DocumentsSelect<false> | DocumentsSelect<true>;
     annonces: AnnoncesSelect<false> | AnnoncesSelect<true>;
+    taches: TachesSelect<false> | TachesSelect<true>;
+    reunions: ReunionsSelect<false> | ReunionsSelect<true>;
     notifications: NotificationsSelect<false> | NotificationsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     abonnes: AbonnesSelect<false> | AbonnesSelect<true>;
@@ -735,6 +739,50 @@ export interface User {
   collection: 'users';
 }
 /**
+ * Les tâches de l’équipe. Elles se gèrent d’abord dans l’espace pro (/espace/taches).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "taches".
+ */
+export interface Tache {
+  id: number;
+  titre: string;
+  description?: string | null;
+  statut: 'a-faire' | 'en-cours' | 'fait';
+  priorite: 'basse' | 'normale' | 'haute';
+  echeance?: string | null;
+  responsables?: (number | User)[] | null;
+  pole?: (number | null) | Departement;
+  creePar?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Les réunions de l’équipe, planifiées dans l’espace pro (/espace/reunions). Rappel le matin du jour et la veille.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reunions".
+ */
+export interface Reunion {
+  id: number;
+  titre: string;
+  debut: string;
+  duree?: number | null;
+  /**
+   * Ex. : siège, Fass Diaé. Visio : au lot suivant.
+   */
+  lieu?: string | null;
+  ordreDuJour?: string | null;
+  touteLEquipe?: boolean | null;
+  participants?: (number | User)[] | null;
+  compteRendu?: string | null;
+  organisateur?: (number | null) | User;
+  rappelVeille?: boolean | null;
+  rappelJour?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Envoyées automatiquement (annonces, inscriptions, messages…). Chacun voit les siennes dans l’espace pro.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -879,6 +927,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'annonces';
         value: number | Annonce;
+      } | null)
+    | ({
+        relationTo: 'taches';
+        value: number | Tache;
+      } | null)
+    | ({
+        relationTo: 'reunions';
+        value: number | Reunion;
       } | null)
     | ({
         relationTo: 'notifications';
@@ -1282,6 +1338,41 @@ export interface AnnoncesSelect<T extends boolean = true> {
   contenu?: T;
   epinglee?: T;
   auteur?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "taches_select".
+ */
+export interface TachesSelect<T extends boolean = true> {
+  titre?: T;
+  description?: T;
+  statut?: T;
+  priorite?: T;
+  echeance?: T;
+  responsables?: T;
+  pole?: T;
+  creePar?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reunions_select".
+ */
+export interface ReunionsSelect<T extends boolean = true> {
+  titre?: T;
+  debut?: T;
+  duree?: T;
+  lieu?: T;
+  ordreDuJour?: T;
+  touteLEquipe?: T;
+  participants?: T;
+  compteRendu?: T;
+  organisateur?: T;
+  rappelVeille?: T;
+  rappelJour?: T;
   updatedAt?: T;
   createdAt?: T;
 }

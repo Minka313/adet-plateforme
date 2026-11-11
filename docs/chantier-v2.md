@@ -34,7 +34,7 @@ L'ordre suit les dépendances : on ne peut pas notifier quelqu'un qui n'a pas de
 | **C** | Connexion (6), rôles, et socle de l'espace pro : tableau de bord, annuaire, annonces (3). *Livré sans e-mail : l'administrateur crée les comptes et réinitialise les mots de passe* | — |
 | **C bis** | Refonte du back-office `/admin` : thème aux couleurs de l'ADET (polices, gris teintés, boutons verts, trame), tableau de bord (à traiter, chiffres, messages, inscriptions, raccourcis, dernières modifications), menu par rubriques en commençant par « À traiter » | Lot C |
 | **D** | Application installable (7) et notifications (4) : espace pro installable (`/espace`), page hors connexion, cloche et centre de notifications, Web Push. *Les clés VAPID doivent être ajoutées dans Vercel pour activer le push* | Lot C |
-| **E** | Outils de travail de l'espace pro : tâches, réunions, rapports, documents (3) | Lot D |
+| **E** | Outils de travail de l'espace pro : tâches et réunions *(livrées : colonnes par statut, notifications, rappels quotidiens, comptes rendus)* ; rapports et documents à suivre, selon les modèles de l'ADET (3) | Lot D |
 | **F** | Visio pour les réunions et les formations (5) | Lot E (réunions) |
 
 Chaque lot passe par une pull request, la CI, une vérification visuelle (ordinateur et mobile) et un point avec vous avant la mise en production.
