@@ -3,7 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { empecherSiLie } from '../hooks/empecherSuppression'
 import { hooksRegeneration } from '../hooks/revalider'
 
-import { loggedIn, publishedOrLoggedIn } from '../access'
+import { equipeSite, publieOuEquipeSite } from '../access'
 
 export const Formations: CollectionConfig = {
   slug: 'formations',
@@ -19,7 +19,7 @@ export const Formations: CollectionConfig = {
     ...hooksRegeneration,
     beforeDelete: [empecherSiLie('sessions', 'formation', 'Cette formation a des sessions. Supprimez d’abord ses sessions, ou repassez-la en brouillon pour la retirer du site.')],
   },
-  access: { read: publishedOrLoggedIn, create: loggedIn, update: loggedIn, delete: loggedIn },
+  access: { read: publieOuEquipeSite, create: equipeSite, update: equipeSite, delete: equipeSite },
   defaultSort: 'titre',
   fields: [
     { name: 'titre', type: 'text', localized: true, required: true },

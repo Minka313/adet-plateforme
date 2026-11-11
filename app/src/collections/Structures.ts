@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { hooksRegeneration } from '../hooks/revalider'
 
-import { anyone, loggedIn } from '../access'
+import { anyone, equipeSite } from '../access'
 
 export const TYPES_STRUCTURE = [
   { label: 'Financement', value: 'financement' },
@@ -22,7 +22,7 @@ export const Structures: CollectionConfig = {
       'Annuaire des structures qui financent, accompagnent, emploient ou forment. Affiché dans « Opportunités » (et « Se former » pour la formation).',
   },
   hooks: hooksRegeneration,
-  access: { read: anyone, create: loggedIn, update: loggedIn, delete: loggedIn },
+  access: { read: anyone, create: equipeSite, update: equipeSite, delete: equipeSite },
   defaultSort: 'ordre',
   fields: [
     {

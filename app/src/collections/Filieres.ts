@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { hooksRegeneration } from '../hooks/revalider'
 
-import { anyone, loggedIn } from '../access'
+import { anyone, equipeSite } from '../access'
 import { indicateursField, reperesField } from '../fields/indicateurs'
 import { slugField } from '../fields/slug'
 
@@ -16,7 +16,7 @@ export const Filieres: CollectionConfig = {
     description: 'Les filières et ressources économiques du territoire (axe 3 : ressources locales).',
   },
   hooks: hooksRegeneration,
-  access: { read: anyone, create: loggedIn, update: loggedIn, delete: loggedIn },
+  access: { read: anyone, create: equipeSite, update: equipeSite, delete: equipeSite },
   defaultSort: 'ordre',
   fields: [
     { name: 'nom', type: 'text', localized: true, required: true },

@@ -21,7 +21,7 @@ Deux principes ne changent pas :
 | 5 | Visio | Réunions et formations en visio intégrées (Jitsi), avec planification, invitations, rappels et mode « économie de données » |
 | 6 | Connexion | Page « Se connecter » sur le site, comptes par personne avec rôles, mot de passe oublié par e-mail |
 | 7 | Application | Site installable sur l'écran d'accueil (PWA), fonctionnement minimal hors connexion |
-| 8 | Contenus et photos | Textes et photos de la page Facebook de l'ADET intégrés au site, en remplacement des illustrations |
+| 8 | Contenus et photos | Textes et photos de la page Facebook de l'ADET (facebook.com/Adet23) intégrés au site, en remplacement des illustrations |
 
 ## L'ordre des lots
 
@@ -31,7 +31,8 @@ L'ordre suit les dépendances : on ne peut pas notifier quelqu'un qui n'a pas de
 |---|---|---|
 | **A** | Coordonnées (2), collecte des contenus Facebook (8), choix de la direction visuelle (1) | Lien Facebook et photos |
 | **B** | Refonte visuelle du site public (1) et intégration des photos (8) | Lot A |
-| **C** | Connexion (6), rôles, et socle de l'espace pro : tableau de bord, annuaire, annonces (3) | Envoi d'e-mails configuré |
+| **C** | Connexion (6), rôles, et socle de l'espace pro : tableau de bord, annuaire, annonces (3). *Livré sans e-mail : l'administrateur crée les comptes et réinitialise les mots de passe* | — |
+| **C bis** | Refonte du back-office `/admin` : thème aux couleurs de l'ADET, tableau de bord plus riche, navigation par grandes rubriques (demande du 11 novembre) | Lot C |
 | **D** | Application installable (7) et notifications (4) | Lot C |
 | **E** | Outils de travail de l'espace pro : tâches, réunions, rapports, documents (3) | Lot D |
 | **F** | Visio pour les réunions et les formations (5) | Lot E (réunions) |

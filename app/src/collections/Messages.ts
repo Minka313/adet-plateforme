@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { loggedIn } from '../access'
+import { equipeSite } from '../access'
 import { notifierMessage } from '../hooks/notifierMessage'
 
 export const Messages: CollectionConfig = {
@@ -14,7 +14,7 @@ export const Messages: CollectionConfig = {
   },
   hooks: { afterChange: [notifierMessage] },
   // Création uniquement via le formulaire du site (server action avec overrideAccess)
-  access: { read: loggedIn, create: () => false, update: loggedIn, delete: loggedIn },
+  access: { read: equipeSite, create: () => false, update: equipeSite, delete: equipeSite },
   defaultSort: '-createdAt',
   fields: [
     { name: 'nom', type: 'text', required: true },

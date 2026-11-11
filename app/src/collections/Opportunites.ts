@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { hooksRegeneration } from '../hooks/revalider'
 
-import { loggedIn, publishedOrLoggedIn } from '../access'
+import { equipeSite, publieOuEquipeSite } from '../access'
 
 export const TYPES_OPPORTUNITE = [
   { label: 'Financement', value: 'financement' },
@@ -24,7 +24,7 @@ export const Opportunites: CollectionConfig = {
   },
   versions: { drafts: true },
   hooks: hooksRegeneration,
-  access: { read: publishedOrLoggedIn, create: loggedIn, update: loggedIn, delete: loggedIn },
+  access: { read: publieOuEquipeSite, create: equipeSite, update: equipeSite, delete: equipeSite },
   defaultSort: 'dateLimite',
   fields: [
     { name: 'titre', type: 'text', localized: true, required: true },

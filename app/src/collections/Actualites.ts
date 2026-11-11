@@ -3,7 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { hooksRegeneration } from '../hooks/revalider'
 import { urlApercu } from '../lib/apercu'
 
-import { loggedIn, publishedOrLoggedIn } from '../access'
+import { equipeSite, publieOuEquipeSite } from '../access'
 import { slugField } from '../fields/slug'
 
 export const Actualites: CollectionConfig = {
@@ -18,10 +18,10 @@ export const Actualites: CollectionConfig = {
   versions: { drafts: true },
   hooks: hooksRegeneration,
   access: {
-    read: publishedOrLoggedIn,
-    create: loggedIn,
-    update: loggedIn,
-    delete: loggedIn,
+    read: publieOuEquipeSite,
+    create: equipeSite,
+    update: equipeSite,
+    delete: equipeSite,
   },
   defaultSort: '-date',
   fields: [

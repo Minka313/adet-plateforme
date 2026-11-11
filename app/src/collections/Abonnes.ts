@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { isAdmin, loggedIn } from '../access'
+import { equipeSite, estEquipeSite, isAdmin } from '../access'
 
 const csv = (v: unknown) => `"${String(v ?? '').replace(/"/g, '""')}"`
 
@@ -14,7 +14,7 @@ export const Abonnes: CollectionConfig = {
     description: 'Inscriptions à la lettre d’information depuis le site. Export CSV : bouton du tableau de bord.',
   },
   // Inscription uniquement via le formulaire du site (server action avec overrideAccess)
-  access: { read: loggedIn, create: () => false, update: loggedIn, delete: ({ req }) => isAdmin(req.user) },
+  access: { read: equipeSite, create: () => false, update: equipeSite, delete: ({ req }) => isAdmin(req.user) },
   defaultSort: '-createdAt',
   fields: [
     { name: 'email', type: 'email', required: true, unique: true, index: true },
@@ -29,7 +29,7 @@ export const Abonnes: CollectionConfig = {
       path: '/export',
       method: 'get',
       handler: async (req) => {
-        if (!req.user) return Response.json({ message: 'Non autorisé' }, { status: 401 })
+        if (!estEquipeSite(req.user)) return Response.json({ message: 'Non autorisé' }, { status: 401 })
         const { docs } = await req.payload.find({
           collection: 'abonnes',
           where: { actif: { equals: true } },

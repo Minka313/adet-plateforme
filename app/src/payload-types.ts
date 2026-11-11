@@ -83,6 +83,7 @@ export interface Config {
     media: Media;
     messages: Message;
     abonnes: Abonne;
+    annonces: Annonce;
     users: User;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -114,6 +115,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     messages: MessagesSelect<false> | MessagesSelect<true>;
     abonnes: AbonnesSelect<false> | AbonnesSelect<true>;
+    annonces: AnnoncesSelect<false> | AnnoncesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -239,6 +241,7 @@ export interface Media {
    */
   alt: string;
   credit?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -633,6 +636,7 @@ export interface Document {
   categorie?: ('rapport' | 'institutionnel' | 'etude' | 'plaquette') | null;
   annee?: number | null;
   description?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -685,6 +689,23 @@ export interface Abonne {
   createdAt: string;
 }
 /**
+ * Messages du bureau à toute l’équipe, affichés dans l’espace pro. Une annonce épinglée reste en tête.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "annonces".
+ */
+export interface Annonce {
+  id: number;
+  titre: string;
+  contenu: string;
+  epinglee?: boolean | null;
+  auteur?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Chaque membre de l’équipe a son compte. Administrateurs et éditeurs ouvrent ce back-office ; tous ouvrent l’espace pro (/espace).
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
@@ -692,9 +713,22 @@ export interface User {
   id: number;
   nom?: string | null;
   /**
-   * L'administrateur gère aussi les comptes ; l'éditeur publie les contenus.
+   * Ex. : Chargée de communication
    */
-  roles?: ('admin' | 'editeur')[] | null;
+  fonction?: string | null;
+  pole?: (number | null) | Departement;
+  /**
+   * Ex. : 77 458 61 05. Visible par l’équipe uniquement.
+   */
+  telephone?: string | null;
+  /**
+   * Administrateur : tout, comptes compris. Éditeur : contenus du site. Bureau : annonces et validations. Responsable : son pôle. Membre : l’espace pro.
+   */
+  roles?: ('admin' | 'editeur' | 'bureau' | 'responsable' | 'membre' | 'formateur')[] | null;
+  /**
+   * Décocher quand une personne quitte l’équipe : elle ne peut plus se connecter.
+   */
+  actif?: boolean | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -802,6 +836,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'abonnes';
         value: number | Abonne;
+      } | null)
+    | ({
+        relationTo: 'annonces';
+        value: number | Annonce;
       } | null)
     | ({
         relationTo: 'users';
@@ -1100,6 +1138,7 @@ export interface DocumentsSelect<T extends boolean = true> {
   categorie?: T;
   annee?: T;
   description?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -1119,6 +1158,7 @@ export interface DocumentsSelect<T extends boolean = true> {
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   credit?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -1197,11 +1237,27 @@ export interface AbonnesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "annonces_select".
+ */
+export interface AnnoncesSelect<T extends boolean = true> {
+  titre?: T;
+  contenu?: T;
+  epinglee?: T;
+  auteur?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
   nom?: T;
+  fonction?: T;
+  pole?: T;
+  telephone?: T;
   roles?: T;
+  actif?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

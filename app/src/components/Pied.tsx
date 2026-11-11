@@ -105,7 +105,7 @@ export async function Pied({ lang }: { lang: Langue }) {
           </span>
           <span className="pied__liens-legaux">
             <Link href={lien(lang, '/mentions-legales')}>{d.pied.mentions}</Link>
-            <Link href="/admin">{d.pied.espaceMembres}</Link>
+            <Link href="/espace">{d.pied.espaceMembres}</Link>
           </span>
         </div>
       </div>

@@ -10,6 +10,7 @@ import sharp from 'sharp'
 import { fr } from '@payloadcms/translations/languages/fr'
 
 import { Abonnes } from './collections/Abonnes'
+import { Annonces } from './collections/Annonces'
 import { Actualites } from './collections/Actualites'
 import { Departements } from './collections/Departements'
 import { Documents } from './collections/Documents'
@@ -71,7 +72,7 @@ export default buildConfig({
     supportedLanguages: { fr },
     fallbackLanguage: 'fr',
   },
-  collections: [Territoires, Filieres, Opportunites, Structures, Formations, Sessions, Inscriptions, Realisations, Actualites, Partenaires, Equipe, Departements, Documents, Media, Messages, Abonnes, Users],
+  collections: [Territoires, Filieres, Opportunites, Structures, Formations, Sessions, Inscriptions, Realisations, Actualites, Partenaires, Equipe, Departements, Documents, Media, Messages, Abonnes, Annonces, Users],
   globals: [Association, Coordonnees, Photos],
   editor: lexicalEditor(),
   // E-mails : SMTP configuré par variables d'environnement (sinon affichés dans la console)

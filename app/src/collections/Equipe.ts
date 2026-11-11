@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { hooksRegeneration } from '../hooks/revalider'
 
-import { anyone, loggedIn } from '../access'
+import { anyone, equipeSite } from '../access'
 
 export const Equipe: CollectionConfig = {
   slug: 'equipe',
@@ -13,7 +13,7 @@ export const Equipe: CollectionConfig = {
     defaultColumns: ['nom', 'fonction', 'departement', 'ordre'],
   },
   hooks: hooksRegeneration,
-  access: { read: anyone, create: loggedIn, update: loggedIn, delete: loggedIn },
+  access: { read: anyone, create: equipeSite, update: equipeSite, delete: equipeSite },
   defaultSort: 'ordre',
   fields: [
     { name: 'nom', type: 'text', required: true },

@@ -3,10 +3,20 @@
 Ce guide s'adresse aux membres de l'ADET qui publient sur le site. Aucune compétence technique n'est nécessaire.
 
 ## Se connecter
-1. Ouvrez **adresse-du-site/admin** (ou cliquez sur « Espace membres » en bas du site).
-2. Saisissez votre e-mail et votre mot de passe.
-   - Après **5 erreurs**, le compte est bloqué 15 minutes : patientez puis réessayez.
-   - Mot de passe perdu : demandez à l'administrateur du site de le réinitialiser (**Administration → Utilisateurs**). Le lien « Mot de passe oublié » n'enverra un e-mail qu'une fois l'envoi d'e-mails configuré.
+Deux portes, selon votre rôle :
+- **L'espace pro** (`adresse-du-site/espace`, ou « Espace pro (équipe) » en bas du site) : toute l'équipe. Annonces du bureau, annuaire avec appel et WhatsApp en un geste, profil.
+- **Le back-office** (`adresse-du-site/admin`) : administrateurs et éditeurs seulement, pour gérer les contenus du site public. Depuis l'espace pro, l'icône des réglages y mène.
+
+Dans les deux cas : après **5 erreurs**, le compte est bloqué 15 minutes. Mot de passe perdu : demandez à un administrateur de le réinitialiser (**Administration → Comptes de l'équipe**). Le lien « Mot de passe oublié » n'enverra un e-mail qu'une fois l'envoi d'e-mails configuré.
+
+## Gérer les comptes de l'équipe (administrateurs)
+**Administration → Comptes de l'équipe → Créer** : nom, e-mail, un mot de passe provisoire (à transmettre à la personne, qui le change dans son profil), fonction, pôle, téléphone et rôles :
+- **Administrateur** : tout, y compris les comptes.
+- **Éditeur** : contenus du site public (actualités, réalisations, formations…).
+- **Bureau** : publie les annonces internes ; validera bientôt les rapports.
+- **Responsable de pôle**, **Membre**, **Formateur** : l'espace pro (outils à venir selon le rôle).
+
+Un nouveau compte est **Membre** par défaut. Quand une personne quitte l'équipe, décochez **Compte actif** : elle ne peut plus se connecter, mais son historique reste.
 
 ## Le tableau de bord
 Dès la connexion, vous voyez :

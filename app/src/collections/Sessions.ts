@@ -3,7 +3,7 @@ import type { CollectionBeforeChangeHook, CollectionConfig } from 'payload'
 import { empecherSiLie } from '../hooks/empecherSuppression'
 import { hooksRegeneration } from '../hooks/revalider'
 
-import { anyone, loggedIn } from '../access'
+import { anyone, equipeSite } from '../access'
 
 /** Titre lisible dans le back-office : « Intitulé de la formation – 12 mars 2027 » */
 const titrer: CollectionBeforeChangeHook = async ({ data, req }) => {
@@ -41,7 +41,7 @@ export const Sessions: CollectionConfig = {
     ],
   },
   // Les sessions d'une formation en brouillon ne sont jamais affichées : le site filtre sur la formation publiée
-  access: { read: anyone, create: loggedIn, update: loggedIn, delete: loggedIn },
+  access: { read: anyone, create: equipeSite, update: equipeSite, delete: equipeSite },
   defaultSort: 'dateDebut',
   fields: [
     { name: 'titre', type: 'text', admin: { hidden: true } },

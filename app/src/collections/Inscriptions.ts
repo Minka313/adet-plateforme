@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { loggedIn } from '../access'
+import { equipeSite, estEquipeSite } from '../access'
 import { notifierInscription } from '../hooks/notifierInscription'
 
 const csv = (v: unknown) => `"${String(v ?? '').replace(/"/g, '""')}"`
@@ -24,7 +24,7 @@ export const Inscriptions: CollectionConfig = {
   },
   hooks: { afterChange: [notifierInscription] },
   // Création uniquement via le formulaire du site (server action avec overrideAccess)
-  access: { read: loggedIn, create: () => false, update: loggedIn, delete: loggedIn },
+  access: { read: equipeSite, create: () => false, update: equipeSite, delete: equipeSite },
   defaultSort: '-createdAt',
   fields: [
     { name: 'session', type: 'relationship', relationTo: 'sessions', required: true, index: true },
@@ -77,7 +77,7 @@ export const Inscriptions: CollectionConfig = {
       path: '/export',
       method: 'get',
       handler: async (req) => {
-        if (!req.user) return Response.json({ message: 'Non autorisé' }, { status: 401 })
+        if (!estEquipeSite(req.user)) return Response.json({ message: 'Non autorisé' }, { status: 401 })
         const session = Number(new URL(req.url ?? '', 'http://x').searchParams.get('session'))
         const { docs } = await req.payload.find({
           collection: 'inscriptions',

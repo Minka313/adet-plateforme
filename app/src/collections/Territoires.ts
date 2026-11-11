@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload'
 
 import { hooksRegeneration } from '../hooks/revalider'
 
-import { anyone, loggedIn } from '../access'
+import { anyone, equipeSite } from '../access'
 import { indicateursField, reperesField } from '../fields/indicateurs'
 import { slugField } from '../fields/slug'
 
@@ -16,7 +16,7 @@ export const Territoires: CollectionConfig = {
     description: 'La région de Kolda, ses départements et ses communes (rubrique « Découvrir Kolda »).',
   },
   hooks: hooksRegeneration,
-  access: { read: anyone, create: loggedIn, update: loggedIn, delete: loggedIn },
+  access: { read: anyone, create: equipeSite, update: equipeSite, delete: equipeSite },
   defaultSort: 'ordre',
   fields: [
     { name: 'nom', type: 'text', localized: true, required: true },
