@@ -39,15 +39,32 @@ export function CarteConstellation({ className }: { className?: string }) {
   )
 }
 
-/** Carte du territoire : départements de Casamance, Kolda mis en avant. */
-export function CarteTerritoire({ titre, liens }: { titre: string; liens?: Record<string, string> }) {
+/**
+ * Carte du territoire : départements de Casamance, Kolda mis en avant.
+ * `couleurs` (par nom de département) reprend les couleurs d'une légende ; `texte` reste lisible sur le fond choisi.
+ */
+export function CarteTerritoire({
+  titre,
+  liens,
+  couleurs,
+}: {
+  titre: string
+  liens?: Record<string, string>
+  couleurs?: Record<string, { fond: string; texte: string }>
+}) {
   const regions = ['Ziguinchor', 'Sédhiou', 'Kolda'] as const
   return (
     <figure className="carte-territoire">
       <svg viewBox={`-10 -10 ${L + 20} ${H + 20}`} role="img" aria-label={titre}>
         {departements.map((d) => {
           const forme = (
-            <path key={d.nom} d={d.d} pathLength={1} className={`dept ${d.kolda ? 'dept--kolda' : `dept--${d.region === 'Sédhiou' ? 'sedhiou' : 'ziguinchor'}`}`}>
+            <path
+              key={d.nom}
+              d={d.d}
+              pathLength={1}
+              className={`dept ${d.kolda ? 'dept--kolda' : `dept--${d.region === 'Sédhiou' ? 'sedhiou' : 'ziguinchor'}`}`}
+              style={couleurs?.[d.nom] ? { fill: couleurs[d.nom].fond } : undefined}
+            >
               <title>{`${d.nom} (${d.region})`}</title>
             </path>
           )
@@ -63,7 +80,14 @@ export function CarteTerritoire({ titre, liens }: { titre: string; liens?: Recor
         {departements
           .filter((d) => d.kolda)
           .map((d) => (
-            <text key={d.nom} x={d.centre[0]} y={d.centre[1] + (d.nom === 'Kolda' ? 40 : 0)} className="dept__nom" textAnchor="middle">
+            <text
+              key={d.nom}
+              x={d.centre[0]}
+              y={d.centre[1] + (d.nom === 'Kolda' ? 40 : 0)}
+              className="dept__nom"
+              textAnchor="middle"
+              style={couleurs?.[d.nom] ? { fill: couleurs[d.nom].texte } : undefined}
+            >
               {d.nom}
             </text>
           ))}

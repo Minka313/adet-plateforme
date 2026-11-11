@@ -71,7 +71,7 @@ export function EnTete({
   }
 
   return (
-    <header className={`entete ${defile ? 'entete--plein' : ''} ${ouvert ? 'entete--ouvert' : ''}`}>
+    <header className={`entete entete--plein ${defile ? 'entete--defile' : ''} ${ouvert ? 'entete--ouvert' : ''}`}>
       <div className="conteneur entete__barre">
         <Link href={`/${lang}`} className="entete__logo" aria-label={`ADET – ${libelles.accueil}`}>
           <Image src="/brand/adet-logo-blanc.png" alt="ADET" width={1251} height={795} priority sizes="120px" className="logo-clair" />

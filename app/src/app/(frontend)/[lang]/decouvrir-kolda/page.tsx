@@ -6,6 +6,7 @@ import { CarteDepartement, CarteFiliere, Indicateurs, Paragraphes, Reperes } fro
 import { PhotoSite } from '@/components/PhotoSite'
 import { CarteTerritoire } from '@/components/ui/Carte'
 import { dico, lien, type Langue } from '@/i18n'
+import { COULEURS_CARTE, SLUG_PAR_DEPARTEMENT } from '@/lib/communes'
 import { getFilieres, getTerritoires } from '@/lib/payload'
 
 export const revalidate = 60
@@ -15,12 +16,6 @@ type Props = { params: Promise<{ lang: Langue }> }
 const RAPPORT_ANSD =
   'https://www.ansd.sn/sites/default/files/recensements/rapport/RGPH-5%20RR_KOLDA_27112025_Version%20Formate%CC%81%20ok_Avril%202026_0.pdf'
 
-// Noms des départements dans les données de la carte → slug de leur fiche
-const SLUG_PAR_DEPARTEMENT: Record<string, string> = {
-  Kolda: 'kolda',
-  Vélingara: 'velingara',
-  'Médina Yoro Foulah': 'medina-yoro-foulah',
-}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { lang } = await params
@@ -85,7 +80,7 @@ export default async function DecouvrirKolda({ params }: Props) {
               </div>
             </div>
             <div className="territoire__carte" data-reveal>
-              <CarteTerritoire titre={d.departementsTitre} liens={liensCarte} />
+              <CarteTerritoire titre={d.departementsTitre} liens={liensCarte} couleurs={COULEURS_CARTE} />
             </div>
           </div>
         </section>
