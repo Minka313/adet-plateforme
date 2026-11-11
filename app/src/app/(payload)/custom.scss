@@ -1,49 +1,189 @@
-// Back-office aux couleurs de l'ADET (discret pour rester lisible)
-.template-minimal {
-  background:
-    radial-gradient(circle at 85% 10%, rgb(249 219 95 / 22%), transparent 40%),
-    radial-gradient(circle at 10% 90%, rgb(60 110 241 / 14%), transparent 45%),
-    var(--theme-bg);
+// ==========================================================================
+// Back-office aux couleurs de l'ADET : même identité que le site (tissage),
+// gris teintés de l'encre du logo, vert pour l'action, Bricolage pour les titres
+// ==========================================================================
 
+:root {
+  // Gris de Payload remplacés par une échelle allant du blanc à l'encre de l'ADET
+  --color-base-0: rgb(255, 255, 255);
+  --color-base-50: rgb(244, 246, 243);
+  --color-base-100: rgb(226, 227, 229);
+  --color-base-150: rgb(213, 214, 217);
+  --color-base-200: rgb(200, 202, 206);
+  --color-base-250: rgb(187, 190, 194);
+  --color-base-300: rgb(175, 178, 183);
+  --color-base-350: rgb(162, 166, 172);
+  --color-base-400: rgb(150, 155, 162);
+  --color-base-450: rgb(138, 143, 151);
+  --color-base-500: rgb(127, 132, 140);
+  --color-base-550: rgb(115, 121, 130);
+  --color-base-600: rgb(103, 109, 119);
+  --color-base-650: rgb(92, 98, 109);
+  --color-base-700: rgb(80, 87, 99);
+  --color-base-750: rgb(69, 76, 88);
+  --color-base-800: rgb(57, 65, 78);
+  --color-base-850: rgb(46, 54, 68);
+  --color-base-900: rgb(34, 44, 58);
+  --color-base-950: rgb(23, 33, 48);
+  --color-base-1000: rgb(12, 22, 38);
+
+  // Polices chargées par next/font dans layout.tsx (variables posées sur <html>)
+  --font-body: var(--adet-police-texte), system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --adet-titres: var(--adet-police-titres), var(--adet-police-texte), sans-serif;
+  --adet-vert: #0b7a1e;
+  --adet-vert-fonce: #096a1a;
+  --adet-or: #f9db5f;
+  --adet-nuit: #0f2240;
+  --adet-sauge: #f1f4f0;
+  --style-radius-s: 8px;
+  --style-radius-m: 12px;
+  --style-radius-l: 18px;
+}
+
+// La trame du pagne en haut de chaque écran
+.template-default,
+.template-minimal {
   &::before {
     content: '';
     position: fixed;
     inset: 0 0 auto;
-    height: 8px;
-    background: repeating-linear-gradient(90deg, #244c8a 0 28px, #f9db5f 28px 34px, #0b7a1e 34px 62px, #fff 62px 64px, #00586e 64px 92px, #ffae5d 92px 98px, #3c6ef1 98px 126px, #fff 126px 128px);
+    z-index: 200;
+    height: 5px;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      90deg,
+      #3c6ef1 0 18px,
+      #f9db5f 18px 22px,
+      #0b7a1e 22px 50px,
+      #fff 50px 56px,
+      #00586e 56px 68px,
+      #ffae5d 68px 90px,
+      #0f2240 90px 94px,
+      #f9db5f 94px 110px,
+      #244c8a 110px 142px,
+      #fff 142px 148px,
+      #0b7a1e 148px 162px,
+      #ffae5d 162px 172px
+    );
+  }
+}
+
+.template-minimal {
+  background: var(--adet-sauge);
+}
+
+// Titres
+h1,
+h2,
+h3,
+.doc-header__title {
+  font-family: var(--adet-titres);
+  letter-spacing: -0.01em;
+}
+
+h1,
+.doc-header__title {
+  font-weight: 800;
+}
+
+// Boutons principaux : pilule verte, comme sur le site
+.btn--style-primary {
+  border-radius: 999px;
+  background-color: var(--adet-vert);
+  color: #fff;
+
+  &:hover:not(:disabled),
+  &:focus-visible:not(:disabled) {
+    background-color: var(--adet-vert-fonce);
+    color: #fff;
+  }
+}
+
+.btn--style-secondary,
+.btn--style-pill {
+  border-radius: 999px;
+}
+
+// Menu : fond clair, rubrique active en vert
+[data-theme='light'] .nav {
+  background: #fff;
+  border-right: 1px solid var(--theme-elevation-100);
+}
+
+.nav-group__toggle {
+  font-family: var(--adet-titres);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--theme-elevation-900);
+}
+
+.nav__link {
+  border-radius: 10px;
+  padding-inline: 0.6rem;
+  margin-inline: -0.6rem;
+
+  &:hover {
+    background: var(--theme-elevation-50);
+  }
+
+  &:has(.nav__link-indicator) {
+    background: rgb(11 122 30 / 10%);
+    color: var(--adet-vert);
+    font-weight: 600;
+  }
+}
+
+.nav__link-indicator {
+  background: var(--adet-vert);
+}
+
+.adet-avant-connexion {
+  margin: 0 0 1.5rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--style-radius-m);
+  background: #fff;
+  border: 1px solid var(--theme-elevation-100);
+  font-size: 0.95rem;
+  line-height: 1.5;
+
+  a {
+    color: var(--adet-vert);
+    font-weight: 600;
   }
 }
 
 // ---------- Tableau de bord ADET ----------
 .adet-tdb {
   margin-bottom: 2.5rem;
+  display: grid;
+  gap: 1rem;
 
   h1 {
-    margin: 0.2rem 0 0.4rem;
-    font-size: 2rem;
+    margin: 0.15rem 0 0.4rem;
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 800;
   }
 
   h2 {
-    font-size: 1.05rem;
-    margin: 0 0 1rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0 0.9rem;
   }
 
-  &__surtitre {
-    margin: 0;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    font-weight: 700;
-    color: #0b7a1e;
+  a {
+    text-decoration: none;
   }
 
   &__entete {
-    padding: 1.6rem 1.8rem;
-    border-radius: 14px;
-    color: #fff;
-    background:
-      radial-gradient(circle at 90% 0%, rgb(249 219 95 / 30%), transparent 45%),
-      linear-gradient(135deg, #0f2240, #244c8a);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.2rem 2rem;
+    padding: 1.8rem 2rem;
+    border-radius: var(--style-radius-l);
+    color: #d8e0ee;
+    background: var(--adet-nuit);
 
     h1 {
       color: #fff;
@@ -51,127 +191,240 @@
 
     p {
       margin: 0;
-      color: #d8e0ee;
-    }
-
-    .adet-tdb__surtitre {
-      color: #f9db5f;
     }
   }
 
-  &__tuiles {
+  &__date {
+    color: var(--adet-or);
+    font-weight: 600;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+  &__liens {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  &__bouton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.65rem 1.1rem;
+    border-radius: 999px;
+    border: 1.5px solid rgb(255 255 255 / 40%);
+    color: #fff;
+    font-weight: 600;
+
+    &:hover {
+      background: rgb(255 255 255 / 10%);
+      color: #fff;
+    }
+
+    &--plein {
+      background: var(--adet-or);
+      border-color: var(--adet-or);
+      color: var(--adet-nuit);
+
+      &:hover {
+        background: #ffe68a;
+        color: var(--adet-nuit);
+      }
+    }
+  }
+
+  &__titre {
+    margin: 0.8rem 0 0 !important;
+  }
+
+  &__a-traiter,
+  &__chiffres {
     list-style: none;
-    margin: 1.2rem 0;
+    margin: 0;
     padding: 0;
     display: grid;
     gap: 0.8rem;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+
+  &__a-traiter {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 
     a {
-      display: block;
-      padding: 1rem 1.1rem;
-      border-radius: 12px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 0.1rem 0.9rem;
+      padding: 1.1rem 1.2rem;
+      border-radius: var(--style-radius-m);
       border: 1px solid var(--theme-elevation-100);
       background: var(--theme-elevation-0);
-      text-decoration: none;
+      color: var(--theme-text);
       transition: border-color 0.2s, transform 0.2s;
 
       &:hover {
-        border-color: #244c8a;
+        border-color: var(--adet-vert);
         transform: translateY(-2px);
       }
     }
 
     strong {
-      display: block;
-      font-size: 1.9rem;
-      line-height: 1.1;
+      font-family: var(--adet-titres);
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    span:last-child {
+      grid-column: 2;
+      font-size: 0.92rem;
+      color: var(--theme-elevation-650);
+    }
+
+    .est-alerte a {
+      border-color: var(--adet-or);
+      background: rgb(249 219 95 / 16%);
+    }
+  }
+
+  &__pastille {
+    grid-row: span 2;
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--theme-elevation-50);
+    color: var(--adet-vert);
+
+    .est-alerte & {
+      background: var(--adet-or);
+      color: var(--adet-nuit);
+    }
+  }
+
+  &__chiffres {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+
+    a {
+      display: grid;
+      gap: 0.15rem;
+      padding: 0.9rem 1rem;
+      border-radius: var(--style-radius-m);
+      background: var(--theme-elevation-50);
       color: var(--theme-text);
+
+      &:hover {
+        background: var(--theme-elevation-100);
+      }
+    }
+
+    strong {
+      font-family: var(--adet-titres);
+      font-size: 1.6rem;
+      line-height: 1.1;
+      font-variant-numeric: tabular-nums;
     }
 
     span {
       font-size: 0.85rem;
-      color: var(--theme-elevation-600);
-    }
-
-    .est-alerte a {
-      border-color: #f9db5f;
-      background: rgb(249 219 95 / 14%);
+      color: var(--theme-elevation-650);
     }
   }
 
   &__grille {
     display: grid;
     gap: 1rem;
+    margin-top: 0.8rem;
 
-    @media (min-width: 900px) {
-      grid-template-columns: 1.3fr 1fr;
+    @media (min-width: 1000px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
   &__carte {
     padding: 1.4rem;
-    border-radius: 14px;
+    border-radius: var(--style-radius-l);
     border: 1px solid var(--theme-elevation-100);
     background: var(--theme-elevation-0);
   }
 
-  &__messages {
+  &__liste {
     list-style: none;
     margin: 0;
     padding: 0;
+
+    li + li {
+      border-top: 1px solid var(--theme-elevation-100);
+    }
 
     a {
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 0.1rem 1rem;
       padding: 0.7rem 0;
-      border-bottom: 1px solid var(--theme-elevation-100);
-      text-decoration: none;
       color: var(--theme-text);
+
+      &:hover strong {
+        color: var(--adet-vert);
+      }
     }
 
     span {
       grid-column: 1;
       font-size: 0.88rem;
-      color: var(--theme-elevation-600);
+      color: var(--theme-elevation-650);
     }
 
     time {
       grid-row: 1;
       grid-column: 2;
-      font-size: 0.8rem;
-      color: var(--theme-elevation-500);
+      font-size: 0.82rem;
+      color: var(--theme-elevation-550);
     }
   }
 
   &__raccourcis {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
     gap: 0.5rem;
 
+    @media (min-width: 600px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     a {
-      padding: 0.5rem 0.9rem;
-      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 0.9rem;
+      border-radius: var(--style-radius-m);
       background: var(--theme-elevation-50);
-      border: 1px solid var(--theme-elevation-150);
       color: var(--theme-text);
-      text-decoration: none;
-      font-size: 0.88rem;
       font-weight: 600;
+      font-size: 0.92rem;
+
+      svg {
+        color: var(--adet-vert);
+        flex: none;
+      }
 
       &:hover {
-        background: #f9db5f;
-        border-color: #f9db5f;
-        color: #0f2240;
+        background: rgb(11 122 30 / 10%);
       }
     }
   }
 
-  &__astuce,
   &__vide {
-    margin: 1.2rem 0 0;
-    font-size: 0.88rem;
+    margin: 0;
     color: var(--theme-elevation-600);
+  }
+
+  &__astuce {
+    margin: 0.5rem 0 0;
+    padding: 0.9rem 1.1rem;
+    border-radius: var(--style-radius-m);
+    background: rgb(249 219 95 / 16%);
+    font-size: 0.9rem;
   }
 }

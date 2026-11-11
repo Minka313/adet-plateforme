@@ -32,7 +32,7 @@ L'ordre suit les dépendances : on ne peut pas notifier quelqu'un qui n'a pas de
 | **A** | Coordonnées (2), collecte des contenus Facebook (8), choix de la direction visuelle (1) | Lien Facebook et photos |
 | **B** | Refonte visuelle du site public (1) et intégration des photos (8) | Lot A |
 | **C** | Connexion (6), rôles, et socle de l'espace pro : tableau de bord, annuaire, annonces (3). *Livré sans e-mail : l'administrateur crée les comptes et réinitialise les mots de passe* | — |
-| **C bis** | Refonte du back-office `/admin` : thème aux couleurs de l'ADET, tableau de bord plus riche, navigation par grandes rubriques (demande du 11 novembre) | Lot C |
+| **C bis** | Refonte du back-office `/admin` : thème aux couleurs de l'ADET (polices, gris teintés, boutons verts, trame), tableau de bord (à traiter, chiffres, messages, inscriptions, raccourcis, dernières modifications), menu par rubriques en commençant par « À traiter » | Lot C |
 | **D** | Application installable (7) et notifications (4) | Lot C |
 | **E** | Outils de travail de l'espace pro : tâches, réunions, rapports, documents (3) | Lot D |
 | **F** | Visio pour les réunions et les formations (5) | Lot E (réunions) |

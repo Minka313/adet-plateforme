@@ -5,7 +5,7 @@ import { anyone, equipeSite } from '../access'
 export const Media: CollectionConfig = {
   slug: 'media',
   labels: { singular: 'Média', plural: 'Médias' },
-  admin: { group: 'Contenus' },
+  admin: { group: 'Médias et documents' },
   access: { read: anyone, create: equipeSite, update: equipeSite, delete: equipeSite },
   fields: [
     {

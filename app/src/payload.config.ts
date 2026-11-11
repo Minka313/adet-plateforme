@@ -54,6 +54,7 @@ export default buildConfig({
     },
     components: {
       beforeDashboard: ['/components/admin/TableauDeBord'],
+      beforeLogin: ['/components/admin/AvantConnexion'],
       graphics: {
         Logo: '/components/admin/Logo',
         Icon: '/components/admin/Icone',
@@ -72,7 +73,27 @@ export default buildConfig({
     supportedLanguages: { fr },
     fallbackLanguage: 'fr',
   },
-  collections: [Territoires, Filieres, Opportunites, Structures, Formations, Sessions, Inscriptions, Realisations, Actualites, Partenaires, Equipe, Departements, Documents, Media, Messages, Abonnes, Annonces, Users],
+  // L'ordre fixe celui du menu du back-office : ce qui demande une action d'abord, puis le site, puis l'administration
+  collections: [
+    Messages,
+    Inscriptions,
+    Actualites,
+    Realisations,
+    Equipe,
+    Departements,
+    Partenaires,
+    Territoires,
+    Filieres,
+    Opportunites,
+    Structures,
+    Formations,
+    Sessions,
+    Media,
+    Documents,
+    Annonces,
+    Users,
+    Abonnes,
+  ],
   globals: [Association, Coordonnees, Photos],
   editor: lexicalEditor(),
   // E-mails : SMTP configuré par variables d'environnement (sinon affichés dans la console)
