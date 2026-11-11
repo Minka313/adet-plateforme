@@ -8,7 +8,7 @@ export const Documents: CollectionConfig = {
   slug: 'documents',
   labels: { singular: 'Document', plural: 'Documents' },
   admin: {
-    group: "L'association",
+    group: 'Médias et documents',
     useAsTitle: 'titre',
     defaultColumns: ['titre', 'categorie', 'annee'],
     description: 'Rapports, statuts, plaquettes… téléchargeables depuis le site.',

@@ -67,24 +67,24 @@ export interface Config {
   };
   blocks: {};
   collections: {
+    messages: Message;
+    inscriptions: Inscription;
+    actualites: Actualite;
+    realisations: Realisation;
+    equipe: Equipe;
+    departements: Departement;
+    partenaires: Partenaire;
     territoires: Territoire;
     filieres: Filiere;
     opportunites: Opportunite;
     structures: Structure;
     formations: Formation;
     sessions: Session;
-    inscriptions: Inscription;
-    realisations: Realisation;
-    actualites: Actualite;
-    partenaires: Partenaire;
-    equipe: Equipe;
-    departements: Departement;
-    documents: Document;
     media: Media;
-    messages: Message;
-    abonnes: Abonne;
+    documents: Document;
     annonces: Annonce;
     users: User;
+    abonnes: Abonne;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -99,24 +99,24 @@ export interface Config {
     };
   };
   collectionsSelect: {
+    messages: MessagesSelect<false> | MessagesSelect<true>;
+    inscriptions: InscriptionsSelect<false> | InscriptionsSelect<true>;
+    actualites: ActualitesSelect<false> | ActualitesSelect<true>;
+    realisations: RealisationsSelect<false> | RealisationsSelect<true>;
+    equipe: EquipeSelect<false> | EquipeSelect<true>;
+    departements: DepartementsSelect<false> | DepartementsSelect<true>;
+    partenaires: PartenairesSelect<false> | PartenairesSelect<true>;
     territoires: TerritoiresSelect<false> | TerritoiresSelect<true>;
     filieres: FilieresSelect<false> | FilieresSelect<true>;
     opportunites: OpportunitesSelect<false> | OpportunitesSelect<true>;
     structures: StructuresSelect<false> | StructuresSelect<true>;
     formations: FormationsSelect<false> | FormationsSelect<true>;
     sessions: SessionsSelect<false> | SessionsSelect<true>;
-    inscriptions: InscriptionsSelect<false> | InscriptionsSelect<true>;
-    realisations: RealisationsSelect<false> | RealisationsSelect<true>;
-    actualites: ActualitesSelect<false> | ActualitesSelect<true>;
-    partenaires: PartenairesSelect<false> | PartenairesSelect<true>;
-    equipe: EquipeSelect<false> | EquipeSelect<true>;
-    departements: DepartementsSelect<false> | DepartementsSelect<true>;
-    documents: DocumentsSelect<false> | DocumentsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    messages: MessagesSelect<false> | MessagesSelect<true>;
-    abonnes: AbonnesSelect<false> | AbonnesSelect<true>;
+    documents: DocumentsSelect<false> | DocumentsSelect<true>;
     annonces: AnnoncesSelect<false> | AnnoncesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    abonnes: AbonnesSelect<false> | AbonnesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -163,6 +163,314 @@ export interface UserAuthOperations {
     email: string;
     password: string;
   };
+}
+/**
+ * Messages envoyés depuis le formulaire de contact du site.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "messages".
+ */
+export interface Message {
+  id: number;
+  nom: string;
+  email?: string | null;
+  telephone?: string | null;
+  organisation?: string | null;
+  langue?: ('fr' | 'en') | null;
+  objet?: ('information' | 'partenariat' | 'adhesion' | 'formation' | 'autre') | null;
+  message: string;
+  traite?: boolean | null;
+  empreinte?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Demandes d’inscription reçues depuis le site. Appelez ou écrivez à la personne, puis changez son statut. Une inscription annulée libère sa place.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inscriptions".
+ */
+export interface Inscription {
+  id: number;
+  session: number | Session;
+  nom: string;
+  telephone: string;
+  email?: string | null;
+  commune?: string | null;
+  /**
+   * Facultatif : sert au suivi des femmes formées.
+   */
+  sexe?: ('femme' | 'homme') | null;
+  /**
+   * Facultatif : sert au suivi des jeunes formés.
+   */
+  age?: number | null;
+  motivation?: string | null;
+  statut: 'recue' | 'confirmee' | 'attente' | 'annulee';
+  langue?: ('fr' | 'en') | null;
+  empreinte?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Les dates de chaque formation. Une session passée disparaît du site ; les inscriptions se ferment seules quand les places sont prises.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "sessions".
+ */
+export interface Session {
+  id: number;
+  titre?: string | null;
+  formation: number | Formation;
+  dateDebut: string;
+  /**
+   * Laisser vide pour une formation d’une journée.
+   */
+  dateFin?: string | null;
+  /**
+   * Ex. : salle de la mairie, Vélingara
+   */
+  lieu?: string | null;
+  /**
+   * Laisser vide si le nombre n’est pas limité.
+   */
+  places?: number | null;
+  /**
+   * Facultatif. Par défaut, les inscriptions restent possibles jusqu’à la veille du début.
+   */
+  dateLimiteInscription?: string | null;
+  /**
+   * Décocher pour fermer les inscriptions en ligne de cette session.
+   */
+  inscriptionsOuvertes?: boolean | null;
+  inscrits?: {
+    docs?: (number | Inscription)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Le catalogue des formations proposées par l’ADET (axe 1 : renforcement de capacités).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "formations".
+ */
+export interface Formation {
+  id: number;
+  titre: string;
+  resume: string;
+  publicCible?: string | null;
+  /**
+   * Ex. : 3 jours
+   */
+  duree?: string | null;
+  lieu?: string | null;
+  /**
+   * Ex. : gratuit, 10 000 FCFA
+   */
+  cout?: string | null;
+  /**
+   * Les dates de cette formation. Ajoutez-en depuis « Sessions de formation ».
+   */
+  sessions?: {
+    docs?: (number | Session)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "actualites".
+ */
+export interface Actualite {
+  id: number;
+  titre: string;
+  resume: string;
+  image?: (number | null) | Media;
+  contenu?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Générée automatiquement à partir du titre si laissée vide.
+   */
+  slug?: string | null;
+  date: string;
+  categorie?: ('vie-associative' | 'formation' | 'partenariat' | 'evenement' | 'territoire') | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  /**
+   * Décrivez brièvement l’image (accessibilité et référencement).
+   */
+  alt: string;
+  credit?: string | null;
+  _objectKey?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    vignette?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    carte?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    large?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
+ * Projets et activités menés par l'ADET.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "realisations".
+ */
+export interface Realisation {
+  id: number;
+  titre: string;
+  /**
+   * Deux ou trois phrases simples, affichées sur les cartes.
+   */
+  resume: string;
+  image?: (number | null) | Media;
+  /**
+   * Ex. : « 120 » / « jeunes formés ».
+   */
+  chiffres?:
+    | {
+        valeur: string;
+        libelle: string;
+        id?: string | null;
+      }[]
+    | null;
+  contenu?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  galerie?: (number | Media)[] | null;
+  partenaires?: (number | Partenaire)[] | null;
+  /**
+   * Générée automatiquement à partir du titre si laissée vide.
+   */
+  slug?: string | null;
+  axe?: ('capacites' | 'partenariats' | 'ressources' | 'innovation' | 'suivi') | null;
+  statut?: ('en-cours' | 'termine' | 'a-venir') | null;
+  lieu?: string | null;
+  dateDebut?: string | null;
+  dateFin?: string | null;
+  enAvant?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partenaires".
+ */
+export interface Partenaire {
+  id: number;
+  nom: string;
+  logo?: (number | null) | Media;
+  type?: ('public' | 'collectivite' | 'technique' | 'international' | 'prive' | 'societe-civile') | null;
+  description?: string | null;
+  siteWeb?: string | null;
+  ordre?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "equipe".
+ */
+export interface Equipe {
+  id: number;
+  nom: string;
+  fonction: string;
+  departement?: (number | null) | Departement;
+  photo?: (number | null) | Media;
+  bio?: string | null;
+  ordre?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Organisation interne de l'association (Coordination, DFDC, DPS…).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "departements".
+ */
+export interface Departement {
+  id: number;
+  nom: string;
+  sigle?: string | null;
+  missions?:
+    | {
+        texte: string;
+        id?: string | null;
+      }[]
+    | null;
+  ordre?: number | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * La région de Kolda, ses départements et ses communes (rubrique « Découvrir Kolda »).
@@ -229,56 +537,6 @@ export interface Territoire {
     | null;
   updatedAt: string;
   createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  /**
-   * Décrivez brièvement l’image (accessibilité et référencement).
-   */
-  alt: string;
-  credit?: string | null;
-  _objectKey?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-  sizes?: {
-    vignette?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    carte?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    large?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-  };
 }
 /**
  * Les filières et ressources économiques du territoire (axe 3 : ressources locales).
@@ -387,244 +645,6 @@ export interface Structure {
   createdAt: string;
 }
 /**
- * Le catalogue des formations proposées par l’ADET (axe 1 : renforcement de capacités).
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "formations".
- */
-export interface Formation {
-  id: number;
-  titre: string;
-  resume: string;
-  publicCible?: string | null;
-  /**
-   * Ex. : 3 jours
-   */
-  duree?: string | null;
-  lieu?: string | null;
-  /**
-   * Ex. : gratuit, 10 000 FCFA
-   */
-  cout?: string | null;
-  /**
-   * Les dates de cette formation. Ajoutez-en depuis « Sessions de formation ».
-   */
-  sessions?: {
-    docs?: (number | Session)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * Les dates de chaque formation. Une session passée disparaît du site ; les inscriptions se ferment seules quand les places sont prises.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "sessions".
- */
-export interface Session {
-  id: number;
-  titre?: string | null;
-  formation: number | Formation;
-  dateDebut: string;
-  /**
-   * Laisser vide pour une formation d’une journée.
-   */
-  dateFin?: string | null;
-  /**
-   * Ex. : salle de la mairie, Vélingara
-   */
-  lieu?: string | null;
-  /**
-   * Laisser vide si le nombre n’est pas limité.
-   */
-  places?: number | null;
-  /**
-   * Facultatif. Par défaut, les inscriptions restent possibles jusqu’à la veille du début.
-   */
-  dateLimiteInscription?: string | null;
-  /**
-   * Décocher pour fermer les inscriptions en ligne de cette session.
-   */
-  inscriptionsOuvertes?: boolean | null;
-  inscrits?: {
-    docs?: (number | Inscription)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * Demandes d’inscription reçues depuis le site. Appelez ou écrivez à la personne, puis changez son statut. Une inscription annulée libère sa place.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "inscriptions".
- */
-export interface Inscription {
-  id: number;
-  session: number | Session;
-  nom: string;
-  telephone: string;
-  email?: string | null;
-  commune?: string | null;
-  /**
-   * Facultatif : sert au suivi des femmes formées.
-   */
-  sexe?: ('femme' | 'homme') | null;
-  /**
-   * Facultatif : sert au suivi des jeunes formés.
-   */
-  age?: number | null;
-  motivation?: string | null;
-  statut: 'recue' | 'confirmee' | 'attente' | 'annulee';
-  langue?: ('fr' | 'en') | null;
-  empreinte?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * Projets et activités menés par l'ADET.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "realisations".
- */
-export interface Realisation {
-  id: number;
-  titre: string;
-  /**
-   * Deux ou trois phrases simples, affichées sur les cartes.
-   */
-  resume: string;
-  image?: (number | null) | Media;
-  /**
-   * Ex. : « 120 » / « jeunes formés ».
-   */
-  chiffres?:
-    | {
-        valeur: string;
-        libelle: string;
-        id?: string | null;
-      }[]
-    | null;
-  contenu?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  galerie?: (number | Media)[] | null;
-  partenaires?: (number | Partenaire)[] | null;
-  /**
-   * Générée automatiquement à partir du titre si laissée vide.
-   */
-  slug?: string | null;
-  axe?: ('capacites' | 'partenariats' | 'ressources' | 'innovation' | 'suivi') | null;
-  statut?: ('en-cours' | 'termine' | 'a-venir') | null;
-  lieu?: string | null;
-  dateDebut?: string | null;
-  dateFin?: string | null;
-  enAvant?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "partenaires".
- */
-export interface Partenaire {
-  id: number;
-  nom: string;
-  logo?: (number | null) | Media;
-  type?: ('public' | 'collectivite' | 'technique' | 'international' | 'prive' | 'societe-civile') | null;
-  description?: string | null;
-  siteWeb?: string | null;
-  ordre?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "actualites".
- */
-export interface Actualite {
-  id: number;
-  titre: string;
-  resume: string;
-  image?: (number | null) | Media;
-  contenu?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  /**
-   * Générée automatiquement à partir du titre si laissée vide.
-   */
-  slug?: string | null;
-  date: string;
-  categorie?: ('vie-associative' | 'formation' | 'partenariat' | 'evenement' | 'territoire') | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "equipe".
- */
-export interface Equipe {
-  id: number;
-  nom: string;
-  fonction: string;
-  departement?: (number | null) | Departement;
-  photo?: (number | null) | Media;
-  bio?: string | null;
-  ordre?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * Organisation interne de l'association (Coordination, DFDC, DPS…).
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "departements".
- */
-export interface Departement {
-  id: number;
-  nom: string;
-  sigle?: string | null;
-  missions?:
-    | {
-        texte: string;
-        id?: string | null;
-      }[]
-    | null;
-  ordre?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
  * Rapports, statuts, plaquettes… téléchargeables depuis le site.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -648,45 +668,6 @@ export interface Document {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
-}
-/**
- * Messages envoyés depuis le formulaire de contact du site.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "messages".
- */
-export interface Message {
-  id: number;
-  nom: string;
-  email?: string | null;
-  telephone?: string | null;
-  organisation?: string | null;
-  langue?: ('fr' | 'en') | null;
-  objet?: ('information' | 'partenariat' | 'adhesion' | 'formation' | 'autre') | null;
-  message: string;
-  traite?: boolean | null;
-  empreinte?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * Inscriptions à la lettre d’information depuis le site. Export CSV : bouton du tableau de bord.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "abonnes".
- */
-export interface Abonne {
-  id: number;
-  email: string;
-  langue?: ('fr' | 'en') | null;
-  /**
-   * Décocher en cas de désinscription.
-   */
-  actif?: boolean | null;
-  consentement?: string | null;
-  empreinte?: string | null;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * Messages du bureau à toute l’équipe, affichés dans l’espace pro. Une annonce épinglée reste en tête.
@@ -750,6 +731,25 @@ export interface User {
   collection: 'users';
 }
 /**
+ * Inscriptions à la lettre d’information depuis le site. Export CSV : bouton du tableau de bord.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "abonnes".
+ */
+export interface Abonne {
+  id: number;
+  email: string;
+  langue?: ('fr' | 'en') | null;
+  /**
+   * Décocher en cas de désinscription.
+   */
+  actif?: boolean | null;
+  consentement?: string | null;
+  empreinte?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -773,6 +773,34 @@ export interface PayloadKv {
 export interface PayloadLockedDocument {
   id: number;
   document?:
+    | ({
+        relationTo: 'messages';
+        value: number | Message;
+      } | null)
+    | ({
+        relationTo: 'inscriptions';
+        value: number | Inscription;
+      } | null)
+    | ({
+        relationTo: 'actualites';
+        value: number | Actualite;
+      } | null)
+    | ({
+        relationTo: 'realisations';
+        value: number | Realisation;
+      } | null)
+    | ({
+        relationTo: 'equipe';
+        value: number | Equipe;
+      } | null)
+    | ({
+        relationTo: 'departements';
+        value: number | Departement;
+      } | null)
+    | ({
+        relationTo: 'partenaires';
+        value: number | Partenaire;
+      } | null)
     | ({
         relationTo: 'territoires';
         value: number | Territoire;
@@ -798,44 +826,12 @@ export interface PayloadLockedDocument {
         value: number | Session;
       } | null)
     | ({
-        relationTo: 'inscriptions';
-        value: number | Inscription;
-      } | null)
-    | ({
-        relationTo: 'realisations';
-        value: number | Realisation;
-      } | null)
-    | ({
-        relationTo: 'actualites';
-        value: number | Actualite;
-      } | null)
-    | ({
-        relationTo: 'partenaires';
-        value: number | Partenaire;
-      } | null)
-    | ({
-        relationTo: 'equipe';
-        value: number | Equipe;
-      } | null)
-    | ({
-        relationTo: 'departements';
-        value: number | Departement;
-      } | null)
-    | ({
-        relationTo: 'documents';
-        value: number | Document;
-      } | null)
-    | ({
         relationTo: 'media';
         value: number | Media;
       } | null)
     | ({
-        relationTo: 'messages';
-        value: number | Message;
-      } | null)
-    | ({
-        relationTo: 'abonnes';
-        value: number | Abonne;
+        relationTo: 'documents';
+        value: number | Document;
       } | null)
     | ({
         relationTo: 'annonces';
@@ -844,6 +840,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
+      } | null)
+    | ({
+        relationTo: 'abonnes';
+        value: number | Abonne;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -886,6 +886,132 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "messages_select".
+ */
+export interface MessagesSelect<T extends boolean = true> {
+  nom?: T;
+  email?: T;
+  telephone?: T;
+  organisation?: T;
+  langue?: T;
+  objet?: T;
+  message?: T;
+  traite?: T;
+  empreinte?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "inscriptions_select".
+ */
+export interface InscriptionsSelect<T extends boolean = true> {
+  session?: T;
+  nom?: T;
+  telephone?: T;
+  email?: T;
+  commune?: T;
+  sexe?: T;
+  age?: T;
+  motivation?: T;
+  statut?: T;
+  langue?: T;
+  empreinte?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "actualites_select".
+ */
+export interface ActualitesSelect<T extends boolean = true> {
+  titre?: T;
+  resume?: T;
+  image?: T;
+  contenu?: T;
+  slug?: T;
+  date?: T;
+  categorie?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "realisations_select".
+ */
+export interface RealisationsSelect<T extends boolean = true> {
+  titre?: T;
+  resume?: T;
+  image?: T;
+  chiffres?:
+    | T
+    | {
+        valeur?: T;
+        libelle?: T;
+        id?: T;
+      };
+  contenu?: T;
+  galerie?: T;
+  partenaires?: T;
+  slug?: T;
+  axe?: T;
+  statut?: T;
+  lieu?: T;
+  dateDebut?: T;
+  dateFin?: T;
+  enAvant?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "equipe_select".
+ */
+export interface EquipeSelect<T extends boolean = true> {
+  nom?: T;
+  fonction?: T;
+  departement?: T;
+  photo?: T;
+  bio?: T;
+  ordre?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "departements_select".
+ */
+export interface DepartementsSelect<T extends boolean = true> {
+  nom?: T;
+  sigle?: T;
+  missions?:
+    | T
+    | {
+        texte?: T;
+        id?: T;
+      };
+  ordre?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partenaires_select".
+ */
+export interface PartenairesSelect<T extends boolean = true> {
+  nom?: T;
+  logo?: T;
+  type?: T;
+  description?: T;
+  siteWeb?: T;
+  ordre?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1022,137 +1148,6 @@ export interface SessionsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "inscriptions_select".
- */
-export interface InscriptionsSelect<T extends boolean = true> {
-  session?: T;
-  nom?: T;
-  telephone?: T;
-  email?: T;
-  commune?: T;
-  sexe?: T;
-  age?: T;
-  motivation?: T;
-  statut?: T;
-  langue?: T;
-  empreinte?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "realisations_select".
- */
-export interface RealisationsSelect<T extends boolean = true> {
-  titre?: T;
-  resume?: T;
-  image?: T;
-  chiffres?:
-    | T
-    | {
-        valeur?: T;
-        libelle?: T;
-        id?: T;
-      };
-  contenu?: T;
-  galerie?: T;
-  partenaires?: T;
-  slug?: T;
-  axe?: T;
-  statut?: T;
-  lieu?: T;
-  dateDebut?: T;
-  dateFin?: T;
-  enAvant?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "actualites_select".
- */
-export interface ActualitesSelect<T extends boolean = true> {
-  titre?: T;
-  resume?: T;
-  image?: T;
-  contenu?: T;
-  slug?: T;
-  date?: T;
-  categorie?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "partenaires_select".
- */
-export interface PartenairesSelect<T extends boolean = true> {
-  nom?: T;
-  logo?: T;
-  type?: T;
-  description?: T;
-  siteWeb?: T;
-  ordre?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "equipe_select".
- */
-export interface EquipeSelect<T extends boolean = true> {
-  nom?: T;
-  fonction?: T;
-  departement?: T;
-  photo?: T;
-  bio?: T;
-  ordre?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "departements_select".
- */
-export interface DepartementsSelect<T extends boolean = true> {
-  nom?: T;
-  sigle?: T;
-  missions?:
-    | T
-    | {
-        texte?: T;
-        id?: T;
-      };
-  ordre?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "documents_select".
- */
-export interface DocumentsSelect<T extends boolean = true> {
-  titre?: T;
-  categorie?: T;
-  annee?: T;
-  description?: T;
-  _objectKey?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
@@ -1207,33 +1202,25 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "messages_select".
+ * via the `definition` "documents_select".
  */
-export interface MessagesSelect<T extends boolean = true> {
-  nom?: T;
-  email?: T;
-  telephone?: T;
-  organisation?: T;
-  langue?: T;
-  objet?: T;
-  message?: T;
-  traite?: T;
-  empreinte?: T;
+export interface DocumentsSelect<T extends boolean = true> {
+  titre?: T;
+  categorie?: T;
+  annee?: T;
+  description?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "abonnes_select".
- */
-export interface AbonnesSelect<T extends boolean = true> {
-  email?: T;
-  langue?: T;
-  actif?: T;
-  consentement?: T;
-  empreinte?: T;
-  updatedAt?: T;
-  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1275,6 +1262,19 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "abonnes_select".
+ */
+export interface AbonnesSelect<T extends boolean = true> {
+  email?: T;
+  langue?: T;
+  actif?: T;
+  consentement?: T;
+  empreinte?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -16,7 +16,7 @@ export const Inscriptions: CollectionConfig = {
   slug: 'inscriptions',
   labels: { singular: 'Inscription', plural: 'Inscriptions aux formations' },
   admin: {
-    group: 'Opportunités et formations',
+    group: 'À traiter',
     useAsTitle: 'nom',
     defaultColumns: ['nom', 'session', 'telephone', 'statut', 'createdAt'],
     description:

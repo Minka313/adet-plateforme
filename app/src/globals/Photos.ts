@@ -18,7 +18,7 @@ export const Photos: GlobalConfig = {
   slug: 'photos',
   label: 'Photos du site',
   admin: {
-    group: "L'association",
+    group: 'Médias et documents',
     description:
       'Photos des grandes rubriques du site. Privilégiez des photos de l’ADET sur le terrain, au format paysage, avec l’accord des personnes visibles.',
   },

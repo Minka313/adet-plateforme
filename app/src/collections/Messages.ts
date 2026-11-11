@@ -7,7 +7,7 @@ export const Messages: CollectionConfig = {
   slug: 'messages',
   labels: { singular: 'Message reçu', plural: 'Messages reçus' },
   admin: {
-    group: 'Administration',
+    group: 'À traiter',
     useAsTitle: 'nom',
     defaultColumns: ['nom', 'objet', 'createdAt', 'traite'],
     description: 'Messages envoyés depuis le formulaire de contact du site.',
