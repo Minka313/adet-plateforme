@@ -128,6 +128,14 @@ Puis ouvrir `https://adet.sn/admin`, créer le premier compte (administrateur), 
 
 **Mise à jour** : `git pull && docker compose -f docker-compose.prod.yml up -d --build`.
 
+## 8 ter. Espace pro : application installable et notifications
+
+- **Application** : `/espace` s'installe sur l'écran d'accueil (manifeste `public/espace.webmanifest`, portée `/espace`). Le service worker `public/espace-sw.js` affiche `/espace/hors-ligne` sans réseau, reçoit les notifications push et ouvre la bonne page au toucher. Il ne met **aucune** page de l'équipe en cache.
+- **Centre de notifications** : collection `notifications` (chacun ne lit que les siennes, création par le serveur seulement), cloche avec pastille relue chaque minute (`/espace/notifications/compte`).
+- **Envoi** : `lib/notifier.ts` crée les notifications puis, si les clés VAPID sont définies, envoie un Web Push à chaque appareil abonné (collection `abonnements-push`) ; un abonnement expiré (404/410) est supprimé. Une notification ratée ne fait jamais échouer l'action qui l'a déclenchée.
+- **Déclencheurs** : annonce du bureau → toute l'équipe active sauf l'auteur ; message du formulaire de contact et inscription à une formation → administrateurs et éditeurs.
+- **Variables** : `NEXT_PUBLIC_VAPID_PUBLIC_KEY` (lue au build), `VAPID_PRIVATE_KEY`, `VAPID_SUBJECT`. Copie privée dans `~/.config/adet/production.env`. Sur iPhone, les notifications ne marchent qu'avec l'application installée (iOS 16.4 et plus).
+
 ## 9. Sauvegardes et restauration
 
 **Hébergement actuel (Neon)** : sauvegarde automatique chaque nuit à 2 h par le dépôt **privé** `Minka313/adet-sauvegardes` (GitHub Actions). La base est exportée, **restaurée à blanc pour vérification**, chiffrée (AES-256) et conservée 30 jours. En cas d'échec, GitHub prévient par e-mail. Restauration : `restaurer.sh` de ce dépôt, dans une base vide uniquement. La phrase de chiffrement est indispensable : la garder en lieu sûr.

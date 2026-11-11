@@ -11,7 +11,10 @@ export const metadata: Metadata = {
   title: { default: 'Espace pro', template: '%s · Espace pro ADET' },
   // Outil interne : jamais dans les moteurs de recherche
   robots: { index: false, follow: false },
-  manifest: '/manifest.webmanifest',
+  // L'espace pro s'installe comme une application à part, qui s'ouvre directement sur /espace
+  manifest: '/espace.webmanifest',
+  appleWebApp: { capable: true, title: 'ADET Pro', statusBarStyle: 'default' },
+  icons: { apple: '/brand/icon-192.png' },
 }
 
 export const viewport: Viewport = { themeColor: '#FFFFFF' }

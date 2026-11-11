@@ -1,6 +1,7 @@
 import type { CollectionAfterChangeHook } from 'payload'
 
 import { gabaritEmail } from '../email/gabarit'
+import { idsParRoles, notifier } from '../lib/notifier'
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
 
@@ -22,6 +23,15 @@ export const notifierMessage: CollectionAfterChangeHook = async ({ doc, operatio
   if (operation !== 'create') return doc
   const { payload } = req
   try {
+    // Dans le back-office et sur le téléphone de ceux qui traitent les messages
+    await notifier(payload, {
+      destinataires: await idsParRoles(payload, ['admin', 'editeur']),
+      titre: `Nouveau message : ${doc.nom}`,
+      texte: String(doc.message).slice(0, 140),
+      lien: `/admin/collections/messages/${doc.id}`,
+      type: 'message',
+    })
+
     const co = await payload.findGlobal({ slug: 'coordonnees', req })
     const destinataire = process.env.NOTIFICATION_EMAIL || co.email
     if (destinataire) {

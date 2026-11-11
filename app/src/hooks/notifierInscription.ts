@@ -1,6 +1,7 @@
 import type { CollectionAfterChangeHook } from 'payload'
 
 import { gabaritEmail } from '../email/gabarit'
+import { idsParRoles, notifier } from '../lib/notifier'
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
 
@@ -21,6 +22,14 @@ export const notifierInscription: CollectionAfterChangeHook = async ({ doc, oper
     const quand = new Intl.DateTimeFormat(en ? 'en-GB' : 'fr-FR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(
       new Date(session.dateDebut),
     )
+
+    await notifier(payload, {
+      destinataires: await idsParRoles(payload, ['admin', 'editeur']),
+      titre: `Inscription : ${doc.nom}`,
+      texte: `${formation} · ${quand}`,
+      lien: `/admin/collections/inscriptions/${doc.id}`,
+      type: 'inscription',
+    })
 
     const co = await payload.findGlobal({ slug: 'coordonnees', req })
     const destinataire = process.env.NOTIFICATION_EMAIL || co.email
