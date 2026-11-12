@@ -21,9 +21,11 @@ import { Formations } from './collections/Formations'
 import { Inscriptions } from './collections/Inscriptions'
 import { Media } from './collections/Media'
 import { Messages } from './collections/Messages'
+import { ModelesRapport } from './collections/ModelesRapport'
 import { Notifications } from './collections/Notifications'
 import { Opportunites } from './collections/Opportunites'
 import { Partenaires } from './collections/Partenaires'
+import { Rapports } from './collections/Rapports'
 import { Realisations } from './collections/Realisations'
 import { Reunions } from './collections/Reunions'
 import { Sessions } from './collections/Sessions'
@@ -97,6 +99,8 @@ export default buildConfig({
     Annonces,
     Taches,
     Reunions,
+    Rapports,
+    ModelesRapport,
     Notifications,
     Users,
     Abonnes,

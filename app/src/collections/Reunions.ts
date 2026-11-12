@@ -3,6 +3,7 @@ import type { Access, CollectionConfig } from 'payload'
 import { estBureau, estOrganisateur, membreEquipe } from '../access'
 import { notifier } from '../lib/notifier'
 import { convies, envoyerRappels, heureDakar } from '../lib/rappels'
+import { relancerRapports } from '../lib/rapports'
 
 /** Modifier une réunion (compte rendu compris) : son organisateur, le bureau, les administrateurs */
 const peutModifier: Access = ({ req: { user } }) => {
@@ -50,7 +51,7 @@ export const Reunions: CollectionConfig = {
   },
   endpoints: [
     {
-      // GET /api/reunions/rappels : rappels du jour et du lendemain, appelé chaque matin par la tâche planifiée
+      // GET /api/reunions/rappels : rappels des réunions du jour et du lendemain, relances des rapports, appelé chaque matin par la tâche planifiée
       // (Vercel Cron, ou crontab sur un serveur). Sans effet en double : chaque rappel n'est envoyé qu'une fois.
       path: '/rappels',
       method: 'get',
@@ -60,7 +61,7 @@ export const Reunions: CollectionConfig = {
           estBureau(req.user) ||
           (secret ? req.headers.get('authorization') === `Bearer ${secret}` : /vercel-cron/.test(req.headers.get('user-agent') ?? ''))
         if (!autorise) return Response.json({ message: 'Non autorisé' }, { status: 401 })
-        return Response.json(await envoyerRappels(req.payload))
+        return Response.json({ ...(await envoyerRappels(req.payload)), relancesRapports: await relancerRapports(req.payload) })
       },
     },
   ],

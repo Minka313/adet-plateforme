@@ -12,6 +12,7 @@ const CHEMINS = {
   reglages: 'M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0M14 4v4M8 10v4M16 16v4',
   taches: 'M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11',
   reunions: 'M4 6h16v14H4zM4 10h16M9 3v4M15 3v4M8 14h3',
+  rapports: 'M7 3h7l5 5v13H7zM14 3v5h5M10 13h6M10 17h6',
   cloche: 'M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 20.5a2 2 0 0 0 4 0',
   installer: 'M12 3v12M7 10l5 5 5-5M5 21h14',
 } as const

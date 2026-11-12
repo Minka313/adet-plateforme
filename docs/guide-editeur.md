@@ -12,6 +12,8 @@ Dans les deux cas : après **5 erreurs**, le compte est bloqué 15 minutes. Mot 
 ## L'espace pro au quotidien
 - **Tâches** (`/espace/taches`) : « Nouvelle tâche » (titre, échéance, priorité, pôle, responsables). Chaque responsable est prévenu. « Commencer » et « Terminer » font avancer la tâche ; la personne qui l'a créée est prévenue quand elle est faite. Une échéance dépassée s'affiche en rouge. Vues : mes tâches, mon pôle, toutes.
 - **Réunions** (`/espace/reunions`) : le bureau et les responsables de pôle planifient (date, heure de Dakar, lieu, ordre du jour, toute l'équipe ou quelques personnes). Les participants sont prévenus tout de suite, puis la veille et le matin même. Après la réunion, l'organisateur écrit le compte rendu dans la fiche.
+- **Rapports** (`/espace/rapports`) : chacun voit ce qu'il a à rendre et la date limite, rédige (brouillon possible), puis soumet. Le validateur est prévenu ; il valide, ou renvoie avec un commentaire ; l'auteur corrige et soumet à nouveau. Relance automatique 3 jours avant la date limite, puis le jour même.
+- **Modèles de rapport** (bureau, `/espace/rapports/modeles`) : le directeur décide quels rapports existent, leurs rubriques, leur rythme (mois, trimestre, après chaque activité), le jour limite, qui les rédige (par rôle, par pôle ou nommément) et qui les valide (le bureau par défaut). Deux modèles sont proposés au départ, modifiables.
 - **Notifications** : la cloche en haut compte les non-lues. Pour les recevoir sur le téléphone : **Profil → Cet appareil → Activer** (sur iPhone, installer d'abord l'application sur l'écran d'accueil).
 
 ## Gérer les comptes de l'équipe (administrateurs)

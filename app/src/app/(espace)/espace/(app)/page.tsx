@@ -132,7 +132,7 @@ export default async function TableauDeBordEspace() {
 
       <section className="bloc bloc--note">
         <h2>Bientôt dans l’espace pro</h2>
-        <p>Les rapports d’activité de chaque pôle à faire valider par le bureau, et la visio pour les réunions et les formations.</p>
+        <p>La visio, pour les réunions de l’équipe et les formations à distance.</p>
       </section>
     </div>
   )
