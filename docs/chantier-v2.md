@@ -33,7 +33,7 @@ L'ordre suit les dépendances : on ne peut pas notifier quelqu'un qui n'a pas de
 | **B** | Refonte visuelle du site public (1) et intégration des photos (8) | Lot A |
 | **C** | Connexion (6), rôles, et socle de l'espace pro : tableau de bord, annuaire, annonces (3). *Livré sans e-mail : l'administrateur crée les comptes et réinitialise les mots de passe* | — |
 | **C bis** | Refonte du back-office `/admin` : thème aux couleurs de l'ADET (polices, gris teintés, boutons verts, trame), tableau de bord (à traiter, chiffres, messages, inscriptions, raccourcis, dernières modifications), menu par rubriques en commençant par « À traiter » | Lot C |
-| **D** | Application installable (7) et notifications (4) : espace pro installable (`/espace`), page hors connexion, cloche et centre de notifications, Web Push. *Les clés VAPID doivent être ajoutées dans Vercel pour activer le push* | Lot C |
+| **D** | Application installable (7) et notifications (4) : espace pro installable (`/espace`), page hors connexion, cloche et centre de notifications, Web Push. *Push sur téléphone : clés VAPID prêtes (`~/.config/adet/production.env`), activées à la bascule sur le VPS* | Lot C |
 | **E** | Outils de travail de l'espace pro : tâches et réunions *(livrées : colonnes par statut, notifications, rappels quotidiens, comptes rendus)* ; rapports d'activité *(livrés : modèles réglés par le directeur, rédaction, validation ou correction, relances)* ; documents internes à suivre (3) | Lot D |
 | **F** | Visio (5) : salle d'équipe permanente et salle par réunion, modérateurs, économie de données. Service 8x8 JaaS (clés à ajouter dans Vercel), repli sur meet.jit.si en attendant | Lot E (réunions) |
 
