@@ -22,7 +22,7 @@ export default async function Contact({ params, searchParams }: Props) {
   return (
     <>
       <EnTetePage surtitre={d.contact.surtitre} titre={d.contact.titre} intro={d.contact.intro} />
-      <section className="section" style={{ paddingTop: 0 }}>
+      <section className="section">
         <div className="conteneur contact">
           <Formulaire lang={lang} t={d.contact} objetInitial={objet} />
           <aside className="contact__infos" data-reveal>

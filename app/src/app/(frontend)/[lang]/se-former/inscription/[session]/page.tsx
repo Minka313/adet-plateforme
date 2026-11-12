@@ -54,7 +54,7 @@ export default async function Inscription(props: Props) {
         titre={f.titre}
         intro={f.resume}
       />
-      <section className="section" style={{ paddingTop: 0 }}>
+      <section className="section">
         <div className="conteneur contact">
           {s.etat === 'ouverte' ? (
             <FormulaireInscription lang={lang} session={s.id} t={t} />
