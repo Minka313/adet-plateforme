@@ -138,6 +138,14 @@ Puis ouvrir `https://adet.sn/admin`, créer le premier compte (administrateur), 
 
 - **Rappels de réunions** : `GET /api/reunions/rappels` envoie les rappels du jour et du lendemain, une seule fois chacun. Sur Vercel, tâche planifiée quotidienne à 7 h UTC (= 7 h à Dakar) dans `app/vercel.json` (l'offre gratuite ne permet qu'un passage par jour). Accès : en-tête `Authorization: Bearer CRON_SECRET` si cette variable existe, sinon l'agent `vercel-cron`, ou un compte du bureau. Sur un VPS : `0 7 * * * curl -fsS -H "Authorization: Bearer $CRON_SECRET" https://adet.sn/api/reunions/rappels`.
 
+## 8 quater. Visio de l'espace pro
+
+- **Salles** : salle permanente de l'équipe (`/espace/visio`) et une salle par réunion cochée « En visio » (`/espace/reunions/<id>/visio`, réservée aux personnes conviées). Noms de salle signés (HMAC de `PAYLOAD_SECRET`) : impossibles à deviner.
+- **Service** : avec `JAAS_APP_ID`, `JAAS_API_KEY_ID` et `JAAS_PRIVATE_KEY` (8x8 JaaS, gratuit jusqu'à 25 utilisateurs actifs par mois), chaque entrée porte un jeton RS256 signé par le serveur (`lib/visio.ts`) : l'organisateur et le bureau sont modérateurs, les autres non. Sans ces clés : repli sur meet.jit.si (la première personne se connecte avec Google, GitHub ou Facebook).
+- **Obtenir les clés** : compte sur https://jaas.8x8.vc → *API Keys* → *Add API key* → télécharger la clé privée ; l'AppID commence par `vpaas-magic-cookie-`, l'identifiant de clé est de la forme `AppID/xxxxxx`. Dans Vercel, `JAAS_PRIVATE_KEY` tient sur une ligne (retours à la ligne remplacés par `\n`).
+- **Caméra et micro** : interdits partout par `Permissions-Policy`, autorisés seulement sur ces pages et pour `8x8.vc` / `meet.jit.si` (`app/next.config.ts`).
+- **Bas débit** : micro coupé à l'entrée, vidéo limitée à 360p, bouton « Économie de données » (caméra coupée, qualité reçue minimale).
+
 ## 9. Sauvegardes et restauration
 
 **Hébergement actuel (Neon)** : sauvegarde automatique chaque nuit à 2 h par le dépôt **privé** `Minka313/adet-sauvegardes` (GitHub Actions). La base est exportée, **restaurée à blanc pour vérification**, chiffrée (AES-256) et conservée 30 jours. En cas d'échec, GitHub prévient par e-mail. Restauration : `restaurer.sh` de ce dépôt, dans une base vide uniquement. La phrase de chiffrement est indispensable : la garder en lieu sûr.

@@ -138,6 +138,7 @@ export function CarteReunion({ r }: { r: Reunion }) {
           <span>
             {new Intl.DateTimeFormat('fr-FR', { weekday: 'long', hour: '2-digit', minute: '2-digit', timeZone: 'Africa/Dakar' }).format(debut)}
             {r.lieu ? ` · ${r.lieu}` : ''}
+            {r.visio ? ' · en visio' : ''}
           </span>
         </span>
       </Link>

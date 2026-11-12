@@ -38,7 +38,7 @@ export const Reunions: CollectionConfig = {
           await notifier(req.payload, {
             destinataires: (await convies(req.payload, doc)).filter((d) => d !== auteur),
             titre: `Réunion : ${doc.titre}`,
-            texte: `${heureDakar(doc.debut)}${doc.lieu ? ` · ${doc.lieu}` : ''}`,
+            texte: `${heureDakar(doc.debut)}${doc.lieu ? ` · ${doc.lieu}` : ''}${doc.visio ? ' · en visio' : ''}`,
             lien: `/espace/reunions/${doc.id}`,
             type: 'reunion',
           })
@@ -73,9 +73,10 @@ export const Reunions: CollectionConfig = {
       fields: [
         { name: 'debut', type: 'date', label: 'Date et heure', required: true, index: true, admin: { date: { pickerAppearance: 'dayAndTime', displayFormat: 'd MMMM yyyy, HH:mm' } } },
         { name: 'duree', type: 'number', label: 'Durée (minutes)', defaultValue: 60, min: 15, max: 600 },
-        { name: 'lieu', type: 'text', admin: { description: 'Ex. : siège, Fass Diaé. Visio : au lot suivant.' } },
+        { name: 'lieu', type: 'text', admin: { description: 'Ex. : siège, Fass Diaé.' } },
       ],
     },
+    { name: 'visio', type: 'checkbox', label: 'En visio', defaultValue: false, admin: { description: 'Une salle de visio privée est ouverte pour cette réunion dans l’espace pro.' } },
     { name: 'ordreDuJour', type: 'textarea', label: 'Ordre du jour', maxLength: 4000 },
     { name: 'touteLEquipe', type: 'checkbox', label: 'Toute l’équipe est conviée', defaultValue: true },
     { name: 'participants', type: 'relationship', relationTo: 'users', hasMany: true, admin: { condition: (d) => !d?.touteLEquipe } },

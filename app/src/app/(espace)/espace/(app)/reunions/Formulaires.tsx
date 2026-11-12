@@ -42,6 +42,9 @@ export function FormulaireReunion({ membres }: { membres: { id: number; nom: str
           <label htmlFor="lieu">Lieu</label>
           <input id="lieu" name="lieu" maxLength={160} placeholder="Ex. : siège, Fass Diaé" />
         </div>
+        <label className="case">
+          <input type="checkbox" name="visio" /> En visio (une salle privée est ouverte pour cette réunion)
+        </label>
         <div className="champ">
           <label htmlFor="ordreDuJour">Ordre du jour</label>
           <textarea id="ordreDuJour" name="ordreDuJour" rows={4} maxLength={4000} placeholder={'1. …\n2. …'} />

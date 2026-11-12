@@ -61,6 +61,9 @@ export default async function TableauDeBordEspace() {
           {heure < 18 ? 'Bonjour' : 'Bonsoir'} {prenom(user)}
         </h1>
         <p className="salut__role">{[user.fonction, pole?.nom].filter(Boolean).join(' · ') || 'Équipe de l’ADET'}</p>
+        <Link href="/espace/visio" className="bouton bouton--clair bouton--petit salut__visio">
+          Salle de visio de l’équipe
+        </Link>
       </section>
 
       <div className="deux-colonnes">
@@ -130,10 +133,6 @@ export default async function TableauDeBordEspace() {
         </section>
       )}
 
-      <section className="bloc bloc--note">
-        <h2>Bientôt dans l’espace pro</h2>
-        <p>La visio, pour les réunions de l’équipe et les formations à distance.</p>
-      </section>
     </div>
   )
 }
