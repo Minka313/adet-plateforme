@@ -32,8 +32,15 @@ export default async function FicheReunion({ params }: { params: Promise<{ id: s
         <p className="salut__date">{heureDakar(r.debut)}</p>
         <h1>{r.titre}</h1>
         <p className="salut__role">
-          {[r.lieu, r.duree ? `${r.duree} min` : null, organisateur ? `organisée par ${organisateur.nom ?? organisateur.email}` : null].filter(Boolean).join(' · ')}
+          {[r.lieu, r.visio ? 'en visio' : null, r.duree ? `${r.duree} min` : null, organisateur ? `organisée par ${organisateur.nom ?? organisateur.email}` : null]
+            .filter(Boolean)
+            .join(' · ')}
         </p>
+        {r.visio && (
+          <Link href={`/espace/reunions/${r.id}/visio`} className="bouton bouton--plein">
+            Rejoindre la visio
+          </Link>
+        )}
       </section>
       <div className="deux-colonnes">
         <section className="bloc">

@@ -46,7 +46,7 @@ export async function envoyerRappels(payload: Payload, maintenant = new Date()):
       await notifier(payload, {
         destinataires: await convies(payload, r),
         titre: `${prefixe} : ${r.titre}`,
-        texte: `${heureDakar(r.debut)}${r.lieu ? ` · ${r.lieu}` : ''}`,
+        texte: `${heureDakar(r.debut)}${r.lieu ? ` · ${r.lieu}` : ''}${r.visio ? ' · en visio' : ''}`,
         lien: `/espace/reunions/${r.id}`,
         type: 'reunion',
       })

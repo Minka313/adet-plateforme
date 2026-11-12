@@ -33,6 +33,7 @@ export async function planifierReunion(_: EtatReunion, form: FormData): Promise<
         lieu: String(form.get('lieu') ?? '').trim().slice(0, 160),
         ordreDuJour: String(form.get('ordreDuJour') ?? '').trim().slice(0, 4000),
         touteLEquipe,
+        visio: form.get('visio') === 'on',
         participants: touteLEquipe ? [] : participants,
       },
       user,

@@ -1266,3 +1266,42 @@ h3 {
     display: none;
   }
 }
+
+/* ---------- Visio (lot F) ---------- */
+.salut .bouton {
+  justify-self: start;
+  margin-top: 0.4rem;
+}
+
+.visio {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.visio__barre {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+.visio__barre p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--texte-doux);
+}
+
+.visio__cadre {
+  height: min(72vh, 720px);
+  min-height: 420px;
+  border-radius: var(--rayon);
+  overflow: hidden;
+  background: var(--nuit);
+}
+
+@media (max-width: 759px) {
+  .visio__cadre {
+    height: calc(100dvh - 300px);
+  }
+}
