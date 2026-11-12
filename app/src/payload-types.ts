@@ -85,6 +85,8 @@ export interface Config {
     annonces: Annonce;
     taches: Tache;
     reunions: Reunion;
+    rapports: Rapport;
+    'modeles-rapport': ModeleRapport;
     notifications: Notification;
     users: User;
     abonnes: Abonne;
@@ -121,6 +123,8 @@ export interface Config {
     annonces: AnnoncesSelect<false> | AnnoncesSelect<true>;
     taches: TachesSelect<false> | TachesSelect<true>;
     reunions: ReunionsSelect<false> | ReunionsSelect<true>;
+    rapports: RapportsSelect<false> | RapportsSelect<true>;
+    'modeles-rapport': ModelesRapportSelect<false> | ModelesRapportSelect<true>;
     notifications: NotificationsSelect<false> | NotificationsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     abonnes: AbonnesSelect<false> | AbonnesSelect<true>;
@@ -783,6 +787,84 @@ export interface Reunion {
   createdAt: string;
 }
 /**
+ * Rédigés et validés dans l’espace pro (/espace/rapports).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rapports".
+ */
+export interface Rapport {
+  id: number;
+  titre?: string | null;
+  modele: number | ModeleRapport;
+  /**
+   * « 2026-10 », « 2026-T3 », ou le nom de l’activité.
+   */
+  periode: string;
+  auteur?: (number | null) | User;
+  reponses?:
+    | {
+        intitule: string;
+        valeur?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  statut: 'brouillon' | 'soumis' | 'a-corriger' | 'valide';
+  commentaire?: string | null;
+  validateurs?: (number | User)[] | null;
+  validePar?: (number | null) | User;
+  soumisLe?: string | null;
+  valideLe?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Les rapports que l’équipe doit rendre. Le bureau les règle dans l’espace pro (/espace/rapports/modeles).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "modeles-rapport".
+ */
+export interface ModeleRapport {
+  id: number;
+  titre: string;
+  description?: string | null;
+  periodicite: 'mensuel' | 'trimestriel' | 'ponctuel';
+  /**
+   * Jour du mois suivant la période (5 : le rapport d’octobre est dû le 5 novembre).
+   */
+  jourLimite?: number | null;
+  /**
+   * Décocher pour ne plus le demander.
+   */
+  actif?: boolean | null;
+  sections: {
+    intitule: string;
+    /**
+     * Une indication pour la personne qui rédige.
+     */
+    aide?: string | null;
+    obligatoire?: boolean | null;
+    id?: string | null;
+  }[];
+  rolesAuteurs?: ('admin' | 'editeur' | 'bureau' | 'responsable' | 'membre' | 'formateur')[] | null;
+  polesAuteurs?: (number | Departement)[] | null;
+  personnesAuteurs?: (number | User)[] | null;
+  /**
+   * Laisser vide : le bureau valide.
+   */
+  validateurs?: (number | User)[] | null;
+  relances?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Envoyées automatiquement (annonces, inscriptions, messages…). Chacun voit les siennes dans l’espace pro.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -935,6 +1017,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'reunions';
         value: number | Reunion;
+      } | null)
+    | ({
+        relationTo: 'rapports';
+        value: number | Rapport;
+      } | null)
+    | ({
+        relationTo: 'modeles-rapport';
+        value: number | ModeleRapport;
       } | null)
     | ({
         relationTo: 'notifications';
@@ -1373,6 +1463,57 @@ export interface ReunionsSelect<T extends boolean = true> {
   organisateur?: T;
   rappelVeille?: T;
   rappelJour?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rapports_select".
+ */
+export interface RapportsSelect<T extends boolean = true> {
+  titre?: T;
+  modele?: T;
+  periode?: T;
+  auteur?: T;
+  reponses?:
+    | T
+    | {
+        intitule?: T;
+        valeur?: T;
+        id?: T;
+      };
+  statut?: T;
+  commentaire?: T;
+  validateurs?: T;
+  validePar?: T;
+  soumisLe?: T;
+  valideLe?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "modeles-rapport_select".
+ */
+export interface ModelesRapportSelect<T extends boolean = true> {
+  titre?: T;
+  description?: T;
+  periodicite?: T;
+  jourLimite?: T;
+  actif?: T;
+  sections?:
+    | T
+    | {
+        intitule?: T;
+        aide?: T;
+        obligatoire?: T;
+        id?: T;
+      };
+  rolesAuteurs?: T;
+  polesAuteurs?: T;
+  personnesAuteurs?: T;
+  validateurs?: T;
+  relances?: T;
   updatedAt?: T;
   createdAt?: T;
 }

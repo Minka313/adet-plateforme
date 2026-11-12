@@ -9,6 +9,7 @@ const LIENS: { href: string; label: string; icone: NomIconeEspace }[] = [
   { href: '/espace', label: 'Accueil', icone: 'accueil' },
   { href: '/espace/taches', label: 'Tâches', icone: 'taches' },
   { href: '/espace/reunions', label: 'Réunions', icone: 'reunions' },
+  { href: '/espace/rapports', label: 'Rapports', icone: 'rapports' },
   { href: '/espace/annonces', label: 'Annonces', icone: 'annonces' },
   { href: '/espace/annuaire', label: 'Équipe', icone: 'equipe' },
 ]

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { changerStatut } from '@/app/(espace)/espace/(app)/taches/actions'
-import type { Annonce, Reunion, Tache, User } from '@/payload-types'
+import type { Annonce, Rapport, Reunion, Tache, User } from '@/payload-types'
 import { initiales } from '@/lib/session'
 
 import { IconeEspace } from './Icones'
@@ -143,4 +143,10 @@ export function CarteReunion({ r }: { r: Reunion }) {
       </Link>
     </li>
   )
+}
+
+const STATUT_RAPPORT: Record<Rapport['statut'], string> = { brouillon: 'Brouillon', soumis: 'En attente de validation', 'a-corriger': 'À corriger', valide: 'Validé' }
+
+export function PastilleStatut({ statut }: { statut: Rapport['statut'] }) {
+  return <span className={`statut statut--${statut}`}>{STATUT_RAPPORT[statut]}</span>
 }

@@ -1058,3 +1058,211 @@ h3 {
     border-top: 1px solid var(--bordure);
   }
 }
+
+/* ---------- Rapports (lot E) ---------- */
+@media (max-width: 759px) {
+  .espace-nav a {
+    font-size: 0.7rem;
+  }
+}
+
+.bloc h3 {
+  margin-top: 0.4rem;
+}
+
+.champ__aide {
+  font-size: 0.88rem;
+  color: var(--texte-doux);
+}
+
+.boutons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.bloc--alerte {
+  border-color: var(--or);
+  background: #fffbe9;
+}
+
+.liste-rapports {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+
+.liste-rapports li + li {
+  border-top: 1px solid var(--bordure);
+}
+
+.liste-rapports a,
+.a-rendre {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem 1rem;
+  padding: 0.75rem 0;
+  color: var(--encre);
+  text-decoration: none;
+}
+
+.a-rendre > div {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+  flex: 1 1 240px;
+}
+
+.a-rendre span,
+.liste-rapports a span:not(.statut) {
+  font-size: 0.92rem;
+  color: var(--texte-doux);
+}
+
+.liste-rapports a:hover strong {
+  color: var(--vert);
+}
+
+.rapport__retard {
+  color: #b42318 !important;
+  font-weight: 700;
+}
+
+.statut {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-right: 0.4rem;
+  white-space: nowrap;
+}
+
+.statut--brouillon {
+  background: var(--sauge);
+  color: var(--texte-doux);
+}
+
+.statut--soumis {
+  background: #e6efff;
+  color: #1d4ed8;
+}
+
+.statut--a-corriger {
+  background: #fff1d6;
+  color: #8a5300;
+}
+
+.statut--valide {
+  background: #e6f4e8;
+  color: #0b5e18;
+}
+
+.salut .statut {
+  justify-self: start;
+}
+
+.rapport {
+  gap: 1.4rem;
+}
+
+.rapport__rubrique {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.rapport__rubrique + .rapport__rubrique {
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--bordure);
+}
+
+.modeles {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.modele--inactif {
+  opacity: 0.65;
+}
+
+.modele__regles {
+  margin: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.modele__regles div {
+  display: grid;
+  gap: 0.1rem;
+}
+
+@media (min-width: 700px) {
+  .modele__regles div {
+    grid-template-columns: 9rem minmax(0, 1fr);
+    gap: 1rem;
+  }
+}
+
+.modele__regles dt {
+  font-weight: 700;
+}
+
+.modele__regles dd {
+  margin: 0;
+  color: var(--texte-doux);
+}
+
+.rubriques {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.rubrique {
+  display: grid;
+  gap: 0.6rem;
+  padding: 0.9rem;
+  border-radius: 12px;
+  background: var(--fond);
+  border: 1px solid var(--bordure);
+}
+
+.rubrique__outils {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.rubrique__outils .bouton-icone {
+  font-size: 1rem;
+}
+
+.rubrique__outils .bouton-icone:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.case--champ {
+  align-self: end;
+}
+
+.choix-membres--ouvert {
+  max-height: none;
+}
+
+/* Six onglets : le nom « Espace pro » s'efface quand la place manque */
+@media (min-width: 760px) and (max-width: 1400px) {
+  .espace-haut__logo span {
+    display: none;
+  }
+}
