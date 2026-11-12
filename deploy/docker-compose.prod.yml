@@ -2,7 +2,8 @@
 # Usage : voir docs/backend.md, section « Mise en production »
 services:
   postgres:
-    image: postgres:16-alpine
+    # Même version majeure que Neon (17) : la base exportée de Neon s'y restaure sans conversion
+    image: postgres:17-alpine
     restart: unless-stopped
     environment:
       POSTGRES_USER: adet
@@ -26,6 +27,8 @@ services:
         DATABASE_URL: postgres://adet:${POSTGRES_PASSWORD}@127.0.0.1:5432/adet
         PAYLOAD_SECRET: ${PAYLOAD_SECRET}
         NEXT_PUBLIC_SITE_URL: https://${DOMAINE}
+        # Lue au build : sans elle, pas de notifications sur les téléphones
+        NEXT_PUBLIC_VAPID_PUBLIC_KEY: ${NEXT_PUBLIC_VAPID_PUBLIC_KEY:-}
     restart: unless-stopped
     depends_on:
       postgres:

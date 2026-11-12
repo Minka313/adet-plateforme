@@ -7,6 +7,8 @@ Plateforme web de l'**Association pour la promotion du Développement Économiqu
 - Cadre stratégique source : [`docs/cadre-strategique-ADET.pdf`](docs/cadre-strategique-ADET.pdf)
 - **Backend (architecture, sécurité, déploiement, sauvegardes)** : [`docs/backend.md`](docs/backend.md)
 - **Guide de l'éditeur (équipe ADET)** : [`docs/guide-editeur.md`](docs/guide-editeur.md)
+- **Bascule vers un VPS (Hostinger)** : [`docs/bascule-vps.md`](docs/bascule-vps.md)
+- **Plan du chantier V2** : [`docs/chantier-v2.md`](docs/chantier-v2.md)
 
 ## En ligne
 Prévisualisation (cachée des moteurs de recherche) : **https://adet-plateforme.vercel.app** · back-office : `/admin`. Hébergement Vercel + Neon + Vercel Blob, voir [`docs/backend.md`](docs/backend.md) § 8.

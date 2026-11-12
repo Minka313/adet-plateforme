@@ -113,6 +113,8 @@ Le site tourne sur **https://adet-plateforme.vercel.app** (compte Vercel `minka3
 
 ## 8 bis. Autre option : serveur VPS avec Docker
 
+**Bascule depuis Vercel + Neon : suivre [`docs/bascule-vps.md`](bascule-vps.md)** (sécurisation du serveur, copie vérifiée de la base, rapatriement des fichiers, DNS, tâches planifiées). Le résumé ci-dessous concerne une installation neuve.
+
 Prérequis : un serveur (2 vCPU / 4 Go conseillés), un nom de domaine pointant vers son IP (enregistrements A pour `adet.sn` et `www`), Docker installé.
 
 ```bash
